@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/29 00:48:56 by home             ###   ########.fr       */
+/*   Updated: 2021/06/29 01:12:57 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ void	blaster_start(t_context *context)
 
 	context->mainhand = laser_cannon();
 
-	context->mainhand = laser_yellow_cannon();
-	context->shield = laser_green_cannon();
-	context->heal = heal_cannon();
+	// context->mainhand = laser_yellow_cannon();
+	// context->shield = laser_green_cannon();
+	// context->heal = heal_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 
 	context->levels[0][0].unlocked = SDL_TRUE;
-	context->levels[0][1].unlocked = SDL_TRUE;
-	context->levels[0][2].unlocked = SDL_TRUE;
-	context->levels[0][3].unlocked = SDL_TRUE;
+	// context->levels[0][1].unlocked = SDL_TRUE;
+	// context->levels[0][2].unlocked = SDL_TRUE;
+	// context->levels[0][3].unlocked = SDL_TRUE;
 
 	context->levels[0][0].init_fn = level_01_init;
-	context->levels[0][1].init_fn = level_02_init;
-	context->levels[0][2].init_fn = level_03_init;
-	context->levels[0][3].init_fn = level_04_init;
-	context->levels[0][4].init_fn = level_05_init;
+	// context->levels[0][1].init_fn = level_02_init;
+	// context->levels[0][2].init_fn = level_03_init;
+	// context->levels[0][3].init_fn = level_04_init;
+	// context->levels[0][4].init_fn = level_05_init;
 	// context->levels[1][0].init_fn = level_06_init;
 	// context->levels[1][1].init_fn = level_07_init;
 	// context->levels[1][2].init_fn = level_08_init;
@@ -110,8 +110,6 @@ int	main(void)
 	t_context	context;
 
 	SDLX_GetDisplay();
-	printf("Testing");
-	printf("Some other");
 	blaster_start(&context);
 
 	context.init_fn(&(context), context.meta);
