@@ -51,7 +51,7 @@ void	*level_01_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene->bottom_ui = SDLX_Sprite_Static(ASSETS"bottom_ui.png");
 	scene->bottom_ui.dst = SDLX_NULL_SELF;
-	scene->bottom_ui._dst = (SDL_Rect){0, (320 - 16 * 5), 256, 16 * 5};
+	scene->bottom_ui._dst = (SDL_Rect){0, PLAY_HEIGHT, PLAY_WIDTH, 16 * 5};
 
 	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 24, 8, 16, 16}, NULL);
 	scene->pause.trigger_fn = button_pause;
@@ -79,7 +79,8 @@ void	*level_01_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene->crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
 	scene->crosshair.dst = &(scene->crosshair._dst);
-	scene->crosshair._dst = (SDL_Rect){(256 / 2) - 32, 120 - 32, 64, 64};
+	// scene->crosshair._dst = (SDL_Rect){(WIN_WIDTH / 2) - 32, (WIN_HEIGHT - 16 * 5) / 2 - 32, 64, 64};
+	scene->crosshair._dst = (SDL_Rect){(PLAY_WIDTH) / 2 - 32, (PLAY_HEIGHT) / 2 - 32, 64, 64};
 	scene->crosshair.angle = 0;
 
 	slime_init(&(scene->slime));
@@ -145,7 +146,7 @@ void	*level_01_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->heal));
 		SDLX_Button_Update(&(scene->special));
 
-		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
+		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - MID_PLAY_WIDTH, MID_PLAY_HEIGHT - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
 		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
 
 		player_update(&(scene->player));

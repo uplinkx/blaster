@@ -23,6 +23,12 @@
 
 # define ASSETS "assets/"
 
+# define PLAY_WIDTH (WIN_WIDTH / DISPLAY_SCALE)
+# define PLAY_HEIGHT ((WIN_HEIGHT / DISPLAY_SCALE) - 16 * 5)
+
+# define MID_PLAY_WIDTH (PLAY_WIDTH / 2)
+# define MID_PLAY_HEIGHT (PLAY_HEIGHT / 2)
+
 /*
 ** Sprite Handlers
 */
@@ -60,6 +66,7 @@ void	*new_scene(size_t size, t_context *context, char *background_path, t_scene_
 */
 
 uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
+double		ptoa(int x, int y);
 
 #endif
 

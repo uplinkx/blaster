@@ -37,7 +37,7 @@ void	heal_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED do
 {
 	dst->sprite = SDLX_Sprite_Static(ASSETS"heal.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){(256 / 2) - 16, 120 - 16, 32, 32};
+	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 16, MID_PLAY_HEIGHT - 16, 32, 32};
 	dst->sprite.center = NULL;
 	dst->sprite.angle = 0;
 

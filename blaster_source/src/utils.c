@@ -20,3 +20,8 @@ uint32_t	lerp32(double percent, uint32_t start, uint32_t end)
 	result = ((end - start) * percent);
 	return (result);
 }
+
+double		ptoa(int x, int y)
+{
+	return (SDL_atan2(x - MID_PLAY_WIDTH, MID_PLAY_HEIGHT - y));
+}
