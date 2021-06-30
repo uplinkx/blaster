@@ -1,6 +1,5 @@
-# NAME = blaster
-
-NAME = ../index.html
+NAME = blaster
+NAMEW = ../index.html
 FLAGS = -Wall -Wextra -Werror
 # FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
@@ -86,11 +85,11 @@ OBJS = $(addprefix $(BIN_DIR), $(SRCS:.c=.o))
 
 all: $(NAME)
 
-# emcc $(FLAGS) $(INCLUDES) $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAME)
-# gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(SDL_LIB)
-# $(NAME): $(BIN_DIR) $(OBJS)
-$(NAME):
-	emcc $(FLAGS) $(INCLUDES) $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAME)
+allw:
+	emcc $(FLAGS) $(INCLUDES) -D EMCC $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAMEW)
+
+$(NAME): $(BIN_DIR) $(OBJS)
+	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(SDL_LIB)
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
@@ -113,14 +112,14 @@ save: fclean
 	git commit -m "$(MSG)"
 	git push
 
-# re: fclean all
+re: fclean all
 
-re:
+rew:
 	rm -f ../index.data
 	rm -f ../index.html
 	rm -f ../index.js
 	rm -f ../index.wasm
-	make all
+	make allw
 
 run:
 	rm -f $(NAME)
