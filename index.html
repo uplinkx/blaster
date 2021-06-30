@@ -2,32 +2,71 @@
 <html lang="en-us">
 
 	<head>
+		<meta http-equiv=“Pragma” content=”no-cache”>
+		<meta http-equiv=“Expires” content=”-1″>
+		<meta http-equiv=“CACHE-CONTROL” content=”NO-CACHE”>
+
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Emscripten-Generated Code</title>
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="bs_theme.css">
+		<link rel="stylesheet" href="resources/mrcolour.css">
+
+		<link rel="shortcut icon" href="resources/Capture.PNG" type="image/x-icon">
+		<title>I'm a Programer!</title>
 
 		<style>
 			body { background-color: #484848; }
 			.emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; border-radius: 5px;}
 			textarea.emscripten { padding-left:8px; font-family: monospace; width: 80%; background-color: black; color:#fff;}
 			/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-			canvas.emscripten { border: 0px none; background-color: black; }
+			canvas.emscripten { border: 0px none; background-color: black; height: 80vh;}
 
 		</style>
 
 	</head>
 
 	<body>
+		<!-- Navigation Bar -->
+		<nav class="navbar-expand navbar-dark bg-dark">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">About_Me</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Resume</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+			</ul>
+		</nav>
+
+		<div class="fluid-container site" id="site">
+		<img src="resources/sign.webp" class="img-fluid" style="width: 10vw; text-align: center; margin-left: 45%">
+
 		<div class="emscripten" id="status"></div>
+
 		<div class="emscripten">
 			<progress value="0" max="50" id="progress" hidden=1></progress>
 		</div>
+
+		<!-- <div class="emscripten_border" style="height: 80vh;"> -->
 		<div class="emscripten_border">
 			<canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
 		</div>
 
+		<img src="../resources/sign.webp" class="img-fluid" style="width: 10vw; text-align: center; margin-left:45%; transform: scaleY(-1);">
+
 		<br>
-		<textarea class="emscripten" id="output" rows="12"></textarea>
+		<!-- <textarea class="emscripten" id="output" rows="12"></textarea> -->
+		<br>
+		<h1>More by Me.</h1>
+		<hr>
+		<ul id="hlist">
+			<li><a href="../2048"		style="text-decoration:none;"><img class="cicon" src="../resources/2048_icon.png"></a></li>
+			<li><a href="../pacman"	style="text-decoration:none;"><img class="cicon" src="../resources/pac_icon.png"></a></li>
+			<li><a href="../tictac"	style="text-decoration:none;"><img class="cicon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Tic_tac_toe.svg/1200px-Tic_tac_toe.svg.png"></a></li>
+			<li><a href="../flappybird"style="text-decoration:none;"><img class="cicon" src="../resources/flappy_icon.png"></a></li>
+		</ul>
 
 		<script type='text/javascript'>
 			var statusElement = document.getElementById('status');

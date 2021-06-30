@@ -1,0 +1,74 @@
+:root {
+    --mainc: rgb(48, 48, 48);
+    --light-accent: rgba(92, 250, 255, 0.781);
+    --main-text: rgba(92, 250, 255, 0.781);
+    --active-c: rgb(54, 238, 152);
+}
+
+body {
+    font-family: "pixelttf";
+    color: var(--main-text);
+    font-size: clamp(20px, 24vw, 15px);
+    background-color: var(--mainc);
+}
+
+.site {
+    padding: 25px;
+}
+
+.carousel-inner {
+    border-radius: 15px;
+}
+
+hr {
+    margin: 0px 15px;
+    background-color: var(--light-accent);
+}
+
+.top-sep {
+    margin-top: 15px;
+}
+
+@font-face {
+	font-family: "pixelttf";
+	src: url("resources/pixel_font.ttf");
+}
+
+@font-face {
+	font-family: "bolddot";
+    text-shadow: 0 0 10px rgba(69, 215, 255, 0.603);
+	src: url("resources/magic_font.ttf");
+}
+
+.vcecenter {
+    width: 10vw; text-align: center; margin-left:50%
+}
+
+.super-title {
+    background: -webkit-linear-gradient(rgb(255, 36, 226), rgb(0, 255, 242));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gcard {
+    max-width: 720px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border-color: rgba(39, 211, 174, 0.473);
+    /* border-color: #85fff5; */
+    padding: 0px 40px 0px 0px;
+}
+
+.gc-image {
+    border-radius: 30px 0px 0px 30px;
+}
+
+.gc-button {
+    position: absolute; bottom: 15px; right: 15px;
+}
+
+.useri {
+    font-family: Arial, Helvetica, sans-serif !important;
+}
