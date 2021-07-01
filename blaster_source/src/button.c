@@ -41,6 +41,7 @@ void	*button_pause(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length
 
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 		self->focused = SDL_FALSE;
+		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
 	}
 	(void)self;
 
@@ -60,7 +61,7 @@ void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t lengt
 		*pause = SDL_FALSE;
 
 		self->focused = SDL_FALSE;
-		self->sprite_fn(&(self->sprite.sprite_data), BACK_NORM);
+		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
 
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 

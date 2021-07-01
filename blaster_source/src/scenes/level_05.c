@@ -18,11 +18,9 @@ typedef struct	s_third_level
 	SDLX_Sprite			bottom_ui;
 
 	SDLX_button			pause;
-	SDL_bool			paused_hint;
 	SDL_bool			paused;
 
-	SDLX_button			lmenu_resume;
-	SDLX_button			lmenu_selectscene;
+	t_pmenu				pause_menu;
 
 	SDLX_Sprite			crosshair;
 
@@ -59,23 +57,13 @@ void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene->bottom_ui = SDLX_Sprite_Static(ASSETS"bottom_ui.png");
 	scene->bottom_ui.dst = SDLX_NULL_SELF;
-	scene->bottom_ui._dst = (SDL_Rect){0, (320 - 16 * 5), 256, 16 * 5};
+	scene->bottom_ui._dst = (SDL_Rect){0, PLAY_HEIGHT, PLAY_WIDTH, 16 * 5};
 
 	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 24, 8, 16, 16}, NULL);
 	scene->pause.trigger_fn = button_pause;
-	scene->pause.meta = &(scene->paused_hint);
+	scene->pause.meta = &(scene->paused);
 
-	SDLX_Button_Init(&(scene->lmenu_resume), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 150, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->lmenu_resume), BACK_NORM, BACK_HOVER);
-	scene->lmenu_resume.trigger_fn = button_resume;
-	scene->lmenu_resume.meta = &(scene->paused);
-	scene->lmenu_resume.meta1 = &(scene->pbackground);
-
-	SDLX_Button_Init(&(scene->lmenu_selectscene), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 200, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->lmenu_selectscene), BACK_NORM, BACK_HOVER);
-	scene->lmenu_selectscene.trigger_fn = button_trigger_scene_switch;
-	scene->lmenu_selectscene.meta = context;
-	scene->lmenu_selectscene.meta1 = level_select_init;
+	pause_menu_init(&(scene->pause_menu), &(scene->paused), &(scene->pbackground), context, context->init_fn);
 
 	player_init(&(scene->player));
 	scene->player.weapon_equip = &(context->mainhand);
@@ -113,7 +101,7 @@ void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 
 	scene->paused = SDL_FALSE;
-	scene->paused_hint = SDL_FALSE;
+	scene->paused = SDL_FALSE;
 
 	scene->slow = SDL_FALSE;
 	scene->player.meta = &(scene->slow);
@@ -213,35 +201,17 @@ void	*level_05_update(t_context *context, void *vp_scene)
 		default_CollisionBucket.index = 0;
 	}
 	else
-	{
-		SDL_RenderCopy(SDLX_GetDisplay()->renderer, scene->pbackground, NULL, NULL);
-		SDLX_Button_Update(&(scene->lmenu_resume));
-		SDLX_Button_Update(&(scene->lmenu_selectscene));
-	}
+		update_pause_menu(&(scene->pause_menu), scene->pbackground);
 
-	if (scene->paused_hint == SDL_TRUE)
+	if (scene->paused == SDL_TRUE && scene->pbackground == NULL)
 	{
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI);
 		scene->pbackground = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), PAUSE_NORM);
-
-		scene->paused_hint = SDL_FALSE;
-		scene->paused = SDL_TRUE;
-		SDL_Log("Kill count: %d", scene->score);
 	}
 
-	if (scene->player.hp <= 0)
-	{
-		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
-		context->scene = SDL_FALSE;
-	}
-
-	if (scene->score == 124)
-	{
-		context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
-		context->scene = SDL_FALSE;
-	}
-	// SDL_Log("This: %p", text);
+	if (scene->player.hp <= 0) { context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
+	if (scene->score == 124) { context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
 
 	return (NULL);
 }
