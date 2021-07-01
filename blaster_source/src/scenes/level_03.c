@@ -151,8 +151,7 @@ void	*level_03_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->heal));
 		SDLX_Button_Update(&(scene->special));
 
-		update_crosshair_angle(&(scene->crosshair.angle));
-		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
+		update_crosshair(&(scene->crosshair));
 
 		player_update(&(scene->player));
 

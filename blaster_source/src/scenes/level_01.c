@@ -129,21 +129,20 @@ void	*level_01_update(t_context *context, void *vp_scene)
 
 	if (scene->paused == SDL_FALSE)
 	{
+		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
+
 		SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
 		SDL_Rect	playarea = {16, 220 * DISPLAY_SCALE, lerp32(scene->player.hp / 100.0, 0, 480), 10};
-
 		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
 
 		SDLX_Button_Update(&(scene->pause));
 
-		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
 		SDLX_Button_Update(&(scene->mainhand));
 		SDLX_Button_Update(&(scene->shield));
 		SDLX_Button_Update(&(scene->heal));
 		SDLX_Button_Update(&(scene->special));
 
-		update_crosshair_angle(&(scene->crosshair.angle));
-		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
+		update_crosshair(&(scene->crosshair));
 
 		player_update(&(scene->player));
 

@@ -47,6 +47,11 @@ SCENE_FILES = 			\
 	\
 	scene_utils			\
 
+SPRITE_FILES = 			\
+	coin_sprite \
+	level_sprite \
+	ui_sprites \
+
 ENEMY_FILES = 			\
 	slime				\
 
@@ -61,17 +66,14 @@ WEAPON_FILES = 			\
 # List of all the source files.
 SRC_NAMES = \
 	$(addprefix enemy/, $(ENEMY_FILES))		\
+	$(addprefix sprite/, $(SPRITE_FILES))	\
 	$(addprefix scenes/, $(SCENE_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix weapons/, $(WEAPON_FILES))	\
-	coin_sprite \
 	button \
 	crosshair \
-	input \
-	level_sprite \
 	player \
 	main \
-	ui_sprites \
 	utils \
 
 # List of all the source files, folders are to be added by

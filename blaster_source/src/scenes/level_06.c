@@ -18,7 +18,6 @@ typedef struct	s_first_level
 	SDLX_Sprite			bottom_ui;
 
 	SDLX_button			pause;
-	SDL_bool			paused_hint;
 	SDL_bool			paused;
 
 	SDLX_button			lmenu_resume;
@@ -54,7 +53,7 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 24, 8, 16, 16}, NULL);
 	scene->pause.trigger_fn = button_pause;
-	scene->pause.meta = &(scene->paused_hint);
+	scene->pause.meta = &(scene->paused);
 
 	SDLX_Button_Init(&(scene->lmenu_resume), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 150, 32, 32}, NULL);
 	SDLX_Style_Button(&(scene->lmenu_resume), BACK_NORM, BACK_HOVER);
@@ -84,7 +83,6 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->player.hp = 1000000;
 
 	scene->paused = SDL_FALSE;
-	scene->paused_hint = SDL_FALSE;
 	return (NULL);
 }
 
@@ -140,8 +138,7 @@ void	*level_06_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->heal));
 		SDLX_Button_Update(&(scene->special));
 
-		update_crosshair_angle(&(scene->crosshair.angle));
-		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
+		update_crosshair(&(scene->crosshair));
 
 		player_update(&(scene->player));
 
@@ -166,15 +163,11 @@ void	*level_06_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->lmenu_selectscene));
 	}
 
-	if (scene->paused_hint == SDL_TRUE)
+	if (scene->paused == SDL_TRUE && scene->pbackground == NULL)
 	{
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI);
 		scene->pbackground = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), PAUSE_NORM);
-
-		scene->paused_hint = SDL_FALSE;
-		scene->paused = SDL_TRUE;
-		SDL_Log("Kill count: %d", scene->score);
 	}
 
 	if (scene->player.hp <= 0)

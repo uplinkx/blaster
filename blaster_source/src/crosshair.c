@@ -22,7 +22,8 @@ void	crosshair_init(SDLX_Sprite *crosshair)
 	crosshair->angle = 0;
 }
 
-void	update_crosshair_angle(double *angle)
+void	update_crosshair(SDLX_Sprite *crosshair)
 {
-	*angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 45;
+	crosshair->angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 45;
+	SDLX_RenderQueue_Add(NULL, crosshair);
 }

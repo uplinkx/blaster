@@ -54,11 +54,14 @@ void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t lengt
 	SDL_Texture	**pbackground;
 
 	button = self;
-	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
 	{
 		pause = pause_addr;
 		*pause = SDL_FALSE;
+
 		self->focused = SDL_FALSE;
+		self->sprite_fn(&(self->sprite.sprite_data), BACK_NORM);
+
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 
 		pbackground = self->meta1;

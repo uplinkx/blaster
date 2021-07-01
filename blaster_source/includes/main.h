@@ -36,6 +36,7 @@
 int		fetch_coin_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);
 
 /*
 ** Attack/Projectile Functions
@@ -49,8 +50,8 @@ void	unequip_weapon(t_weapon *dst);
 void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *shield, SDLX_button *heal, SDLX_button *special);
 void	update_cooldowns(t_weapon *mainhand, t_weapon *shield, t_weapon *heal, t_weapon *special);
 
-void	update_crosshair_angle(double *angle);
 void	crosshair_init(SDLX_Sprite *crosshair);
+void	update_crosshair(SDLX_Sprite *crosshair);
 
 /*
 ** Button Functions
