@@ -66,6 +66,7 @@ SRC_NAMES = \
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	coin_sprite \
 	button \
+	crosshair \
 	input \
 	level_sprite \
 	player \

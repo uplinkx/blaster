@@ -79,10 +79,7 @@ void	*level_03_init(t_context *context, SDL_UNUSED void *vp_scene)
 	// context->special.enabled = SDL_TRUE;
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
-	scene->crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
-	scene->crosshair.dst = &(scene->crosshair._dst);
-	scene->crosshair._dst = (SDL_Rect){(256 / 2) - 32, 120 - 32, 64, 64};
-	scene->crosshair.angle = 0;
+	crosshair_init(&(scene->crosshair));
 
 	slime_init(&(scene->slime));
 	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
@@ -154,7 +151,7 @@ void	*level_03_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->heal));
 		SDLX_Button_Update(&(scene->special));
 
-		scene->crosshair.angle = (SDL_atan2(g_GameInput.GameInput.primary.x - (256 / 2), 120 - g_GameInput.GameInput.primary.y) * 180 / M_PI) - 45;
+		update_crosshair_angle(&(scene->crosshair.angle));
 		SDLX_RenderQueue_Add(NULL, &(scene->crosshair));
 
 		player_update(&(scene->player));

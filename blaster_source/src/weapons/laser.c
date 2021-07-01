@@ -68,9 +68,8 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->active = SDL_TRUE;
 
-	dst->sprite.angle = (ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y) * 180 / M_PI);
-
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
+	dst->sprite.angle = (angle * 180 / M_PI);
 
 	dst->vel.x = SDL_sin(angle) * 12;
 	dst->vel.y = SDL_cos(angle) * -12;
@@ -97,9 +96,8 @@ void	laser_green_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UN
 
 	dst->active = SDL_TRUE;
 
-	dst->sprite.angle = (ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y) * 180 / M_PI);
-
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
+	dst->sprite.angle = (angle * 180 / M_PI);
 
 	dst->vel.x = SDL_sin(angle) * 12;
 	dst->vel.y = SDL_cos(angle) * -12;
@@ -160,9 +158,8 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 
 	dst->active = SDL_TRUE;
 
-	dst->sprite.angle = (ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y) * 180 / M_PI);
-
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
+	dst->sprite.angle = SDLX_Radian_to_Degree(angle);
 
 	dst->vel.x = SDL_sin(angle) * 16;
 	dst->vel.y = SDL_cos(angle) * -16;

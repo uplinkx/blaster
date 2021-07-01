@@ -106,4 +106,11 @@ int		SDLX_CollisionBucket_Init(SDLX_collision_bucket *dst, size_t type);
 void	SDLX_CollisionBucket_add(SDLX_collision_bucket *dst, SDLX_collision *body);
 void	SDLX_attempt_CollisionBucket(SDLX_collision *body, SDLX_collision_bucket *bucket);
 
+/*
+** Misc. Functions.
+*/
+
+double	SDLX_Degree_to_Radian(double degree);
+double	SDLX_Radian_to_Degree(double degree);
+
 #endif
