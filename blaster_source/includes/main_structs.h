@@ -158,4 +158,13 @@ typedef struct	s_player
 	void				*meta;
 }				t_player;
 
+typedef struct	s_pmenu
+{
+	SDLX_Sprite	background;
+
+	SDLX_button	resume;
+	SDLX_button	redo;
+	SDLX_button	menu;
+}				t_pmenu;
+
 #endif

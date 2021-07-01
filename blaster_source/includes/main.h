@@ -72,5 +72,12 @@ void	*new_scene(size_t size, t_context *context, char *background_path, t_scene_
 uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
 double		ptoa(int x, int y);
 
+/*
+** UI Functions
+*/
+
+void	pause_menu_init(t_pmenu *menu, void *pause_addr, void *pbackground, void *context, void *restart_fn);
+void	update_pause_menu(t_pmenu *menu, SDL_Texture *pbackground);
+
 #endif
 

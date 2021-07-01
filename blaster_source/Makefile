@@ -50,6 +50,7 @@ SCENE_FILES = 			\
 SPRITE_FILES = 			\
 	coin_sprite \
 	level_sprite \
+	pause_sprite \
 	ui_sprites \
 
 ENEMY_FILES = 			\
@@ -72,6 +73,7 @@ SRC_NAMES = \
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	button \
 	crosshair \
+	pause_menu \
 	player \
 	main \
 	utils \

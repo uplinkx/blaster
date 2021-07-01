@@ -16,7 +16,6 @@
 SDLX_Sprite_Data *carve_pause_sprite(void)
 {
 	size_t				i;
-	size_t				j;
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
@@ -76,7 +75,6 @@ SDLX_Sprite_Data *carve_pause_sprite(void)
 int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no)
 {
 	static SDLX_Sprite_Data	*sprite_arr;
-	int		which;
 
 	if (sprite_arr == NULL)
 		sprite_arr = carve_pause_sprite();

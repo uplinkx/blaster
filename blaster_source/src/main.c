@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/06/30 16:16:13 by home             ###   ########.fr       */
+/*   Updated: 2021/06/30 20:04:05 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int	main(void)
 	SDLX_GetDisplay();
 	blaster_start(&context);
 
-	printf("Ver 0.2");
 	context.init_fn(&(context), context.meta);
 	#ifdef EMCC
 		emscripten_set_main_loop_arg(main_loop, (void *)&(context), 0, SDL_TRUE);
