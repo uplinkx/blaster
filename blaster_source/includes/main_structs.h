@@ -58,6 +58,7 @@ typedef struct	s_context
 
 	SDL_Texture	*capture_texture;
 	t_scene_fn	*redo_init_fn;
+	t_scene_fn	*next_init_fn;
 	t_loot		loot;
 
 	t_level_progress	levels[5][5];
@@ -95,6 +96,16 @@ enum	BLASTER_UI_SPRITES
 	MPLAY_NORM,
 	MPLAY_HOVER,
 	MBACK,
+
+	LMENU_NORM,
+	LMENU_HOVER,
+	LREDO_NORM,
+	LREDO_HOVER,
+	LNEXT_NORM,
+	LNEXT_HOVER,
+	LINVT_NORM,
+	LINVT_HOVER,
+	LBACK,
 
 	ABILITY,
 	ABILITY_SEL,

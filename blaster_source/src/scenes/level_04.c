@@ -109,6 +109,7 @@ void	*level_04_close(t_context *context, void *vp_scene)
 
 		context->levels[0][4].unlocked = SDL_TRUE;
 		context->special = time_cannon();
+		context->next_init_fn = context->levels[0][4].init_fn;
 	}
 
 	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);

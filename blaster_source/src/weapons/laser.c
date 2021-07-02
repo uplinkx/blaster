@@ -41,7 +41,7 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 	if (bullet->active == SDL_FALSE)
 		return ;
 
-	play_area = (SDL_Rect){0, 0, 256, 256};
+	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
 	{
 		bullet->active = SDL_FALSE;

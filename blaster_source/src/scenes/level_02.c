@@ -98,6 +98,7 @@ void	*level_02_close(t_context *context, void *vp_scene)
 
 		context->levels[0][2].unlocked = SDL_TRUE;
 		context->heal = heal_cannon();
+		context->next_init_fn = context->levels[0][2].init_fn;
 	}
 
 	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);

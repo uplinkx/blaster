@@ -122,7 +122,10 @@ void	*level_05_close(t_context *context, void *vp_scene)
 		context->init_fn = death_level_init;
 
 	if (scene->score >= 124)
+	{
 		context->init_fn = loot_level_init;
+		context->next_init_fn = NULL;
+	}
 
 	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
 	SDL_free(context->background.sprite_data);

@@ -84,8 +84,8 @@ void	slime_update(void *self)
 	else if (move / 3 == 2)
 		dy--;
 
-	int x = slime->sprite._dst.x - (256 / 2) + 16;
-	int y = slime->sprite._dst.y - (240 / 2) + 16;
+	int x = slime->sprite._dst.x - MID_PLAY_WIDTH + 16;
+	int y = slime->sprite._dst.y - MID_PLAY_HEIGHT + 16;
 
 	if (x * x + y * y > (x + dx) * (x + dx) + y * y)
 		slime->sprite._dst.x += dx * (int)(slime->meta);
@@ -102,13 +102,13 @@ void	slime_update(void *self)
 		*score += 1;
 		if (rand() % 2 == 1)
 		{
-			slime->sprite.dst->x = rand() % 256;
-			slime->sprite.dst->y = 240 * (rand() % 2);
+			slime->sprite.dst->x = rand() % PLAY_WIDTH;
+			slime->sprite.dst->y = PLAY_HEIGHT * (rand() % 2);
 		}
 		else
 		{
-			slime->sprite.dst->y = rand() % 240;
-			slime->sprite.dst->x = 256 * (rand() % 2);
+			slime->sprite.dst->y = (rand() - 16) % (PLAY_HEIGHT + 32);
+			slime->sprite.dst->x = PLAY_WIDTH * (rand() % 2);
 		}
 
 		slime->hp = 2;

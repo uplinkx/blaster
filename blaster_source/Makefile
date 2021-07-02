@@ -48,8 +48,10 @@ SCENE_FILES = 			\
 	scene_utils			\
 
 SPRITE_FILES = 			\
+	chest_sprite \
 	coin_sprite \
 	level_sprite \
+	loot_sprite \
 	pause_sprite \
 	ui_sprites \
 

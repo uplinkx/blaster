@@ -16,6 +16,11 @@
 #define MENU_SCALE (3)
 #define MENU_LOFFSET (80)
 
+// void	pause_button()
+// {
+
+// }
+
 void	pause_menu_init(t_pmenu *menu, void *pause_addr, void *pbackground, void *context, void *restart_fn)
 {
 	SDLX_new_Sprite(&(menu->background));

@@ -13,6 +13,40 @@
 
 #include "main.h"
 
+void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length)
+{
+	if (self->focus_no == -1 && self->norm_no == -1)
+	{
+		if (self->sprite.dst->y >= 40)
+		{
+			self->sprite.dst->y -= 2;
+			self->sprite.dst->w -= 1;
+			self->sprite.dst->h -= 1;
+
+			self->sprite.dst->x = (PLAY_WIDTH - self->sprite.dst->w) / 2;
+			self->trigger_fn = SDLX_Button_NULL_fn;
+		}
+	}
+
+	return (NULL);
+}
+
+void	*button_chest(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length)
+{
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
+	{
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
+
+		self->norm_no = -1;
+		self->focus_no = -1;
+
+		self->sprite_fn(&(self->sprite.sprite_data), 2);
+		self->sprite.current = 0;
+	}
+
+	return (NULL);
+}
+
 void	*button_trigger_scene_switch(SDLX_button *self, void *vp_context, SDL_UNUSED size_t length)
 {
 	t_context *context;

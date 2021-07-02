@@ -33,10 +33,12 @@
 ** Sprite Handlers
 */
 
+int		fetch_chest_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_coin_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no);
 
 /*
 ** Attack/Projectile Functions
@@ -60,6 +62,10 @@ void	update_crosshair(SDLX_Sprite *crosshair);
 void	*button_trigger_scene_switch(SDLX_button *self, void *meta, SDL_UNUSED size_t length);
 void	*button_pause(SDLX_button *self, void *vp_context, SDL_UNUSED size_t length);
 void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length);
+
+void	*button_chest(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length);
+void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length);
+
 
 void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapon *to);
 

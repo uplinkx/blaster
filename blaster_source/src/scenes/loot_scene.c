@@ -17,10 +17,12 @@ typedef struct	s_loot_scene
 {
 	SDLX_button	restart;
 	SDLX_button	level_select;
+	SDLX_button	next;
 	SDLX_button	inventory;
 
-	SDLX_Sprite	chest;
+	SDLX_button	chest;
 
+	SDLX_Sprite background;
 	SDL_Texture	*level_capture;
 }				t_loot_scene;
 
@@ -30,27 +32,51 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene = new_scene(sizeof(*scene), context, NULL, loot_level_close, loot_level_update);
 
-	SDLX_Button_Init(&(scene->restart), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 100, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->restart), BACK_NORM, BACK_HOVER);
-	scene->restart.trigger_fn = button_trigger_scene_switch;
-	scene->restart.meta = context;
-	scene->restart.meta1 = context->redo_init_fn;
-
-	SDLX_Button_Init(&(scene->level_select), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 200, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->level_select), BACK_NORM, BACK_HOVER);
+	SDLX_Button_Init(&(scene->level_select), fetch_loot_sprite, LMENU_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 - 60, 230, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->level_select), LMENU_NORM, LMENU_HOVER);
 	scene->level_select.trigger_fn = button_trigger_scene_switch;
 	scene->level_select.meta = context;
 	scene->level_select.meta1 = level_select_init;
 
-	SDLX_Button_Init(&(scene->inventory), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 250, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->inventory), BACK_NORM, BACK_HOVER);
+	SDLX_Button_Init(&(scene->restart), fetch_loot_sprite, LREDO_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 - 20, 230, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->restart), LREDO_NORM, LREDO_HOVER);
+	scene->restart.trigger_fn = button_trigger_scene_switch;
+	scene->restart.meta = context;
+	scene->restart.meta1 = context->redo_init_fn;
+
+	SDLX_Button_Init(&(scene->next), fetch_loot_sprite, LNEXT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 60, 230, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->next), LNEXT_NORM, LNEXT_HOVER);
+	scene->next.trigger_fn = button_trigger_scene_switch;
+	scene->next.meta = context;
+	scene->next.meta1 = context->next_init_fn;
+
+	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 20, 230, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->inventory), LINVT_NORM, LINVT_HOVER);
 	scene->inventory.trigger_fn = button_trigger_scene_switch;
 	scene->inventory.meta = context;
 	scene->inventory.meta1 = level_select_init;
 
-	scene->chest = SDLX_Sprite_Static(ASSETS"loot.png");
-	scene->chest.dst = SDLX_NULL_SELF;
-	scene->chest._dst = (SDL_Rect){256 / 2 - 32, 32, 64, 64};
+	SDLX_Button_Init(&(scene->chest), fetch_chest_sprite, 0, (SDL_Rect){(PLAY_WIDTH - 124) / 2, 80, 124, 124}, NULL);
+	SDLX_Style_Button(&(scene->chest), 0, 1);
+	scene->chest.trigger_fn = button_chest;
+	scene->chest.update_fn = button_chest_update;
+
+	SDLX_new_Sprite(&(scene->background));
+	fetch_loot_sprite(&(scene->background.sprite_data), LBACK);
+	scene->background._dst = (SDL_Rect){(PLAY_WIDTH - 64 * 3) / 2, 80, 64 * 3, 64 * 3};
+	scene->background.dst = SDLX_NULL_SELF;
+
+	if (context->next_init_fn == NULL)
+	{
+		scene->next.disabled = SDL_TRUE;
+		scene->level_select.sprite._dst =	(SDL_Rect){(PLAY_WIDTH - 48) / 2 - 50, 230, 48, 48};
+		scene->restart.sprite._dst =		(SDL_Rect){(PLAY_WIDTH - 48) / 2, 230, 48, 48};
+		scene->inventory.sprite._dst =		(SDL_Rect){(PLAY_WIDTH - 48) / 2 + 50, 230, 48, 48};
+	}
+
+	// scene->chest = SDLX_Sprite_Static(ASSETS"loot.png");
+	// scene->chest.dst = SDLX_NULL_SELF;
+	// scene->chest._dst = (SDL_Rect){256 / 2 - 32, 32, 64, 64};
 
 	return (NULL);
 }
@@ -77,11 +103,24 @@ void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene
 	scene = vp_scene;
 
 	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->capture_texture, NULL, NULL);
-	SDLX_RenderQueue_Add(NULL, &(scene->chest));
+	SDLX_Button_Update(&(scene->chest));
 
-	SDLX_Button_Update(&(scene->restart));
-	SDLX_Button_Update(&(scene->level_select));
-	SDLX_Button_Update(&(scene->inventory));
+	if (scene->chest.sprite.dst->y <= 50)
+	{
+		SDLX_Button_Update(&(scene->restart));
+		SDLX_Button_Update(&(scene->level_select));
+		SDLX_Button_Update(&(scene->next));
+		SDLX_Button_Update(&(scene->inventory));
+	}
+	else
+	{
+		SDLX_RenderQueue_Add(NULL, &(scene->restart.sprite));
+		SDLX_RenderQueue_Add(NULL, &(scene->level_select.sprite));
+		SDLX_RenderQueue_Add(NULL, &(scene->next.sprite));
+		SDLX_RenderQueue_Add(NULL, &(scene->inventory.sprite));
+	}
+
+	SDLX_RenderQueue_Add(NULL, &(scene->background));
 
 	return (NULL);
 }
