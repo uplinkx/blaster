@@ -17,6 +17,9 @@ typedef struct	s_death_scene
 {
 	SDLX_button		restart;
 	SDLX_button		level_select;
+	SDLX_button		inventory;
+
+	SDLX_Sprite		background;
 
 	SDL_Texture		*death_capture;
 }				t_death_scene;
@@ -27,17 +30,28 @@ void	*death_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene = new_scene(sizeof(*scene), context, NULL, death_level_close, death_level_update);
 
-	SDLX_Button_Init(&(scene->restart), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 100, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->restart), BACK_NORM, BACK_HOVER);
+	SDLX_Button_Init(&(scene->level_select), fetch_loot_sprite, LMENU_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 - 50, 232, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->level_select), LMENU_NORM, LMENU_HOVER);
+	scene->level_select.trigger_fn = button_trigger_scene_switch;
+	scene->level_select.meta = context;
+	scene->level_select.meta1 = level_select_init;
+
+	SDLX_Button_Init(&(scene->restart), fetch_loot_sprite, LREDO_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2, 232, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->restart), LREDO_NORM, LREDO_HOVER);
 	scene->restart.trigger_fn = button_trigger_scene_switch;
 	scene->restart.meta = context;
 	scene->restart.meta1 = context->redo_init_fn;
 
-	SDLX_Button_Init(&(scene->level_select), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){100, 200, 32, 32}, NULL);
-	SDLX_Style_Button(&(scene->level_select), BACK_NORM, BACK_HOVER);
-	scene->level_select.trigger_fn = button_trigger_scene_switch;
-	scene->level_select.meta = context;
-	scene->level_select.meta1 = level_select_init;
+	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 50, 232, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->inventory), LINVT_NORM, LINVT_HOVER);
+	scene->inventory.trigger_fn = button_trigger_scene_switch;
+	scene->inventory.meta = context;
+	scene->inventory.meta1 = level_select_init;
+
+	SDLX_new_Sprite(&(scene->background));
+	fetch_loot_sprite(&(scene->background.sprite_data), DBACK);
+	scene->background._dst = (SDL_Rect){(PLAY_WIDTH - 64 * 3) / 2, 80 - (16 * 3), 64 * 3, 80 * 3};
+	scene->background.dst = SDLX_NULL_SELF;
 
 	return (NULL);
 }
@@ -64,8 +78,12 @@ void	*death_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 	scene = vp_scene;
 
 	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->capture_texture, NULL, NULL);
+
 	SDLX_Button_Update(&(scene->restart));
 	SDLX_Button_Update(&(scene->level_select));
+	SDLX_Button_Update(&(scene->inventory));
+
+	SDLX_RenderQueue_Add(NULL, &(scene->background));
 
 	return (NULL);
 }

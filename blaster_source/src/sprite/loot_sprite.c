@@ -19,7 +19,7 @@ SDLX_Sprite_Data *carve_loot_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(9, sizeof(*result));
+	result = SDL_calloc(10, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"loot_scene.png");
 
 	i = 0;
@@ -78,6 +78,13 @@ SDLX_Sprite_Data *carve_loot_sprite(void)
 	result[i].cycle = 1;
 	i++;
 
+	/* The Death Background */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){0, 128, 64, 80};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+
 	return (result);
 }
 
@@ -97,5 +104,6 @@ int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == LINVT_NORM)	{ (*dst) = &(sprite_arr[6]); return (EXIT_SUCCESS); }
 	else if (no == LINVT_HOVER)	{ (*dst) = &(sprite_arr[7]); return (EXIT_SUCCESS); }
 	else if (no == LBACK)		{ (*dst) = &(sprite_arr[8]); return (EXIT_SUCCESS); }
+	else if (no == DBACK)		{ (*dst) = &(sprite_arr[9]); return (EXIT_SUCCESS); }
 	else { return (EXIT_FAILURE); }
 }

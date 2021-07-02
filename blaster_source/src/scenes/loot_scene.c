@@ -32,25 +32,25 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene = new_scene(sizeof(*scene), context, NULL, loot_level_close, loot_level_update);
 
-	SDLX_Button_Init(&(scene->level_select), fetch_loot_sprite, LMENU_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 - 60, 230, 48, 48}, NULL);
+	SDLX_Button_Init(&(scene->level_select), fetch_loot_sprite, LMENU_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 - 60, 232, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->level_select), LMENU_NORM, LMENU_HOVER);
 	scene->level_select.trigger_fn = button_trigger_scene_switch;
 	scene->level_select.meta = context;
 	scene->level_select.meta1 = level_select_init;
 
-	SDLX_Button_Init(&(scene->restart), fetch_loot_sprite, LREDO_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 - 20, 230, 48, 48}, NULL);
+	SDLX_Button_Init(&(scene->restart), fetch_loot_sprite, LREDO_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 - 20, 232, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->restart), LREDO_NORM, LREDO_HOVER);
 	scene->restart.trigger_fn = button_trigger_scene_switch;
 	scene->restart.meta = context;
 	scene->restart.meta1 = context->redo_init_fn;
 
-	SDLX_Button_Init(&(scene->next), fetch_loot_sprite, LNEXT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 60, 230, 48, 48}, NULL);
+	SDLX_Button_Init(&(scene->next), fetch_loot_sprite, LNEXT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 60, 232, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->next), LNEXT_NORM, LNEXT_HOVER);
 	scene->next.trigger_fn = button_trigger_scene_switch;
 	scene->next.meta = context;
 	scene->next.meta1 = context->next_init_fn;
 
-	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 20, 230, 48, 48}, NULL);
+	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 20, 232, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->inventory), LINVT_NORM, LINVT_HOVER);
 	scene->inventory.trigger_fn = button_trigger_scene_switch;
 	scene->inventory.meta = context;
@@ -69,14 +69,11 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	if (context->next_init_fn == NULL)
 	{
 		scene->next.disabled = SDL_TRUE;
-		scene->level_select.sprite._dst =	(SDL_Rect){(PLAY_WIDTH - 48) / 2 - 50, 230, 48, 48};
-		scene->restart.sprite._dst =		(SDL_Rect){(PLAY_WIDTH - 48) / 2, 230, 48, 48};
-		scene->inventory.sprite._dst =		(SDL_Rect){(PLAY_WIDTH - 48) / 2 + 50, 230, 48, 48};
+		fetch_ui_sprite(&(scene->next.sprite.sprite_data), EMPTY_UI);
+		scene->level_select.sprite._dst.x =	(PLAY_WIDTH - 48) / 2 - 50;
+		scene->restart.sprite._dst.x =		(PLAY_WIDTH - 48) / 2;
+		scene->inventory.sprite._dst.x =	(PLAY_WIDTH - 48) / 2 + 50;
 	}
-
-	// scene->chest = SDLX_Sprite_Static(ASSETS"loot.png");
-	// scene->chest.dst = SDLX_NULL_SELF;
-	// scene->chest._dst = (SDL_Rect){256 / 2 - 32, 32, 64, 64};
 
 	return (NULL);
 }

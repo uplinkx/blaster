@@ -17,7 +17,7 @@ void	player_init(t_player *player)
 {
 	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
 	player->sprite.dst = &(player->sprite._dst);
-	player->sprite._dst = (SDL_Rect){8 * 16 + 8, 10 * 16 + 8, 32, 32};
+	player->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 48) / 2, 10 * 16, 48, 48};
 
 	player->hp = 50;
 
