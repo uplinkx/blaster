@@ -24,7 +24,8 @@
 # define ASSETS "assets/"
 
 # define PLAY_WIDTH (WIN_WIDTH / DISPLAY_SCALE)
-# define PLAY_HEIGHT ((WIN_HEIGHT / DISPLAY_SCALE) - 16 * 5)
+# define BOTTOM_UI (16 * 7)
+# define PLAY_HEIGHT ((WIN_HEIGHT / DISPLAY_SCALE) - BOTTOM_UI)
 
 # define MID_PLAY_WIDTH (PLAY_WIDTH / 2)
 # define MID_PLAY_HEIGHT (PLAY_HEIGHT / 2)
@@ -39,6 +40,8 @@ int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_hp_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_heal_sprite(SDLX_Sprite_Data **dst, int no);
 
 /*
 ** Attack/Projectile Functions
@@ -84,6 +87,7 @@ double		ptoa(int x, int y);
 
 void	pause_menu_init(t_pmenu *menu, void *pause_addr, void *pbackground, void *context, void *restart_fn);
 void	update_pause_menu(t_pmenu *menu, SDL_Texture *pbackground);
+void	level_ui_init(SDLX_button *pause, SDLX_Sprite *bottom);
 
 #endif
 

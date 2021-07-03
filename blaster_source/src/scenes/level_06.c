@@ -18,8 +18,6 @@ typedef struct	s_first_level
 	SDLX_Sprite			bottom_ui;
 
 	SDLX_button			pause;
-	SDL_bool			paused;
-
 	t_pmenu				pause_menu;
 
 	SDLX_Sprite			crosshair;
@@ -46,15 +44,9 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->pbackground = NULL;
 	scene->score = 0;
 
-	scene->bottom_ui = SDLX_Sprite_Static(ASSETS"bottom_ui.png");
-	scene->bottom_ui.dst = SDLX_NULL_SELF;
-	scene->bottom_ui._dst = (SDL_Rect){0, PLAY_HEIGHT, PLAY_WIDTH, 16 * 5};
+	level_ui_init(&(scene->pause), &(scene->bottom_ui));
 
-	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){256 - 24, 8, 16, 16}, NULL);
-	scene->pause.trigger_fn = button_pause;
-	scene->pause.meta = &(scene->paused);
-
-	pause_menu_init(&(scene->pause_menu), &(scene->paused), &(scene->pbackground), context, context->init_fn);
+	pause_menu_init(&(scene->pause_menu), &(scene->pause.triggered), &(scene->pbackground), context, context->init_fn);
 
 	player_init(&(scene->player));
 	scene->player.weapon_equip = &(context->mainhand);
@@ -71,7 +63,6 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	scene->player.hp = 1000000;
 
-	scene->paused = SDL_FALSE;
 	return (NULL);
 }
 
@@ -112,7 +103,7 @@ void	*level_06_update(t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
-	if (scene->paused == SDL_FALSE)
+	if (scene->pause.triggered == SDL_FALSE)
 	{
 		SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
 		SDL_Rect	playarea = {32, 340 * DISPLAY_SCALE, lerp32(scene->player.hp / 100.0, 0, 480), 10};
@@ -148,7 +139,7 @@ void	*level_06_update(t_context *context, void *vp_scene)
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);
 
-	if (scene->paused == SDL_TRUE && scene->pbackground == NULL)
+	if (scene->pause.triggered == SDL_TRUE && scene->pbackground == NULL)
 	{
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI);
 		scene->pbackground = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);

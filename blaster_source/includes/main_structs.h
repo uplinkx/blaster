@@ -159,7 +159,12 @@ typedef struct	s_player
 {
 	SDLX_Sprite		sprite;
 
+	SDLX_Sprite		hp_s;
+	SDLX_Sprite		hpl_s;
+	SDLX_Sprite		heart;
+
 	int				hp;
+	int				max_hp;
 
 	t_weapon		*weapon_equip;
 

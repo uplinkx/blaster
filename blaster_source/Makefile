@@ -50,6 +50,8 @@ SCENE_FILES = 			\
 SPRITE_FILES = 			\
 	chest_sprite \
 	coin_sprite \
+	heal_sprite \
+	hp_sprite \
 	level_sprite \
 	loot_sprite \
 	pause_sprite \
@@ -78,6 +80,7 @@ SRC_NAMES = \
 	pause_menu \
 	player \
 	main \
+	ui \
 	utils \
 
 # List of all the source files, folders are to be added by

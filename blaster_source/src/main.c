@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/02 02:49:34 by home             ###   ########.fr       */
+/*   Updated: 2021/07/03 12:09:35 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	blaster_start(t_context *context)
 
 	context->capture_texture = NULL;
 	context->redo_init_fn = NULL;
+	context->next_init_fn = level_select_init;
 
 	context->init_fn = main_menu_init;
 

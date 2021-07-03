@@ -19,7 +19,20 @@ void	player_init(t_player *player)
 	player->sprite.dst = &(player->sprite._dst);
 	player->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 48) / 2, 10 * 16, 48, 48};
 
-	player->hp = 50;
+	SDLX_new_Sprite(&(player->hp_s));
+	fetch_hp_sprite(&(player->hp_s.sprite_data), 1);
+	player->hp_s._dst = (SDL_Rect){20, 375, 0, 8};
+
+	SDLX_new_Sprite(&(player->hpl_s));
+	fetch_hp_sprite(&(player->hpl_s.sprite_data), -1);
+	player->hpl_s._dst = (SDL_Rect){20, 375, 50, 8};
+
+	SDLX_new_Sprite(&(player->heart));
+	fetch_hp_sprite(&(player->heart.sprite_data), 3);
+	player->heart._dst = (SDL_Rect){4, 364, 32, 32};
+
+	player->hp = 100;
+	player->max_hp = 100;
 
 	player->player_hurtbox.originator = player;
 	player->player_hurtbox.detect = player_hit;
@@ -68,6 +81,22 @@ void	player_update(t_player *self)
 		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, self);
 		projectile_add(&(self->attacks), attack);
 	}
+
+	if (self->hp > self->max_hp) { self->hp = self->max_hp; }
+
+	self->hp_s._dst.w = lerp32(((double)self->hp) / self->max_hp, 16, PLAY_WIDTH - 16);
+
+	if (self->hpl_s._dst.w > self->hp_s._dst.w)
+	{
+		self->hpl_s._dst.w--;
+	}
+	else if (self->hpl_s._dst.w < self->hp_s._dst.w)
+		self->hpl_s._dst.w = self->hp_s._dst.w;
+
+	SDLX_RenderQueue_Add(NULL, &(self->heart));
+	self->heart.current++;
+	SDLX_RenderQueue_Add(NULL, &(self->hp_s));
+	SDLX_RenderQueue_Add(NULL, &(self->hpl_s));
 
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
 	SDLX_CollisionBucket_add(NULL, &(self->player_hurtbox));

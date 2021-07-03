@@ -63,21 +63,16 @@ void	*button_trigger_scene_switch(SDLX_button *self, void *vp_context, SDL_UNUSE
 	return (NULL);
 }
 
-void	*button_pause(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length)
+void	*button_pause(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t length)
 {
-	// t_context *context;
-	SDL_bool	*pause_hint;
-
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
-		pause_hint = pause_addr;
-		*pause_hint = SDL_TRUE;
+		self->triggered = SDL_TRUE;
 
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 		self->focused = SDL_FALSE;
 		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
 	}
-	(void)self;
 
 	return (NULL);
 }
@@ -143,7 +138,7 @@ void	*ability_button_update(SDLX_button *self, void *weapon_addr, SDL_UNUSED siz
 
 void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapon *to)
 {
-	SDLX_Button_Init(dst, fetch_ui_sprite, ABILITY, (SDL_Rect){0, 400 + 8, 48, 48}, NULL);
+	SDLX_Button_Init(dst, fetch_ui_sprite, ABILITY, (SDL_Rect){0, 400, 48, 48}, NULL);
 	// SDLX_Style_Button(dst, ABILITY, ABILITY_SEL);
 
 	dst->disabled = SDL_TRUE;

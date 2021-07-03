@@ -22,10 +22,9 @@ void	heal_update(void *self, SDL_UNUSED void *meta)
 	if (bullet->active == SDL_FALSE)
 		return ;
 
-	if (bullet->sprite.current == 10)
+	if (bullet->sprite.current == 8)
 	{
 		bullet->active = SDL_FALSE;
-		SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
 
@@ -35,11 +34,10 @@ void	heal_update(void *self, SDL_UNUSED void *meta)
 
 void	heal_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	dst->sprite = SDLX_Sprite_Static(ASSETS"heal.png");
+	SDLX_new_Sprite(&(dst->sprite));
+	fetch_heal_sprite(&(dst->sprite.sprite_data), 1);
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 16, MID_PLAY_HEIGHT - 16, 32, 32};
-	dst->sprite.center = NULL;
-	dst->sprite.angle = 0;
+	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 64) / 2, 9 * 16 + 2, 64, 64};
 
 	dst->active = SDL_TRUE;
 

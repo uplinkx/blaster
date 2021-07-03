@@ -15,21 +15,16 @@
 
 typedef struct	s_first_level
 {
-	SDLX_Sprite			bottom_ui;
-
 	SDLX_button			pause;
-	SDL_bool			paused;
-
 	t_pmenu				pause_menu;
 
+	t_player			player;
 	SDLX_Sprite			crosshair;
 
-	t_player			player;
-
+	SDLX_Sprite			bottom_ui;
 	SDLX_button			mainhand, shield, heal, special;
 
-	t_enemy				slime;
-	t_enemy				slime2;
+	t_enemy				slime, slime2;
 	int					score;
 
 	SDL_Texture			*pbackground;
@@ -42,29 +37,19 @@ void	*level_01_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_01_close, level_01_update);
 
 	scene->score = 0;
-	scene->paused = SDL_FALSE;
 	scene->pbackground = NULL;
 
-	scene->bottom_ui = SDLX_Sprite_Static(ASSETS"bottom_ui.png");
-	scene->bottom_ui.dst = SDLX_NULL_SELF;
-	scene->bottom_ui._dst = (SDL_Rect){0, PLAY_HEIGHT, PLAY_WIDTH, 16 * 5};
+	level_ui_init(&(scene->pause), &(scene->bottom_ui));
 
-	SDLX_Button_Init(&(scene->pause), fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){PLAY_WIDTH - 35, 6, 32, 32}, NULL);
-	scene->pause.trigger_fn = button_pause;
-	scene->pause.meta = &(scene->paused);
-
-	crosshair_init(&(scene->crosshair));
-	pause_menu_init(&(scene->pause_menu), &(scene->paused), &(scene->pbackground), context, context->init_fn);
+	pause_menu_init(&(scene->pause_menu), &(scene->pause.triggered), &(scene->pbackground), context, context->init_fn);
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	player_init(&(scene->player));
+	crosshair_init(&(scene->crosshair));
 	scene->player.weapon_equip = &(context->mainhand);
 
-	slime_init(&(scene->slime));
-	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
-
-	slime_init(&(scene->slime2));
-	scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_init(&(scene->slime)); scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_init(&(scene->slime2)); scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	return (NULL);
 }
@@ -103,13 +88,9 @@ void	*level_01_update(t_context *context, void *vp_scene)
 
 	scene = vp_scene;
 
-	if (scene->paused == SDL_FALSE)
+	if (scene->pause.triggered == SDL_FALSE)
 	{
 		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
-
-		SDL_SetRenderDrawColor(SDLX_GetDisplay()->renderer, 255, 0, 0, 255);
-		SDL_Rect	playarea = {16, 220 * DISPLAY_SCALE, lerp32(scene->player.hp / 100.0, 0, 480), 10};
-		SDL_RenderFillRect(SDLX_GetDisplay()->renderer, &(playarea));
 
 		SDLX_Button_Update(&(scene->pause));
 
@@ -118,8 +99,9 @@ void	*level_01_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->shield));
 		SDLX_Button_Update(&(scene->heal));
 
-		update_crosshair(&(scene->crosshair));
+		SDLX_CollisionBucket_Flush(NULL);
 
+		update_crosshair(&(scene->crosshair));
 		player_update(&(scene->player));
 
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
@@ -127,13 +109,11 @@ void	*level_01_update(t_context *context, void *vp_scene)
 
 		slime_update(&(scene->slime));
 		slime_update(&(scene->slime2));
-
-		SDLX_CollisionBucket_Flush(NULL);
 	}
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);
 
-	if (scene->paused == SDL_TRUE && scene->pbackground == NULL)
+	if (scene->pause.triggered == SDL_TRUE && scene->pbackground == NULL)
 	{
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI);
 		scene->pbackground = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
