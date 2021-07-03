@@ -151,6 +151,7 @@ typedef struct	s_enemy
 	SDLX_collision	enemy_hurtbox;
 
 	int				hp;
+	int				max_hp;
 
 	void			*meta;
 }				t_enemy;

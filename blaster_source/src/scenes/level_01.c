@@ -69,7 +69,7 @@ void	*level_01_close(t_context *context, void *vp_scene)
 		context->next_init_fn = context->levels[0][1].init_fn;
 	}
 
-	if (scene->player.hp <= 0) { context->init_fn = death_level_init; }
+	if (scene->player.hp <= 12) { context->init_fn = death_level_init; }
 
 	if (scene->pbackground != NULL) { SDL_DestroyTexture(scene->pbackground); }
 
@@ -119,7 +119,7 @@ void	*level_01_update(t_context *context, void *vp_scene)
 	}
 
 	if (scene->player.hp <= 0) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
-	if (scene->score == 1) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
+	if (scene->score == 12) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
 
 	return (NULL);
 }

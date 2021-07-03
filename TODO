@@ -1,20 +1,54 @@
+Lock on System
+
 Inventory Screen
 Drop System
 
 Hexagon Grid
+
 Timed Ticks
-Infographics
 
-Death Screen
-Finish Screen
-Pause layout
+COLLISIONS
+	Types
+	Reusable Structures
+	Reusable Functions
 
-Weapon UI
+TREASURE SYSTEM
+
+DATA-DRIVEN LEVELS
+	Wave data
+		Wave:
+		Wave Amount
+			Enemy Type
+			Drop Item
+			Time of Spawn
 
 ENEMIES
+	Movement Function
 
-WEAPONS
-Memory Leak on Weapons
+WEAPONS:
+	Fire Beam
+	Snowball
+	Spin Attack
+	Boomerang
+	Railgun
+	Shotgun
+	Slash
+	Lunge
+	Shields
+	Forever Wire
+
+
+Memory Leak
 
 TTF
+
+Info graphics:
+	Death Scene Enemies killed
+	Death Scene Current Level
+
+	Loot Scene Enemies killed
+	Loot Scene Loot picked
+	Loot Scene gold earned
+	Loot Scene Current Level
+
 CREDITS

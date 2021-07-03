@@ -26,8 +26,27 @@ void		slime_init(t_enemy *dst)
 	dst->enemy_hurtbox.detect = slime_detect_collision;
 	dst->enemy_hurtbox.engage = slime_collide;
 
-	dst->hp = 2;
-	dst->meta = (void *)3;
+	dst->max_hp = 1;
+	dst->hp = dst->max_hp;
+	dst->meta = (void *)4;
+}
+
+void		slime_green_init(t_enemy *dst)
+{
+	dst->sprite = SDLX_Sprite_Static(ASSETS"slime_green.png");
+	dst->sprite.dst = SDLX_NULL_SELF;
+	dst->sprite._dst = (SDL_Rect){10, 10, 32, 32};
+
+	dst->enemy_hurtbox.originator = dst;
+	dst->enemy_hurtbox.detect_meta1 = &(dst->sprite._dst);
+	dst->enemy_hurtbox.engage_meta1 = dst;
+	dst->enemy_hurtbox.type = SLIMES;
+	dst->enemy_hurtbox.detect = slime_detect_collision;
+	dst->enemy_hurtbox.engage = slime_collide;
+
+	dst->max_hp = 3;
+	dst->hp = dst->max_hp;
+	dst->meta = (void *)4;
 }
 
 SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
@@ -111,7 +130,7 @@ void	slime_update(void *self)
 			slime->sprite.dst->x = PLAY_WIDTH * (rand() % 2);
 		}
 
-		slime->hp = 2;
+		slime->hp = slime->max_hp;
 	}
 
 	SDLX_RenderQueue_Add(NULL, &(slime->sprite));

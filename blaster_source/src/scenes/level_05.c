@@ -59,9 +59,9 @@ void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	crosshair_init(&(scene->crosshair));
 
-	slime_init(&(scene->slime));
+	slime_green_init(&(scene->slime));
 	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
-	slime_init(&(scene->slime2));
+	slime_green_init(&(scene->slime2));
 	scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	slime_init(&(scene->slime3));
@@ -71,7 +71,7 @@ void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
 	scene->slime4.meta = (void *)6;
 
-	slime_init(&(scene->slime5));
+	slime_green_init(&(scene->slime5));
 	scene->slime5.enemy_hurtbox.engage_meta2 = &(scene->score);
 	scene->slime5.meta = (void *)6;
 	slime_init(&(scene->slime6));
