@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/03 12:49:19 by home             ###   ########.fr       */
+/*   Updated: 2021/07/03 12:54:40 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,12 @@ void	main_loop(SDL_UNUSED void *context_addr)
 	SDLX_record_input(NULL);
 
 	if (context->scene == SDL_FALSE)
+	{
+		SDLX_CollisionBucket_Flush(NULL);
+		SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
+
 		context->close_fn(context, context->meta);
+	}
 }
 
 int	main(void)

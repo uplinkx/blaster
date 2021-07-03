@@ -17,9 +17,6 @@ void	*new_scene(size_t size, t_context *context, char *background_path, void *(c
 {
 	void *result;
 
-	SDLX_CollisionBucket_Flush(NULL);
-	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
-
 	result = SDL_malloc(size);
 
 	SDL_assert(close != NULL);
