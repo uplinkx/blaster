@@ -40,13 +40,12 @@ void	*level_01_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->pbackground = NULL;
 
 	level_ui_init(&(scene->pause), &(scene->bottom_ui));
-
 	pause_menu_init(&(scene->pause_menu), &(scene->pause.triggered), &(scene->pbackground), context, context->init_fn);
-	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	player_init(&(scene->player));
 	crosshair_init(&(scene->crosshair));
 	scene->player.weapon_equip = &(context->mainhand);
+	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	slime_init(&(scene->slime)); scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
 	slime_init(&(scene->slime2)); scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
@@ -61,7 +60,7 @@ void	*level_01_close(t_context *context, void *vp_scene)
 	scene = vp_scene;
 	context->redo_init_fn = context->init_fn;
 
-	if (scene->score >= 12)
+	if (scene->score >= 1)
 	{
 		context->init_fn = loot_level_init;
 
@@ -74,7 +73,6 @@ void	*level_01_close(t_context *context, void *vp_scene)
 
 	if (scene->pbackground != NULL) { SDL_DestroyTexture(scene->pbackground); }
 
-	SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
 	SDL_free(context->background.sprite_data);
 	SDL_free(scene->bottom_ui.sprite_data);
 	SDL_free(scene);
@@ -121,7 +119,7 @@ void	*level_01_update(t_context *context, void *vp_scene)
 	}
 
 	if (scene->player.hp <= 0) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
-	if (scene->score == 12) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
+	if (scene->score == 1) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
 
 	return (NULL);
 }

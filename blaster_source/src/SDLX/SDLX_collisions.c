@@ -66,7 +66,6 @@ void	SDLX_CollisionBucket_Flush(SDLX_collision_bucket *bucket)
 {
 	size_t	i;
 
-
 	if (bucket == NULL)
 		bucket = &(default_CollisionBucket);
 
