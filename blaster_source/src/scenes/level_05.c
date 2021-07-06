@@ -66,18 +66,18 @@ void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	slime_init(&(scene->slime3));
 	scene->slime3.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime3.meta = (void *)1;
+	scene->slime3.meta1 = (void *)1;
 	slime_init(&(scene->slime4));
 	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime4.meta = (void *)6;
+	scene->slime4.meta1 = (void *)6;
 
 	slime_green_init(&(scene->slime5));
 	scene->slime5.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime5.meta = (void *)6;
+	scene->slime5.meta1 = (void *)6;
 	slime_init(&(scene->slime6));
 	scene->slime6.enemy_hurtbox.engage_meta2 = &(scene->score);
 	slime_init(&(scene->slime7));
-	scene->slime7.meta = (void *)1;
+	scene->slime7.meta1 = (void *)1;
 	scene->slime7.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	slime_init(&(scene->slime8));
@@ -142,14 +142,14 @@ void	*level_05_update(t_context *context, void *vp_scene)
 
 		if (scene->slow == SDL_FALSE || context->ticks % 3 == 0)
 		{
-			slime_update(&(scene->slime));
-			slime_update(&(scene->slime2));
-			slime_update(&(scene->slime3));
-			slime_update(&(scene->slime4));
-			slime_update(&(scene->slime5));
-			slime_update(&(scene->slime6));
-			slime_update(&(scene->slime7));
-			slime_update(&(scene->slime8));
+			slime_update(&(scene->slime), NULL);
+			slime_update(&(scene->slime2), NULL);
+			slime_update(&(scene->slime3), NULL);
+			slime_update(&(scene->slime4), NULL);
+			slime_update(&(scene->slime5), NULL);
+			slime_update(&(scene->slime6), NULL);
+			slime_update(&(scene->slime7), NULL);
+			slime_update(&(scene->slime8), NULL);
 		}
 		else
 		{

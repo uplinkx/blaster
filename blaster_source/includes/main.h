@@ -73,6 +73,7 @@ void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UN
 void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapon *to);
 
 void	*new_scene(size_t size, t_context *context, char *background_path, t_scene_fn close, t_scene_fn update);
+void	end_scene(t_context *context, SDLX_button *pause);
 
 /*
 ** Misc. Functions

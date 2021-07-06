@@ -60,7 +60,7 @@ void	*level_01_close(t_context *context, void *vp_scene)
 	scene = vp_scene;
 	context->redo_init_fn = context->init_fn;
 
-	if (scene->score >= 1)
+	if (scene->score >= 12)
 	{
 		context->init_fn = loot_level_init;
 
@@ -69,7 +69,7 @@ void	*level_01_close(t_context *context, void *vp_scene)
 		context->next_init_fn = context->levels[0][1].init_fn;
 	}
 
-	if (scene->player.hp <= 12) { context->init_fn = death_level_init; }
+	if (scene->player.hp <= 0) { context->init_fn = death_level_init; }
 
 	if (scene->pbackground != NULL) { SDL_DestroyTexture(scene->pbackground); }
 
@@ -105,8 +105,8 @@ void	*level_01_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		slime_update(&(scene->slime));
-		slime_update(&(scene->slime2));
+		slime_update(&(scene->slime), NULL);
+		slime_update(&(scene->slime2), NULL);
 	}
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);
@@ -118,8 +118,8 @@ void	*level_01_update(t_context *context, void *vp_scene)
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), PAUSE_NORM);
 	}
 
-	if (scene->player.hp <= 0) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
-	if (scene->score == 12) { scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI); context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE); context->scene = SDL_FALSE; }
+	if (scene->player.hp <= 0) { end_scene(context, &(scene->pause)); }
+	if (scene->score == 12) { end_scene(context, &(scene->pause)); }
 
 	return (NULL);
 }

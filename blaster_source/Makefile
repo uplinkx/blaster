@@ -77,7 +77,6 @@ SRC_NAMES = \
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	button \
 	crosshair \
-	pause_menu \
 	player \
 	main \
 	ui \

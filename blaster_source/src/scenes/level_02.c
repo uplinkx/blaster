@@ -106,9 +106,9 @@ void	*level_02_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		slime_update(&(scene->slime));
-		slime_update(&(scene->slime2));
-		slime_update(&(scene->slime3));
+		slime_update(&(scene->slime), NULL);
+		slime_update(&(scene->slime2), NULL);
+		slime_update(&(scene->slime3), NULL);
 
 		SDLX_CollisionBucket_Flush(NULL);
 	}

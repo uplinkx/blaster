@@ -56,15 +56,16 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->inventory.meta = context;
 	scene->inventory.meta1 = level_select_init;
 
-	SDLX_Button_Init(&(scene->chest), fetch_chest_sprite, 0, (SDL_Rect){(PLAY_WIDTH - 124) / 2, 80, 124, 124}, NULL);
-	SDLX_Style_Button(&(scene->chest), 0, 1);
-	scene->chest.trigger_fn = button_chest;
-	scene->chest.update_fn = button_chest_update;
-
 	SDLX_new_Sprite(&(scene->background));
 	fetch_loot_sprite(&(scene->background.sprite_data), LBACK);
 	scene->background._dst = (SDL_Rect){(PLAY_WIDTH - 64 * 3) / 2, 80, 64 * 3, 64 * 3};
 	scene->background.dst = SDLX_NULL_SELF;
+
+	SDLX_Button_Init(&(scene->chest), fetch_chest_sprite, 0, (SDL_Rect){(PLAY_WIDTH - 124) / 2, 80, 124, 124}, NULL);
+	SDLX_Style_Button(&(scene->chest), 0, 1);
+	scene->chest.trigger_fn = button_chest;
+	scene->chest.update_fn = button_chest_update;
+	scene->chest.trigger_box = scene->background._dst;
 
 	if (context->next_init_fn == NULL)
 	{

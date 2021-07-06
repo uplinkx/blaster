@@ -61,10 +61,10 @@ void	*level_04_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	slime_init(&(scene->slime3));
 	scene->slime3.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime3.meta = (void *)1;
+	scene->slime3.meta1 = (void *)1;
 	slime_init(&(scene->slime4));
 	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime4.meta = (void *)6;
+	scene->slime4.meta1 = (void *)6;
 
 	slime_init(&(scene->slime5));
 	scene->slime5.enemy_hurtbox.engage_meta2 = &(scene->score);
@@ -126,11 +126,11 @@ void	*level_04_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		slime_update(&(scene->slime));
-		slime_update(&(scene->slime2));
-		slime_update(&(scene->slime3));
-		slime_update(&(scene->slime4));
-		slime_update(&(scene->slime5));
+		slime_update(&(scene->slime), NULL);
+		slime_update(&(scene->slime2), NULL);
+		slime_update(&(scene->slime3), NULL);
+		slime_update(&(scene->slime4), NULL);
+		slime_update(&(scene->slime5), NULL);
 
 		SDLX_CollisionBucket_Flush(NULL);
 	}

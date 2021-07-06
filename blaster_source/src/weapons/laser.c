@@ -76,7 +76,6 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->update = laser_update;
 
-
 	dst->hitbox.type = BULLETS;
 	dst->hitbox.originator = dst;
 

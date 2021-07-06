@@ -50,7 +50,7 @@ SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SD
 
 	player = self;
 	hitbox = with;
-	if (hitbox->type == SLIMES)
+	if (hitbox->type == SLIMES || hitbox->type == GOO)
 	{
 		if (SDL_HasIntersection(&(player->sprite._dst), hitbox->detect_meta1) == SDL_TRUE)
 			return (SDL_TRUE);
@@ -61,10 +61,15 @@ SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SD
 void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1)
 {
 	t_player	*player;
+	SDLX_collision	*object;
 
 	player = self;
 
-	player->hp -= 10;
+	object = with;
+	if (object->type == SLIMES)
+		player->hp -= 10;
+	if (object->type == GOO)
+		player->hp -= 15;
 	return (NULL);
 }
 

@@ -17,7 +17,7 @@ void	*new_scene(size_t size, t_context *context, char *background_path, void *(c
 {
 	void *result;
 
-	result = SDL_malloc(size);
+	result = SDL_calloc(1, size);
 
 	SDL_assert(close != NULL);
 	SDL_assert(update != NULL);
@@ -38,4 +38,11 @@ void	*new_scene(size_t size, t_context *context, char *background_path, void *(c
 	}
 
 	return (result);
+}
+
+void	end_scene(t_context *context, SDLX_button *pause)
+{
+	pause->sprite_fn(&(pause->sprite.sprite_data), EMPTY_UI);
+	context->capture_texture = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
+	context->scene = SDL_FALSE;
 }

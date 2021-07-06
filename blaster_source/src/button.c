@@ -24,15 +24,19 @@ void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UN
 			self->sprite.dst->h -= 1;
 
 			self->sprite.dst->x = (PLAY_WIDTH - self->sprite.dst->w) / 2;
-			self->trigger_fn = SDLX_Button_NULL_fn;
 		}
 	}
-
 	return (NULL);
 }
 
 void	*button_chest(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length)
 {
+	if (SDL_PointInRect(&(g_GameInput.GameInput.primary), &(self->sprite._dst)) == SDL_FALSE && self->focus_no != -1)
+		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
+	else if (SDL_PointInRect(&(g_GameInput.GameInput.primary), &(self->sprite._dst)))
+		self->sprite_fn(&(self->sprite.sprite_data), self->focus_no);
+
+
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
@@ -42,6 +46,7 @@ void	*button_chest(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED si
 
 		self->sprite_fn(&(self->sprite.sprite_data), 2);
 		self->sprite.current = 0;
+		self->trigger_fn = SDLX_Button_NULL_fn;
 	}
 
 	return (NULL);

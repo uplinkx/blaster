@@ -61,7 +61,7 @@ void	projectile_add(t_attacks *dst, t_bullet src)
 	dst->attacks[ix].sprite.dst = &(dst->attacks[ix].sprite._dst);
 
 
-	dst->attacks[ix].hitbox.type = BULLETS;
+	// dst->attacks[ix].hitbox.type = BULLETS;
 	dst->attacks[ix].hitbox.detect_meta1 = &(dst->attacks[ix].sprite._dst);
 	dst->attacks[ix].hitbox.detect_meta2 = &(dst->attacks[ix]);
 }

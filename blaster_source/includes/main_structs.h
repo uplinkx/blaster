@@ -121,6 +121,7 @@ enum	BLASTER_COLLISION_TYPES
 	SLIMES,
 	PLAYER,
 	HEAL,
+	GOO,
 };
 
 typedef struct	s_bullet
@@ -153,7 +154,10 @@ typedef struct	s_enemy
 	int				hp;
 	int				max_hp;
 
-	void			*meta;
+	void			*meta1;
+	void			*meta2;
+
+	void			(*update)(struct s_enemy *, void *);
 }				t_enemy;
 
 typedef struct	s_player

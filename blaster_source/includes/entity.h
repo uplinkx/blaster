@@ -43,9 +43,19 @@ t_weapon		heal_cannon(void);
 */
 
 void			slime_init(t_enemy *dst);
-void			slime_green_init(t_enemy *dst);
-void			slime_update(void *self);
+void			slime_update(t_enemy *self, void *);
 SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2);
 void			*slime_collide(void *self, void *with, void *meta1, void *meta2);
+
+void			slime_green_init(t_enemy *dst);
+
+void			slime_yellow_init(t_enemy *dst);
+void			slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta);
+
+void			slime_purple_init(t_enemy *dst);
+void			slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta);
+
+void			slime_pink_init(t_enemy *dst);
+void			slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta);
 
 #endif

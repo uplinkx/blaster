@@ -94,3 +94,11 @@ void	SDLX_Button_NoFocusUpdate(SDLX_button *button)
 	SDLX_RenderQueue_Add(button->render_dst, &(button->sprite));
 	button->sprite.current++;
 }
+
+void	SDLX_Button_TriggerOnly(SDLX_button *button)
+{
+	if (button->disabled == SDL_TRUE)
+		return ;
+
+	button->trigger_fn(button, button->meta, button->meta_length);
+}

@@ -58,7 +58,9 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	crosshair_init(&(scene->crosshair));
 
-	slime_init(&(scene->slime));
+	slime_pink_init(&(scene->slime));
+	scene->slime.meta1 = &(scene->player.attacks);
+
 	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	scene->player.hp = 1000000;
@@ -125,7 +127,7 @@ void	*level_06_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		slime_update(&(scene->slime));
+		slime_pink_update(&(scene->slime), NULL);
 
 
 		i = 0;
