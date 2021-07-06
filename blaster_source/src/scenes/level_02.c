@@ -50,7 +50,7 @@ void	*level_02_init(t_context *context, SDL_UNUSED void *vp_scene)
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	slime_init(&(scene->slime)); scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
-	slime_init(&(scene->slime2)); scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_green_init(&(scene->slime2)); scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
 	slime_init(&(scene->slime3)); scene->slime3.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	return (NULL);

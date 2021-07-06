@@ -60,8 +60,8 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	slime_pink_init(&(scene->slime));
 	scene->slime.meta1 = &(scene->player.attacks);
-
 	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
+
 
 	scene->player.hp = 1000000;
 

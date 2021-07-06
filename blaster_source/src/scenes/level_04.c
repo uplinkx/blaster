@@ -27,7 +27,6 @@ typedef struct	s_third_level
 	t_enemy				slime;
 	t_enemy				slime2;
 	t_enemy				slime3;
-	t_enemy				slime4;
 	t_enemy				slime5;
 	int					score;
 
@@ -54,19 +53,17 @@ void	*level_04_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	crosshair_init(&(scene->crosshair));
 
-	slime_green_init(&(scene->slime));
-	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
-	slime_green_init(&(scene->slime2));
+	// slime_green_init(&(scene->slime));
+	// scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
+
+	slime_yellow_init(&(scene->slime2));
 	scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
 
-	slime_init(&(scene->slime3));
+	slime_yellow_init(&(scene->slime3));
 	scene->slime3.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime3.meta1 = (void *)1;
-	slime_init(&(scene->slime4));
-	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
-	scene->slime4.meta1 = (void *)6;
 
-	slime_init(&(scene->slime5));
+	slime_purple_init(&(scene->slime5));
+	scene->slime5.meta1 = &(scene->player.attacks);
 	scene->slime5.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	return (NULL);
@@ -126,11 +123,12 @@ void	*level_04_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		slime_update(&(scene->slime), NULL);
-		slime_update(&(scene->slime2), NULL);
-		slime_update(&(scene->slime3), NULL);
-		slime_update(&(scene->slime4), NULL);
-		slime_update(&(scene->slime5), NULL);
+		// slime_update(&(scene->slime), NULL);
+
+		slime_yellow_update(&(scene->slime2), NULL);
+		slime_yellow_update(&(scene->slime3), NULL);
+
+		slime_purple_update(&(scene->slime5), NULL);
 
 		SDLX_CollisionBucket_Flush(NULL);
 	}

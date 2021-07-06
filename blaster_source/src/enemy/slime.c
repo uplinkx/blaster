@@ -46,7 +46,7 @@ void		slime_green_init(t_enemy *dst)
 	dst->enemy_hurtbox.detect = slime_detect_collision;
 	dst->enemy_hurtbox.engage = slime_collide;
 
-	dst->max_hp = 3;
+	dst->max_hp = 5;
 	dst->hp = dst->max_hp;
 	dst->meta1 = (void *)4;
 }
@@ -60,7 +60,7 @@ void		slime_yellow_init(t_enemy *dst)
 	dst->enemy_hurtbox.originator = dst;
 	dst->enemy_hurtbox.detect_meta1 = &(dst->sprite._dst);
 	dst->enemy_hurtbox.engage_meta1 = dst;
-	dst->enemy_hurtbox.type = SLIMES;
+	dst->enemy_hurtbox.type = SLIMES_YELLOW;
 	dst->enemy_hurtbox.detect = slime_detect_collision;
 	dst->enemy_hurtbox.engage = slime_collide;
 
@@ -337,7 +337,7 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 	dx = x - ((PLAY_WIDTH - 16 * 3) / 2);
 	dy = y - ((PLAY_WIDTH + 16 * 3) / 2);
 
-	if ((dx * dx) + (dy * dy) < 130 * 130)
+	if ((dx * dx) + (dy * dy) < 100 * 100)
 	{
 		fire_range = SDL_TRUE;
 		slime->meta2++;
@@ -388,7 +388,7 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 	dx = x - ((PLAY_WIDTH - 16 * 3) / 2);
 	dy = y - ((PLAY_WIDTH + 16 * 3) / 2);
 
-	if ((dx * dx) + (dy * dy) < 130 * 130)
+	if ((dx * dx) + (dy * dy) < 120 * 120)
 	{
 		fire_range = SDL_TRUE;
 		slime->meta2++;
