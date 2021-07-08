@@ -44,6 +44,10 @@ typedef struct	s_weapon
 
 	SDL_bool		enabled;
 
+	int				meta_int;
+	void			*meta;
+
+	SDL_bool	(*trigger)(struct s_weapon *);
 	void		(*factory)(struct s_bullet *, SDL_Point, double , void *);
 }				t_weapon;
 

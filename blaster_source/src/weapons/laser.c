@@ -13,6 +13,19 @@
 
 #include "main.h"
 
+SDL_bool	laser_fire(SDL_UNUSED t_weapon *weapon)
+{
+	SDL_bool	result;
+
+	result = SDL_FALSE;
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	{
+		// SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
+		result = SDL_TRUE;
+	}
+	return (result);
+}
+
 SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta2)
 {
 	SDLX_collision	*self_box;
@@ -23,8 +36,11 @@ SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta
 	hitbox = with;
 
 	self_attack = meta2;
-	if (hitbox->type == SLIMES && SDL_HasIntersection(meta1, hitbox->detect_meta1))
-		self_attack->active = SDL_FALSE;
+	if (hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW)
+	{
+		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
+			self_attack->active = SDL_FALSE;
+	}
 
 	(void)meta1;
 
@@ -124,6 +140,7 @@ t_weapon	laser_cannon(void)
 	laser_cannon.enabled = SDL_TRUE;
 
 	laser_cannon.factory = laser_factory;
+	laser_cannon.trigger = laser_fire;
 
 	return (laser_cannon);
 }
@@ -140,6 +157,7 @@ t_weapon	laser_green_cannon(void)
 	laser_cannon.enabled = SDL_TRUE;
 
 	laser_cannon.factory = laser_green_factory;
+	laser_cannon.trigger = laser_fire;
 
 	return (laser_cannon);
 }
@@ -184,6 +202,7 @@ t_weapon	laser_yellow_cannon(void)
 	laser_cannon.enabled = SDL_TRUE;
 
 	laser_cannon.factory = laser_yellow_factory;
+	laser_cannon.trigger = laser_fire;
 
 	return (laser_cannon);
 }

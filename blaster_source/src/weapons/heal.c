@@ -13,6 +13,25 @@
 
 #include "main.h"
 
+SDL_bool	heal_fire(SDL_UNUSED t_weapon *weapon)
+{
+	SDL_bool	result;
+
+	result = SDL_FALSE;
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	{
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
+		result = SDL_TRUE;
+	}
+
+	if (weapon->curr >= weapon->cooldown && weapon->meta_int == 0)
+	{
+		result = SDL_TRUE;
+		weapon->meta_int++;
+	}
+	return (result);
+}
+
 void	heal_update(void *self, SDL_UNUSED void *meta)
 {
 	t_bullet	*bullet;
@@ -67,6 +86,7 @@ t_weapon	heal_cannon(void)
 	heal_cannon.enabled = SDL_TRUE;
 
 	heal_cannon.factory = heal_factory;
+	heal_cannon.trigger = heal_fire;
 
 	return (heal_cannon);
 }

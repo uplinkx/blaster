@@ -114,10 +114,11 @@ void	*change_ability(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t len
 
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
-		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
+		// SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 		from_weapon = self->meta1;
 		player_spot = weapon_addr;
 
+		(*player_spot)->meta_int = 0;
 		*player_spot = from_weapon;
 	}
 

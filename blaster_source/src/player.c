@@ -82,7 +82,7 @@ void	player_update(t_player *self)
 
 	weapon = self->weapon_equip;
 
-	if (g_GameInput.GameInput.button_primleft && weapon->curr >= weapon->cooldown)
+	if (weapon->trigger(weapon) == SDL_TRUE)
 	{
 		weapon->curr = weapon->start;
 		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, self);

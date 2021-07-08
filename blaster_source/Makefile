@@ -59,6 +59,7 @@ SPRITE_FILES = 			\
 
 ENEMY_FILES = 			\
 	slime				\
+	slime_util			\
 
 WEAPON_FILES = 			\
 	heal				\
