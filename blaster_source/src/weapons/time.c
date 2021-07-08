@@ -13,6 +13,25 @@
 
 #include "main.h"
 
+SDL_bool	time_fire(SDL_UNUSED t_weapon *weapon)
+{
+	SDL_bool	result;
+
+	result = SDL_FALSE;
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	{
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
+		result = SDL_TRUE;
+	}
+
+	if (weapon->curr >= weapon->cooldown && weapon->meta_int == 0)
+	{
+		result = SDL_TRUE;
+		weapon->meta_int++;
+	}
+	return (result);
+}
+
 void	time_update(void *self, SDL_UNUSED void *meta)
 {
 	t_bullet	*bullet;
@@ -61,6 +80,9 @@ t_weapon	time_cannon(void)
 	time_cannon.enabled = SDL_TRUE;
 
 	time_cannon.factory = time_factory;
+	time_cannon.trigger = time_fire;
+
+	time_cannon.meta = 0;
 
 	return (time_cannon);
 }

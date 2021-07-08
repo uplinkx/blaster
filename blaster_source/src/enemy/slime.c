@@ -27,7 +27,7 @@ void		slime_green_init(t_enemy *dst)
 
 void		slime_yellow_init(t_enemy *dst)
 {
-	slime_default_init(dst, "slime_yellow", SLIMES_YELLOW, 3, slime_yellow_update);
+	slime_default_init(dst, "slime_yellow", SLIMES_YELLOW, 2, slime_yellow_update);
 
 	dst->meta1 = (void *)4;
 	dst->meta2 = (void *)0;

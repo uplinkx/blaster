@@ -79,6 +79,8 @@ typedef struct	SDLX_GameInput
 	SDLX_input_mapper	key_mapper;
 	SDLX_input_mapper	pad_mapper;
 
+	const Uint8			*keystate;
+
 	struct
 	{
 		int	button_A;
@@ -131,7 +133,7 @@ extern SDLX_GameInput	g_GameInput_prev;
 #define BMAP(button) (g_GameInput.GameInput.button)
 #define SDLX_GAME_PRESS(curr, prev, button) ((curr.GameInput.button_##button == 1 && prev.GameInput.button_##button == 0))
 #define SDLX_GAME_RELEASE(curr, prev, button) ((curr.GameInput.button_##button == 0 && prev.GameInput.button_##button == 1))
-#define SDLX_INPUT_CONSUME(curr, prev, button) {curr.GameInput.button_##button = 0; prev.GameInput.button_##button = 0;}
+#define SDLX_INPUT_CONSUME(curr, prev, button) {curr.GameInput.button_##button = -1; prev.GameInput.button_##button = -1;}
 
 enum	SDLX_DIR
 {

@@ -13,6 +13,11 @@
 
 #include "main.h"
 
+SDL_bool	empty_weapon_trigger(SDL_UNUSED t_weapon *self)
+{
+	return (SDL_FALSE);
+}
+
 void	empty_weapon_factory(SDL_UNUSED t_bullet *loc, SDL_UNUSED SDL_Point spawn, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
 	return ;
@@ -27,6 +32,7 @@ void	unequip_weapon(t_weapon *dst)
 
 	dst->enabled = 0;
 	dst->factory = empty_weapon_factory;
+	dst->trigger = empty_weapon_trigger;
 }
 
 #define ABILITY_LEFT_PADDING (16)
@@ -38,6 +44,7 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	size_t		ability_space;
 	size_t		count;
 	SDLX_button	*line[4];
+	int			*keys[4] = {&(BMAP(button_num1)), &(BMAP(button_num2)), &(BMAP(button_num3)), &(BMAP(button_num4))};
 
 	ability_button_init(mainhand, player_weapon_addr, &(context->mainhand));
 	ability_button_init(special, player_weapon_addr, &(context->special));
@@ -55,10 +62,10 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	context->heal.curr = context->heal.cooldown;
 
 	count = 0;
-	if (context->mainhand.enabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
-	if (context->shield.enabled == SDL_TRUE) { line[count] = shield; context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
-	if (context->heal.enabled == SDL_TRUE) { line[count] = heal; context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
-	if (context->special.enabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); count++; }
+	if (context->mainhand.enabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); mainhand->down = keys[count]; count++; }
+	if (context->shield.enabled == SDL_TRUE) { line[count] = shield; context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); shield->down = keys[count]; count++; }
+	if (context->heal.enabled == SDL_TRUE) { line[count] = heal; context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); heal->down = keys[count]; count++; }
+	if (context->special.enabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); special->down = keys[count]; count++; }
 
 	i = 0;
 	SDL_assert(count != 0);
@@ -75,6 +82,11 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	context->special.cooldown_sprite.dst = SDLX_NULL_SELF;
 	context->shield.cooldown_sprite.dst = SDLX_NULL_SELF;
 	context->heal.cooldown_sprite.dst = SDLX_NULL_SELF;
+
+	context->mainhand.cooldown_sprite.center = SDLX_NULL_SELF;
+	context->special.cooldown_sprite.center = SDLX_NULL_SELF;
+	context->shield.cooldown_sprite.center = SDLX_NULL_SELF;
+	context->heal.cooldown_sprite.center = SDLX_NULL_SELF;
 
 	context->mainhand.cooldown_sprite._dst = mainhand->sprite._dst;
 	context->special.cooldown_sprite._dst = special->sprite._dst;

@@ -82,6 +82,8 @@ void	end_scene(t_context *context, SDLX_button *pause);
 uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
 double		ptoa(int x, int y);
 
+SDLX_iMap	*blaster_key_map(size_t *size);
+
 /*
 ** UI Functions
 */

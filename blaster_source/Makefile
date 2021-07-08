@@ -1,7 +1,7 @@
 NAME = blaster
 NAMEW = ../index.html
-FLAGS = -Wall -Wextra -Werror
-# FLAGS = -Wall -Wextra -Werror -fsanitize=address
+# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
 
 LIBRARIES = -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS="['png']"
@@ -78,8 +78,9 @@ SRC_NAMES = \
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	button \
 	crosshair \
-	player \
+	input \
 	main \
+	player \
 	ui \
 	utils \
 

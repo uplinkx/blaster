@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/07 19:48:39 by home             ###   ########.fr       */
+/*   Updated: 2021/07/08 00:34:31 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,21 @@ void	blaster_start(t_context *context)
 
 	context->mainhand = laser_cannon();
 
-	// context->mainhand = laser_yellow_cannon();
-	// context->shield = laser_green_cannon();
-	// context->heal = heal_cannon();
+	context->mainhand = laser_yellow_cannon();
+	context->shield = laser_green_cannon();
+	context->heal = heal_cannon();
 	// context->special = time_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 
 	context->levels[0][0].unlocked = SDL_TRUE;
-	// context->levels[0][1].unlocked = SDL_TRUE;
-	// context->levels[0][2].unlocked = SDL_TRUE;
-	// context->levels[0][3].unlocked = SDL_TRUE;
-	// context->levels[0][4].unlocked = SDL_TRUE;
 
-	// context->levels[1][0].unlocked = SDL_TRUE;
+	context->levels[0][1].unlocked = SDL_TRUE;
+	context->levels[0][2].unlocked = SDL_TRUE;
+	context->levels[0][3].unlocked = SDL_TRUE;
+	context->levels[0][4].unlocked = SDL_TRUE;
+
+	context->levels[1][0].unlocked = SDL_TRUE;
 
 	context->levels[0][0].init_fn = level_01_init;
 	context->levels[0][1].init_fn = level_02_init;
@@ -81,6 +82,8 @@ void	blaster_start(t_context *context)
 
 	// context->init_fn = first_level_init;
 	// context->init_fn = level_select_init;
+
+	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
 }
 
 void	main_loop(SDL_UNUSED void *context_addr)
@@ -95,6 +98,7 @@ void	main_loop(SDL_UNUSED void *context_addr)
 	}
 
 	context->exit = SDLX_poll();
+	SDLX_KeyMap(&(g_GameInput.key_mapper), g_GameInput.keystate);
 
 	SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
 
@@ -105,6 +109,8 @@ void	main_loop(SDL_UNUSED void *context_addr)
 		SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);
 		SDLX_ScreenReset(SDLX_GetDisplay()->renderer, NULL);
 	}
+
+	// SDL_Delay(38);
 	SDLX_record_input(NULL);
 
 	if (context->scene == SDL_FALSE)

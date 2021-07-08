@@ -23,12 +23,6 @@ SDL_bool	heal_fire(SDL_UNUSED t_weapon *weapon)
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
 		result = SDL_TRUE;
 	}
-
-	if (weapon->curr >= weapon->cooldown && weapon->meta_int == 0)
-	{
-		result = SDL_TRUE;
-		weapon->meta_int++;
-	}
 	return (result);
 }
 

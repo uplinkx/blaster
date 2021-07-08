@@ -30,6 +30,19 @@ typedef struct	s_first_level
 	SDLX_button			special;
 
 	t_enemy				slime;
+	t_enemy				slime1;
+	t_enemy				slime2;
+	t_enemy				slime3;
+	t_enemy				slime4;
+	t_enemy				slime5;
+
+	t_enemy				slime6;
+	t_enemy				slime7;
+	t_enemy				slime8;
+	t_enemy				slime9;
+	t_enemy				slime10;
+	t_enemy				slime11;
+
 	int					score;
 
 	SDL_Texture			*pbackground;
@@ -51,8 +64,8 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 	player_init(&(scene->player));
 	scene->player.weapon_equip = &(context->mainhand);
 
-	// context->heal.enabled = SDL_TRUE;
-	// context->shield.enabled = SDL_TRUE;
+	context->heal.enabled = SDL_TRUE;
+	context->shield.enabled = SDL_TRUE;
 	// context->special.enabled = SDL_TRUE;
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
@@ -61,9 +74,37 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 	slime_pink_init(&(scene->slime));
 	scene->slime.meta1 = &(scene->player.attacks);
 	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_pink_init(&(scene->slime1));
+	scene->slime1.meta1 = &(scene->player.attacks);
+	scene->slime1.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_pink_init(&(scene->slime2));
+	scene->slime2.meta1 = &(scene->player.attacks);
+	scene->slime2.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_pink_init(&(scene->slime3));
+	scene->slime3.meta1 = &(scene->player.attacks);
+	scene->slime3.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_pink_init(&(scene->slime4));
+	scene->slime4.meta1 = &(scene->player.attacks);
+	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_pink_init(&(scene->slime5));
+	scene->slime5.meta1 = &(scene->player.attacks);
+	scene->slime5.enemy_hurtbox.engage_meta2 = &(scene->score);
 
+	slime_yellow_init(&(scene->slime6));
+	scene->slime6.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_yellow_init(&(scene->slime7));
+	scene->slime7.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_yellow_init(&(scene->slime8));
+	scene->slime8.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_yellow_init(&(scene->slime9));
+	scene->slime9.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_yellow_init(&(scene->slime10));
+	scene->slime10.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_yellow_init(&(scene->slime11));
+	scene->slime11.enemy_hurtbox.engage_meta2 = &(scene->score);
 
-	scene->player.hp = 1000000;
+	scene->player.max_hp = 100000;
+	scene->player.hp = scene->player.max_hp;
 
 	return (NULL);
 }
@@ -128,7 +169,18 @@ void	*level_06_update(t_context *context, void *vp_scene)
 		projectile_update(&(scene->player.attacks));
 
 		slime_pink_update(&(scene->slime), NULL);
+		slime_pink_update(&(scene->slime1), NULL);
+		slime_pink_update(&(scene->slime2), NULL);
+		slime_pink_update(&(scene->slime3), NULL);
+		slime_pink_update(&(scene->slime4), NULL);
+		slime_pink_update(&(scene->slime5), NULL);
 
+		slime_yellow_update(&(scene->slime6), NULL);
+		slime_yellow_update(&(scene->slime7), NULL);
+		slime_yellow_update(&(scene->slime8), NULL);
+		slime_yellow_update(&(scene->slime9), NULL);
+		slime_yellow_update(&(scene->slime10), NULL);
+		slime_yellow_update(&(scene->slime11), NULL);
 
 		i = 0;
 		while (i < default_CollisionBucket.index)
