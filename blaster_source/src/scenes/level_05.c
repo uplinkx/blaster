@@ -135,8 +135,8 @@ void	*level_05_update(t_context *context, void *vp_scene)
 		{
 			// slime_update(&(scene->slime), NULL);
 			// slime_update(&(scene->slime2), NULL);
-			slime_update(&(scene->slime3), NULL);
-			slime_update(&(scene->slime4), NULL);
+			slime_yellow_update(&(scene->slime3), NULL);
+			slime_yellow_update(&(scene->slime4), NULL);
 			slime_purple_update(&(scene->slime5), NULL);
 			slime_pink_update(&(scene->slime6), NULL);
 		}

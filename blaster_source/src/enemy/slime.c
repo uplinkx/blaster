@@ -53,7 +53,7 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	slime = self;
 	hitbox = with;
 
-	if (hitbox->type == BULLETS || hitbox->type == PLAYER)
+	if (hitbox->type == BULLETS || hitbox->type == PLAYER || hitbox->type == WHIRLWIND)
 	{
 		if (SDL_HasIntersection(&(slime->sprite._dst), hitbox->detect_meta1))
 			return (SDL_TRUE);
@@ -74,6 +74,9 @@ void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED 
 	{
 		slime->hp = 0;
 	}
+	// if (hurtbox->type == WHIRLWIND)
+	// 	slime->hp -= 5;
+
 	(void)with;
 	return (NULL);
 }

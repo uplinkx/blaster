@@ -1,7 +1,7 @@
 NAME = blaster
 NAMEW = ../index.html
-# FLAGS = -Wall -Wextra -Werror
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
 
 LIBRARIES = -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS="['png']"
@@ -56,6 +56,7 @@ SPRITE_FILES = 			\
 	loot_sprite \
 	pause_sprite \
 	ui_sprites \
+	whirlwind_sprite \
 
 ENEMY_FILES = 			\
 	slime				\
@@ -65,6 +66,7 @@ WEAPON_FILES = 			\
 	heal				\
 	laser				\
 	time				\
+	whirlwind			\
 	weapon_manager		\
 	weapon_utils		\
 

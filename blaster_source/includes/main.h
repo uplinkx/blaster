@@ -42,6 +42,7 @@ int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_hp_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_heal_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_whirl_sprite(SDLX_Sprite_Data **dst, int no);
 
 /*
 ** Attack/Projectile Functions

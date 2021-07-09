@@ -61,6 +61,11 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	context->shield.curr = context->shield.cooldown;
 	context->heal.curr = context->heal.cooldown;
 
+	context->mainhand.meta_int = 0;
+	context->special.meta_int = 0;
+	context->shield.meta_int = 0;
+	context->heal.meta_int = 0;
+
 	count = 0;
 	if (context->mainhand.enabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); mainhand->down = keys[count]; count++; }
 	if (context->shield.enabled == SDL_TRUE) { line[count] = shield; context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); shield->down = keys[count]; count++; }

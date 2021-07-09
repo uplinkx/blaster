@@ -65,7 +65,7 @@ void	*level_01_close(t_context *context, void *vp_scene)
 		context->init_fn = loot_level_init;
 
 		context->levels[0][1].unlocked = SDL_TRUE;
-		context->shield = laser_green_cannon();
+		context->shield = whirl_cannon();
 		context->next_init_fn = context->levels[0][1].init_fn;
 	}
 

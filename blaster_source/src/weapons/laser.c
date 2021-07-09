@@ -36,7 +36,7 @@ SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta
 	hitbox = with;
 
 	self_attack = meta2;
-	if (hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW)
+	if (hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW || hitbox->type == GOO)
 	{
 		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
 			self_attack->active = SDL_FALSE;

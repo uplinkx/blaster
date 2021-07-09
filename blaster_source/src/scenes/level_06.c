@@ -64,9 +64,12 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 	player_init(&(scene->player));
 	scene->player.weapon_equip = &(context->mainhand);
 
-	context->heal.enabled = SDL_TRUE;
-	context->shield.enabled = SDL_TRUE;
+	// context->heal.enabled = SDL_TRUE;
+	// context->shield.enabled = SDL_TRUE;
 	// context->special.enabled = SDL_TRUE;
+	context->shield = whirl_cannon();
+	context->heal = heal_cannon();
+
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	crosshair_init(&(scene->crosshair));
@@ -103,7 +106,7 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 	slime_yellow_init(&(scene->slime11));
 	scene->slime11.enemy_hurtbox.engage_meta2 = &(scene->score);
 
-	scene->player.max_hp = 100000;
+	scene->player.max_hp = 10000;
 	scene->player.hp = scene->player.max_hp;
 
 	return (NULL);
@@ -168,16 +171,16 @@ void	*level_06_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		slime_pink_update(&(scene->slime), NULL);
-		slime_pink_update(&(scene->slime1), NULL);
-		slime_pink_update(&(scene->slime2), NULL);
-		slime_pink_update(&(scene->slime3), NULL);
-		slime_pink_update(&(scene->slime4), NULL);
-		slime_pink_update(&(scene->slime5), NULL);
+		// slime_pink_update(&(scene->slime), NULL);
+		// slime_pink_update(&(scene->slime1), NULL);
+		// slime_pink_update(&(scene->slime2), NULL);
+		// slime_pink_update(&(scene->slime3), NULL);
+		// slime_pink_update(&(scene->slime4), NULL);
+		// slime_pink_update(&(scene->slime5), NULL);
 
-		slime_yellow_update(&(scene->slime6), NULL);
-		slime_yellow_update(&(scene->slime7), NULL);
-		slime_yellow_update(&(scene->slime8), NULL);
+		// slime_yellow_update(&(scene->slime6), NULL);
+		// slime_yellow_update(&(scene->slime7), NULL);
+		// slime_yellow_update(&(scene->slime8), NULL);
 		slime_yellow_update(&(scene->slime9), NULL);
 		slime_yellow_update(&(scene->slime10), NULL);
 		slime_yellow_update(&(scene->slime11), NULL);

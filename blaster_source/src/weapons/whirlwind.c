@@ -1,0 +1,97 @@
+/***************************************************************************
+ * FILENAME:    whirldwind.c
+ * DESCRIPTION: Whirlwind attack
+ *
+ * ENVIRONMENT:
+ *     macOS Catalina 10.15.7
+ *     Visual Studio Code 1.56.2
+ * AUTHORS:
+ *     Kevin Colour
+ * DATES:
+ *     Created: 08Jul2021
+***************************************************************************/
+
+#include "main.h"
+
+SDL_bool	whirl_fire(SDL_UNUSED t_weapon *weapon)
+{
+	SDL_bool	result;
+
+	result = SDL_FALSE;
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	{
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
+		result = SDL_TRUE;
+	}
+
+	if (g_GameInput.GameInput.button_primleft != 0)
+		weapon->meta_int++;
+
+	return (result);
+}
+
+void	whirl_update(void *self, SDL_UNUSED void *meta)
+{
+	t_bullet	*bullet;
+
+	bullet = self;
+
+	if (bullet->active == SDL_FALSE)
+		return ;
+
+
+	if (bullet->sprite.current >= (size_t)bullet->vel.x)
+	{
+		bullet->active = SDL_FALSE;
+		return ;
+	}
+
+	bullet->sprite.current++;
+	SDLX_RenderQueue_Add(NULL, &(bullet->sprite));
+	SDLX_CollisionBucket_add(NULL, &(bullet->hitbox));
+}
+
+void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, void *meta)
+{
+	t_player	*player;
+	int			*charge;
+
+	player = meta;
+
+	charge = &(player->weapon_equip->meta_int);
+
+	SDLX_new_Sprite(&(dst->sprite));
+	fetch_whirl_sprite(&(dst->sprite.sprite_data), 1);
+	dst->sprite.dst = SDLX_NULL_SELF;
+	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (48 * 3)) / 2, (PLAY_HEIGHT -  (48 * 3)) / 2 + 5, (48 * 3), (48 * 3)};
+
+	dst->active = SDL_TRUE;
+
+	dst->update = whirl_update;
+
+	dst->hitbox.type = WHIRLWIND;
+	dst->hitbox.originator = dst;
+
+	dst->hitbox.detect = NULL;
+	dst->vel.x = *charge + 25;
+	*charge = 0;
+}
+
+#define WHIRL_COOLDOWN (35)
+
+t_weapon	whirl_cannon(void)
+{
+	t_weapon	whirl_cannon;
+
+	whirl_cannon.start = 0;
+	whirl_cannon.cooldown = WHIRL_COOLDOWN;
+
+	whirl_cannon.curr = WHIRL_COOLDOWN;
+
+	whirl_cannon.enabled = SDL_TRUE;
+
+	whirl_cannon.factory = whirl_factory;
+	whirl_cannon.trigger = whirl_fire;
+
+	return (whirl_cannon);
+}
