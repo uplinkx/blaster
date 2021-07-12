@@ -58,6 +58,7 @@ void	projectile_add(t_attacks *dst, t_bullet src)
 	}
 
 	dst->attacks[ix] = src;
+	SDL_Log("Copied %lf", dst->attacks[ix].sprite.angle);
 	dst->attacks[ix].sprite.dst = &(dst->attacks[ix].sprite._dst);
 
 

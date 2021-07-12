@@ -58,6 +58,50 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 		if (SDL_HasIntersection(&(slime->sprite._dst), hitbox->detect_meta1))
 			return (SDL_TRUE);
 	}
+
+	if (hitbox->type == LUNGE)
+	{
+		// SDL_Point
+		SDL_Point	lt;
+		SDL_Point	rt;
+		SDL_Point	lb;
+		SDL_Point	rb;
+		SDL_Rect	*box;
+		double		angle;
+		t_bullet	*lunge;
+
+		box = hitbox->detect_meta1;
+		lt = (SDL_Point){box->x, box->y};
+		rt = (SDL_Point){box->x + box->w, box->y};
+		lb = (SDL_Point){box->x, box->y + box->h};
+		rb = (SDL_Point){box->x + box->w, box->y + box->h};
+
+		lunge = hitbox->detect_meta2;
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
+		// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, box);
+		//  (SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
+
+		angle = hitbox->angle;
+		// angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
+		// angle = (angle * 180 / M_PI);
+		SDL_Log("%lf", angle);
+
+		lt = SDLX_RotatePoint(&lt, angle);
+		rt = SDLX_RotatePoint(&rt, angle);
+		lb = SDLX_RotatePoint(&lb, angle);
+		rb = SDLX_RotatePoint(&rb, angle);
+
+		SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
+
+		if (
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lt.x), &(lt.y), &(rt.x), &(rt.y)) ||
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(rt.x), &(rt.y), &(lb.x), &(lb.y)) ||
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lb.x), &(lb.y), &(rb.x), &(rb.y)) ||
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(rb.x), &(rb.y), &(lt.x), &(lt.y))
+		)
+			return (SDL_TRUE);
+	}
+
 	return (SDL_FALSE);
 }
 

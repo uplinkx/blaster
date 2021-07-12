@@ -38,6 +38,7 @@ t_weapon		time_cannon(void);
 t_weapon		heal_cannon(void);
 
 t_weapon		whirl_cannon(void);
+t_weapon		lunge_cannon(void);
 
 
 /*

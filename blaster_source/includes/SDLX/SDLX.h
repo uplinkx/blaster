@@ -98,6 +98,8 @@ SDLX_direction	SDLX_reverse_dir(SDLX_direction direction);
 SDL_Texture		*SDLX_LoadTexture(char *path);
 SDLX_Sprite		SDLX_Sprite_Static(char *path);
 
+SDL_Point		SDLX_RotatePoint(SDL_Point *point, double angle);
+
 #define SDLX_MOUSE_MOVED (g_GameInput.GameInput.primary_delta.x != 0 || g_GameInput.GameInput.primary_delta.y != 0)
 
 /*

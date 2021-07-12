@@ -86,6 +86,7 @@ void	player_update(t_player *self)
 	{
 		weapon->curr = weapon->start;
 		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, self);
+		SDL_Log("Player %lf", attack.sprite.angle);
 		projectile_add(&(self->attacks), attack);
 	}
 

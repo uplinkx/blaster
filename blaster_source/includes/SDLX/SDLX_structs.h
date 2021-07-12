@@ -211,6 +211,7 @@ typedef struct	SDLX_button
 typedef struct	SDLX_collision
 {
 	size_t		type;
+	double		angle;
 
 	size_t		response_amount;
 	size_t		*response_type;

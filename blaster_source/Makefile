@@ -26,6 +26,7 @@ SDLX_NAMES = 			\
 	SDLX_init			\
 	SDLX_input			\
 	SDLX_ticks			\
+	SDLX_math			\
 	SDLX_render_queue	\
 	SDLX_render			\
 	SDLX_utils			\
@@ -54,6 +55,7 @@ SPRITE_FILES = 			\
 	hp_sprite \
 	level_sprite \
 	loot_sprite \
+	lunge_sprite \
 	pause_sprite \
 	ui_sprites \
 	whirlwind_sprite \
@@ -67,6 +69,7 @@ WEAPON_FILES = 			\
 	laser				\
 	time				\
 	whirlwind			\
+	lunge				\
 	weapon_manager		\
 	weapon_utils		\
 
