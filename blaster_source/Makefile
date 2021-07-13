@@ -99,10 +99,11 @@ SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILE_NAMES)))
 # structure/ path tree that the SRC_DIR has.
 OBJS = $(addprefix $(BIN_DIR), $(SRCS:.c=.o))
 
-all: $(NAME)
+all:
+	make -j $(NAME)
 
 allw:
-	emcc $(FLAGS) $(INCLUDES) -D EMCC $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAMEW)
+	emcc -Wall -Wextra -Werror -O0 $(INCLUDES) -D EMCC $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAMEW)
 
 $(NAME): $(BIN_DIR) $(OBJS)
 	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(SDL_LIB)

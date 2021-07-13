@@ -42,6 +42,7 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	if (animation->center == SDLX_NULL_SELF)
 		animation->center = &(animation->_center);
 
+
 	if (animation->dst != NULL)
 	{
 		draw_rect = *(animation->dst);

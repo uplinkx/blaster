@@ -121,6 +121,7 @@ enum	BLASTER_UI_SPRITES
 enum	BLASTER_COLLISION_TYPES
 {
 	E_NONE,
+	E_DEAD,
 	BULLETS,
 	WHIRLWIND,
 	LUNGE,
@@ -170,6 +171,7 @@ typedef struct	s_enemy
 typedef struct	s_player
 {
 	SDLX_Sprite		sprite;
+	SDL_Rect		hurtbox;
 
 	SDLX_Sprite		hp_s;
 	SDLX_Sprite		hpl_s;

@@ -55,4 +55,5 @@ void	slime_respawn(t_enemy *slime)
 	}
 
 	slime->hp = slime->max_hp;
+	// slime->enemy_hurtbox.type = SLIMES;
 }

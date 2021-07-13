@@ -17,7 +17,7 @@ void	player_init(t_player *player)
 {
 	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
 	player->sprite.dst = &(player->sprite._dst);
-	player->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 48) / 2, 10 * 16, 48, 48};
+	player->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 48) / 2, (PLAY_HEIGHT - 48) / 2, 48, 48};
 
 	SDLX_new_Sprite(&(player->hp_s));
 	fetch_hp_sprite(&(player->hp_s.sprite_data), 1);
@@ -38,7 +38,12 @@ void	player_init(t_player *player)
 	player->player_hurtbox.detect = player_hit;
 	player->player_hurtbox.engage = player_collide;
 	player->player_hurtbox.type = PLAYER;
-	player->player_hurtbox.detect_meta1 = &(player->sprite._dst);
+	player->hurtbox.x = player->sprite._dst.x + 5;
+	player->hurtbox.y = player->sprite._dst.y + 5;
+	player->hurtbox.h = player->sprite._dst.h - 10;
+	player->hurtbox.w = player->sprite._dst.w - 10;
+
+	player->player_hurtbox.detect_meta1 = &(player->hurtbox);
 
 	projectile_queue(&(player->attacks));
 }
@@ -86,7 +91,6 @@ void	player_update(t_player *self)
 	{
 		weapon->curr = weapon->start;
 		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, self);
-		SDL_Log("Player %lf", attack.sprite.angle);
 		projectile_add(&(self->attacks), attack);
 	}
 

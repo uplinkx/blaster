@@ -67,7 +67,8 @@ void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene)
 	// context->heal.enabled = SDL_TRUE;
 	// context->shield.enabled = SDL_TRUE;
 	// context->special.enabled = SDL_TRUE;
-	context->shield = lunge_cannon();
+	context->mainhand = lunge_cannon();
+	context->shield = whirl_cannon();
 	context->heal = heal_cannon();
 
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));

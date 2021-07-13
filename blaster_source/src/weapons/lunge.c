@@ -63,10 +63,15 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	SDLX_new_Sprite(&(dst->sprite));
 	fetch_lunge_sprite(&(dst->sprite.sprite_data), 1);
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (26 * 3)) / 2, (PLAY_HEIGHT) / 2 - 36 * 3, (26 * 3), (36 * 3)};
+	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (17 * 3)) / 2, (PLAY_HEIGHT) / 2 - 42 * 3, (17 * 3), (42 * 3)};
 
 	dst->sprite.center = SDLX_NULL_SELF;
-	dst->sprite._center = (SDL_Point){26 * 3, 36 * 3 * 2};
+#ifdef EMCC
+	dst->sprite._center = (SDL_Point){17 * 6 * 1.25, 42 * 6 * 2 * 1.25};
+#else
+	dst->sprite._center = (SDL_Point){17 * 3, 42 * 3 * 2};
+#endif
+
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = (angle * 180 / M_PI);
 
@@ -76,15 +81,20 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.type = LUNGE;
 	dst->hitbox.originator = dst;
-	SDL_Log("Start %lf", dst->sprite.angle);
-	dst->hitbox.angle = angle - M_PI_2;
+	dst->hitbox.angle = angle;
+	dst->hitbox.hitbox = dst->sprite._dst;
+
+	dst->hitbox.hitbox.x += 20;
+	dst->hitbox.hitbox.y += 18;
+	dst->hitbox.hitbox.h -= 18;
+	dst->hitbox.hitbox.w -= 40;
 
 	dst->hitbox.detect = NULL;
-	dst->vel.x = 50;
+	dst->vel.x = 5;
 	*charge = 0;
 }
 
-#define LUNGE_COOLDOWN (15)
+#define LUNGE_COOLDOWN (12)
 
 t_weapon	lunge_cannon(void)
 {
