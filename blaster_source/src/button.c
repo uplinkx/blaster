@@ -165,3 +165,20 @@ void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapo
 	dst->meta1 = to;
 }
 
+void	*button_slide_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED size_t length)
+{
+	size_t	*at;
+	int		delta;
+
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
+	{
+		SDL_Log("Here");
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
+
+		at = self->meta;
+		delta = (int)self->meta1;
+		*at += delta;
+	}
+
+	return (NULL);
+}

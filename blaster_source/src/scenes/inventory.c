@@ -26,6 +26,10 @@ typedef struct	s_inv_scene
 
 	SDLX_button	prev_weapon;
 
+	size_t			at;
+	size_t			cycle;
+	t_weapon_list	list[6];
+
 	// SDL_Texture	*level_capture;
 }				t_inv_scene;
 
@@ -43,10 +47,24 @@ void	*inventory_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	SDLX_Button_Init(&(scene->prev_weapon), fetch_inventory_sprite, IPREV_NORM, (SDL_Rect){0, 380, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->prev_weapon), IPREV_NORM, IPREV_HOVER);
+	scene->prev_weapon.trigger_fn = button_slide_weapon;
+	scene->prev_weapon.meta = &(scene->at);
+	scene->prev_weapon.meta1 = (void *)-1;
 
 	SDLX_Button_Init(&(scene->next_weapon), fetch_inventory_sprite, INEXT_NORM, (SDL_Rect){PLAY_WIDTH - 48, 380, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->next_weapon), INEXT_NORM, INEXT_HOVER);
+	scene->next_weapon.trigger_fn = button_slide_weapon;
+	scene->next_weapon.meta = &(scene->at);
+	scene->next_weapon.meta1 = (void *)1;
 
+	scene->at = 0;
+	scene->cycle = sizeof(scene->list) / sizeof(*(scene->list));
+	scene->list[0] = (t_weapon_list){SDL_TRUE, B_HEAL		,heal_cannon(),			"Heal"};
+	scene->list[1] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_cannon(),		"Laser"};
+	scene->list[2] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_green_cannon(),	"Laser Green"};
+	scene->list[3] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_yellow_cannon(),	"Laser Yellow"};
+	scene->list[4] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,lunge_cannon(),		"Lunge"};
+	scene->list[5] = (t_weapon_list){SDL_TRUE, B_SHIELD		,whirl_cannon(),		"Whirlwind"};
 	return (NULL);
 }
 
@@ -71,6 +89,9 @@ void	*inventory_update(SDL_UNUSED t_context *context, void *vp_scene)
 	SDLX_Button_Update(&(scene->level_select));
 	SDLX_Button_Update(&(scene->prev_weapon));
 	SDLX_Button_Update(&(scene->next_weapon));
+
+	scene->at %= scene->cycle;
+	SDL_Log("At: %s", scene->list[scene->at].name);
 
 	return (NULL);
 }

@@ -51,6 +51,14 @@ typedef struct	s_weapon
 	void		(*factory)(struct s_bullet *, SDL_Point, double , void *);
 }				t_weapon;
 
+typedef struct	s_weapon_list
+{
+	SDL_bool	unlocked;
+	int			weapon_type;
+	t_weapon	weapon;
+	char		*name;
+}				t_weapon_list;
+
 typedef struct	s_context
 {
 	SDL_bool	exit;
@@ -127,6 +135,15 @@ enum	BLASTER_UI_SPRITES
 	ABILITY_SEL,
 
 	EMPTY_UI,
+};
+
+enum	e_weapon_types
+{
+	B_NONE		= 0b0000,
+	B_MAINHAND	= 0b0001,
+	B_SHIELD	= 0b0010,
+	B_HEAL		= 0b0100,
+	B_SPECIAL	= 0b1000,
 };
 
 enum	BLASTER_COLLISION_TYPES
