@@ -31,6 +31,8 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	size_t		no;
 	SDL_Rect	draw_rect;
 	SDL_Rect	*ptr_rect;
+	SDL_Point	draw_cent;
+	SDL_Point	*ptr_cent;
 
 	// SDL_Log("ERROR %zu", animation->sprite_data->cycle);
 	no = animation->current % animation->sprite_data->cycle;
@@ -39,9 +41,9 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	if (animation->dst == SDLX_NULL_SELF)
 		animation->dst = &(animation->_dst);
 
+	ptr_cent = NULL;
 	if (animation->center == SDLX_NULL_SELF)
 		animation->center = &(animation->_center);
-
 
 	if (animation->dst != NULL)
 	{
@@ -53,13 +55,21 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 		ptr_rect = &draw_rect;
 	}
 
+	if (animation->center != NULL)
+	{
+		draw_cent = *(animation->center);
+		draw_cent.x *= DISPLAY_SCALE;
+		draw_cent.y *= DISPLAY_SCALE;
+		ptr_cent = &draw_cent;
+	}
+
 	SDL_RenderCopyEx(renderer,
 	animation->sprite_data[no].texture,
 	animation->sprite_data[no].src,
 
 	ptr_rect,
 	animation->angle,
-	animation->center,
+	ptr_cent,
 	animation->flip);
 
 	animation->current += animation->sprite_data[no].skip;

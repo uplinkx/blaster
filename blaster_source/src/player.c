@@ -112,4 +112,6 @@ void	player_update(t_player *self)
 
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
 	SDLX_CollisionBucket_add(NULL, &(self->player_hurtbox));
+
+	SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, 0, 0, self->sprite._dst.x * 3, self->sprite._dst.y * 3);
 }

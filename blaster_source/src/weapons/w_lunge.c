@@ -66,11 +66,7 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (17 * 3)) / 2, (PLAY_HEIGHT) / 2 - 42 * 3, (17 * 3), (42 * 3)};
 
 	dst->sprite.center = SDLX_NULL_SELF;
-#ifdef EMCC
-	dst->sprite._center = (SDL_Point){17 * 6 * 1.25, 42 * 6 * 2 * 1.25};
-#else
-	dst->sprite._center = (SDL_Point){17 * 3, 42 * 3 * 2};
-#endif
+	dst->sprite._center = (SDL_Point){(17 * 3) / 2, 42 * 3};
 
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = (angle * 180 / M_PI);
