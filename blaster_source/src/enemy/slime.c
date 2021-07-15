@@ -92,12 +92,12 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 		lb.y += PLAY_HEIGHT / 2;
 		rb.y += PLAY_HEIGHT / 2;
 
-		SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, lt.x, lt.y);
-		SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
-		SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, rb.x, rb.y);
-		SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, rt.x, rt.y, rb.x, rb.y);
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, lt.x, lt.y);
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, rb.x, rb.y);
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, rt.x, rt.y, rb.x, rb.y);
 
-		SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, box);
+		// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, box);
 
 		if (
 			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lb.x), &(lb.y), &(lt.x), &(lt.y)) ||
@@ -108,7 +108,7 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 		)
 			return (SDL_TRUE);
 	}
-	SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(slime->sprite._dst));
+	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(slime->sprite._dst));
 
 	return (SDL_FALSE);
 }
@@ -172,7 +172,6 @@ void	slime_update(t_enemy *slime, SDL_UNUSED void *meta)
 	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
 	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(slime->sprite._dst));
-	// SDL_Log("AT: %d", slime->hp);
 }
 
 void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)

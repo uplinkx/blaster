@@ -35,6 +35,7 @@ SDLX_NAMES = 			\
 SCENE_FILES = 			\
 	main_menu			\
 	level_select		\
+	inventory			\
 	\
 	death_scene			\
 	loot_scene			\
@@ -53,6 +54,7 @@ SPRITE_FILES = 			\
 	coin_sprite \
 	heal_sprite \
 	hp_sprite \
+	inventory_sprite \
 	level_sprite \
 	loot_sprite \
 	lunge_sprite \
@@ -65,11 +67,11 @@ ENEMY_FILES = 			\
 	slime_util			\
 
 WEAPON_FILES = 			\
-	heal				\
-	laser				\
-	time				\
-	whirlwind			\
-	lunge				\
+	w_heal				\
+	w_laser				\
+	w_time				\
+	w_whirlwind			\
+	w_lunge				\
 	weapon_manager		\
 	weapon_utils		\
 
@@ -140,7 +142,7 @@ rew:
 
 run:
 	rm -f $(NAME)
-	make all
+	make -j all
 	clear
 	@echo "\033[1m\033[32m$(NAME)\033[0m"
 	@./$(NAME)

@@ -100,6 +100,8 @@ void	*level_02_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->heal));
 		SDLX_Button_Update(&(scene->special));
 
+		SDLX_CollisionBucket_Flush(NULL);
+
 		update_crosshair(&(scene->crosshair));
 		player_update(&(scene->player));
 
@@ -110,7 +112,6 @@ void	*level_02_update(t_context *context, void *vp_scene)
 		slime_update(&(scene->slime2), NULL);
 		slime_update(&(scene->slime3), NULL);
 
-		SDLX_CollisionBucket_Flush(NULL);
 	}
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);

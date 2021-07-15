@@ -79,7 +79,7 @@ int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no)
 	if (sprite_arr == NULL)
 		sprite_arr = carve_pause_sprite();
 
-	if (no == MMENU_NORM)		{ (*dst) = &(sprite_arr[0]); return (EXIT_SUCCESS); }
+	if 		(no == MMENU_NORM)	{ (*dst) = &(sprite_arr[0]); return (EXIT_SUCCESS); }
 	else if (no == MMENU_HOVER)	{ (*dst) = &(sprite_arr[1]); return (EXIT_SUCCESS); }
 	else if (no == MREDO_NORM)	{ (*dst) = &(sprite_arr[2]); return (EXIT_SUCCESS); }
 	else if (no == MREDO_HOVER)	{ (*dst) = &(sprite_arr[3]); return (EXIT_SUCCESS); }

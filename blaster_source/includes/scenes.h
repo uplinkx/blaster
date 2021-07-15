@@ -32,6 +32,10 @@ void	*death_level_init(t_context *context, void *vp_scene);
 void	*death_level_close(t_context *context, void *vp_scene);
 void	*death_level_update(t_context *context, void *vp_scene);
 
+void	*inventory_init(t_context *context, void *vp_scene);
+void	*inventory_close(t_context *context, void *vp_scene);
+void	*inventory_update(t_context *context, void *vp_scene);
+
 void	*level_01_init(t_context *context, void *vp_scene);
 void	*level_01_close(t_context *context, void *vp_scene);
 void	*level_01_update(t_context *context, void *vp_scene);

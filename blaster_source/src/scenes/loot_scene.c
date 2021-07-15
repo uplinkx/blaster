@@ -54,7 +54,7 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	SDLX_Style_Button(&(scene->inventory), LINVT_NORM, LINVT_HOVER);
 	scene->inventory.trigger_fn = button_trigger_scene_switch;
 	scene->inventory.meta = context;
-	scene->inventory.meta1 = level_select_init;
+	scene->inventory.meta1 = inventory_init;
 
 	SDLX_new_Sprite(&(scene->background));
 	fetch_loot_sprite(&(scene->background.sprite_data), LBACK);

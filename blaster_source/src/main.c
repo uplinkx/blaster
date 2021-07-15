@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/08 02:32:11 by home             ###   ########.fr       */
+/*   Updated: 2021/07/15 04:03:04 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	blaster_start(t_context *context)
 	context->next_init_fn = level_select_init;
 
 	context->init_fn = main_menu_init;
+
 
 	unequip_weapon(&(context->mainhand));
 	unequip_weapon(&(context->special));
@@ -82,6 +83,7 @@ void	blaster_start(t_context *context)
 
 	// context->init_fn = first_level_init;
 	// context->init_fn = level_select_init;
+	context->init_fn = inventory_init;
 
 	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
 }
