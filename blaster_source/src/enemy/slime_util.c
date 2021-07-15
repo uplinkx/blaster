@@ -17,7 +17,7 @@ void	slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (
 {
 	char buff[30] = { 0 };
 
-	SDL_snprintf(buff, 100, ASSETS"%s.png", kind);
+	SDL_snprintf(buff, 100, ASSETS"enemy/%s.png", kind);
 	slime->sprite = SDLX_Sprite_Static(buff);
 
 	slime->sprite.dst = SDLX_NULL_SELF;

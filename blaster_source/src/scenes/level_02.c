@@ -36,7 +36,7 @@ void	*level_02_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_second_level	*scene;
 
-	scene = new_scene(sizeof(*scene), context, ASSETS"level_one.png", level_02_close, level_02_update);
+	scene = new_scene(sizeof(*scene), context, ASSETS"backdrop/level_one.png", level_02_close, level_02_update);
 
 	scene->score = 0;
 	scene->pbackground = NULL;

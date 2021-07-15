@@ -33,7 +33,7 @@ void	*inventory_init(t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_inv_scene *scene;
 
-	scene = new_scene(sizeof(*scene), context, ASSETS"inventory.png", inventory_close, inventory_update);
+	scene = new_scene(sizeof(*scene), context, ASSETS"backdrop/inventory.png", inventory_close, inventory_update);
 
 	SDLX_Button_Init(&(scene->level_select), fetch_inventory_sprite, IBACK_NORM, (SDL_Rect){PLAY_WIDTH - 48 - 8, 8, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->level_select), IBACK_NORM, IBACK_HOVER);
