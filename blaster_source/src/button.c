@@ -193,10 +193,30 @@ void	*button_equip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED s
 
 		context = self->meta;
 		new_weapon = self->meta1;
-		if (new_weapon->weapon_type == B_MAINHAND) { context->mainhand = new_weapon->weapon; }
-		else if (new_weapon->weapon_type == B_HEAL) { context->heal = new_weapon->weapon; }
-		else if (new_weapon->weapon_type == B_SHIELD) { context->shield = new_weapon->weapon; }
-		else if (new_weapon->weapon_type == B_SPECIAL) { context->special = new_weapon->weapon; }
+		if (new_weapon->weapon_type & B_MAINHAND) { context->mainhand = new_weapon->weapon; }
+		else if (new_weapon->weapon_type & B_HEAL) { context->heal = new_weapon->weapon; }
+		else if (new_weapon->weapon_type & B_SHIELD) { context->shield = new_weapon->weapon; }
+		else if (new_weapon->weapon_type & B_SPECIAL) { context->special = new_weapon->weapon; }
+	}
+
+	return (NULL);
+}
+
+void	*button_unequip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED size_t length)
+{
+	t_context	*context;
+	t_weapon_list	*new_weapon;
+
+	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
+	{
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
+
+		context = self->meta;
+		new_weapon = self->meta1;
+		if (new_weapon->weapon_type & B_MAINHAND) { unequip_weapon(&(context->mainhand)); }
+		else if (new_weapon->weapon_type & B_HEAL) { unequip_weapon(&(context->heal)); }
+		else if (new_weapon->weapon_type & B_SHIELD) { unequip_weapon(&(context->shield)); }
+		else if (new_weapon->weapon_type & B_SPECIAL) { unequip_weapon(&(context->special)); }
 	}
 
 	return (NULL);

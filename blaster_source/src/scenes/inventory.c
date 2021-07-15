@@ -22,6 +22,8 @@ typedef struct	s_inv_scene
 	SDLX_button	next_weapon;
 
 	SDLX_button	equip_weapon;
+	SDLX_button	unequip_weapon;
+
 	SDLX_button	weapon_info;
 
 	SDLX_button	prev_weapon;
@@ -62,6 +64,11 @@ void	*inventory_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->equip_weapon.trigger_fn = button_equip_weapon;
 	scene->equip_weapon.meta = context;
 
+	SDLX_Button_Init(&(scene->unequip_weapon), fetch_inventory_sprite, IMENU_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2, 380, 48, 48}, NULL);
+	SDLX_Style_Button(&(scene->unequip_weapon), IMENU_NORM, IMENU_HOVER);
+	scene->unequip_weapon.trigger_fn = button_unequip_weapon;
+	scene->unequip_weapon.meta = context;
+
 	scene->at = 0;
 	scene->cycle = sizeof(scene->list) / sizeof(*(scene->list));
 	scene->list[0] = (t_weapon_list){SDL_TRUE, B_HEAL		,heal_cannon(),			"Heal"};
@@ -92,13 +99,37 @@ void	*inventory_update(SDL_UNUSED t_context *context, void *vp_scene)
 	scene = vp_scene;
 
 	scene->equip_weapon.meta1 = &(scene->list[scene->at]);
+	scene->unequip_weapon.meta1 = &(scene->list[scene->at]);
 
 	SDLX_Button_Update(&(scene->level_select));
 	SDLX_Button_Update(&(scene->prev_weapon));
 	SDLX_Button_Update(&(scene->next_weapon));
-	SDLX_Button_Update(&(scene->equip_weapon));
 
 	scene->at = (scene->at + scene->cycle) % scene->cycle;
+
+	void	*factory;
+
+	/*
+	** Does not yet account if two spots are the same weapon#include "../aoc++.h"
+	** Which does it equip onto first, or which does it deequip.
+	*/
+
+	if (scene->list[scene->at].weapon_type & B_MAINHAND) { factory = context->mainhand.factory; }
+	else if (scene->list[scene->at].weapon_type & B_HEAL) { factory = context->heal.factory; }
+	else if (scene->list[scene->at].weapon_type & B_SHIELD) { factory = context->shield.factory; }
+	else { factory = context->special.factory; }
+
+	scene->equip_weapon.disabled = SDL_TRUE;
+	scene->unequip_weapon.disabled = SDL_TRUE;
+
+	if (scene->list[scene->at].weapon.factory != factory)
+		scene->equip_weapon.disabled = SDL_FALSE;
+	else
+		scene->unequip_weapon.disabled = SDL_FALSE;
+
+	SDLX_Button_Update(&(scene->equip_weapon));
+	SDLX_Button_Update(&(scene->unequip_weapon));
+
 	SDL_Log("At: %s", scene->list[scene->at].name);
 
 	return (NULL);

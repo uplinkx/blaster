@@ -35,6 +35,15 @@ void	unequip_weapon(t_weapon *dst)
 	dst->trigger = empty_weapon_trigger;
 }
 
+t_weapon	default_cannon(void)
+{
+	t_weapon	default_cannon;
+
+	default_cannon = laser_cannon();
+	return (default_cannon);
+}
+
+
 #define ABILITY_LEFT_PADDING (16)
 
 void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *shield, SDLX_button *heal, SDLX_button *special)
@@ -72,6 +81,20 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	if (context->heal.enabled == SDL_TRUE) { line[count] = heal; context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); heal->down = keys[count]; count++; }
 	if (context->special.enabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); special->down = keys[count]; count++; }
 
+	if (count == 0)
+	{
+		context->mainhand = default_cannon();
+
+		line[count] = mainhand;
+		context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png");
+		mainhand->down = keys[count];
+		count++;
+
+		ability_button_init(mainhand, player_weapon_addr, &(context->mainhand));
+		context->mainhand.curr = context->mainhand.cooldown;
+		context->mainhand.meta_int = 0;
+	}
+
 	i = 0;
 	SDL_assert(count != 0);
 	ability_bar_width = 304 - ABILITY_LEFT_PADDING - ABILITY_LEFT_PADDING;
@@ -97,6 +120,11 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	context->special.cooldown_sprite._dst = special->sprite._dst;
 	context->shield.cooldown_sprite._dst = shield->sprite._dst;
 	context->heal.cooldown_sprite._dst = heal->sprite._dst;
+
+	if (context->mainhand.enabled) { *player_weapon_addr = &(context->mainhand); }
+	else if (context->shield.enabled) { *player_weapon_addr = &(context->shield); }
+	else if (context->heal.enabled) { *player_weapon_addr = &(context->heal); }
+	else { *player_weapon_addr = &(context->special); }
 }
 
 void	update_cooldowns(t_weapon *mainhand, t_weapon *shield, t_weapon *heal, t_weapon *special)
