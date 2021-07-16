@@ -59,7 +59,8 @@ void	*level_01_close(t_context *context, void *vp_scene)
 	scene = vp_scene;
 	context->redo_init_fn = context->init_fn;
 
-	if (scene->score >= 12)
+	if (scene->player.hp <= 0) { context->init_fn = death_level_init; }
+	else if (scene->score >= 12)
 	{
 		context->init_fn = loot_level_init;
 
@@ -67,8 +68,6 @@ void	*level_01_close(t_context *context, void *vp_scene)
 		context->shield = whirl_cannon();
 		context->next_init_fn = context->levels[0][1].init_fn;
 	}
-
-	if (scene->player.hp <= 0) { context->init_fn = death_level_init; }
 
 	if (scene->pbackground != NULL) { SDL_DestroyTexture(scene->pbackground); }
 

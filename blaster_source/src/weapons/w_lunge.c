@@ -81,8 +81,8 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.hitbox = dst->sprite._dst;
 
 	dst->hitbox.hitbox.x += 20;
-	dst->hitbox.hitbox.y += 18;
-	dst->hitbox.hitbox.h -= 18;
+	dst->hitbox.hitbox.y += 10;
+	dst->hitbox.hitbox.h -= 10;
 	dst->hitbox.hitbox.w -= 40;
 
 	dst->hitbox.detect = NULL;

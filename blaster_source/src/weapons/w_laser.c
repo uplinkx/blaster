@@ -26,6 +26,19 @@ SDL_bool	laser_fire(SDL_UNUSED t_weapon *weapon)
 	return (result);
 }
 
+SDL_bool	laser_yellow_fire(SDL_UNUSED t_weapon *weapon)
+{
+	SDL_bool	result;
+
+	result = SDL_FALSE;
+	if (g_GameInput.GameInput.button_primleft != 0 && weapon->curr >= weapon->cooldown)
+	{
+		// SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
+		result = SDL_TRUE;
+	}
+	return (result);
+}
+
 SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta2)
 {
 	SDLX_collision	*self_box;
@@ -202,7 +215,7 @@ t_weapon	laser_yellow_cannon(void)
 	laser_cannon.enabled = SDL_TRUE;
 
 	laser_cannon.factory = laser_yellow_factory;
-	laser_cannon.trigger = laser_fire;
+	laser_cannon.trigger = laser_yellow_fire;
 
 	return (laser_cannon);
 }

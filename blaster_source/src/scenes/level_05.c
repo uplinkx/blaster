@@ -25,6 +25,7 @@ typedef struct	s_third_level
 	SDLX_button			mainhand, shield, heal, special;
 
 	t_enemy				slime;
+	t_enemy				slime1;
 	t_enemy				slime2;
 	t_enemy				slime3;
 	t_enemy				slime4;
@@ -51,16 +52,15 @@ void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene)
 	pause_menu_init(&(scene->pause_menu), &(scene->pause.triggered), &(scene->pbackground), context, context->init_fn);
 
 	player_init(&(scene->player));
-	scene->player.weapon_equip = &(context->mainhand);
 
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	crosshair_init(&(scene->crosshair));
 
-	slime_init(&(scene->slime3));
-	scene->slime3.enemy_hurtbox.engage_meta2 = &(scene->score);
-	slime_init(&(scene->slime4));
-	scene->slime4.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_init(&(scene->slime));
+	scene->slime.enemy_hurtbox.engage_meta2 = &(scene->score);
+	slime_init(&(scene->slime1));
+	scene->slime1.enemy_hurtbox.engage_meta2 = &(scene->score);
 
 	// slime_yellow_init(&(scene->slime3));
 	// scene->slime3.enemy_hurtbox.engage_meta2 = &(scene->score);
@@ -133,19 +133,19 @@ void	*level_05_update(t_context *context, void *vp_scene)
 
 		if (scene->slow == SDL_FALSE || context->ticks % 3 == 0)
 		{
-			// slime_update(&(scene->slime), NULL);
-			// slime_update(&(scene->slime2), NULL);
-			slime_yellow_update(&(scene->slime3), NULL);
-			slime_yellow_update(&(scene->slime4), NULL);
+			slime_update(&(scene->slime), NULL);
+			slime_update(&(scene->slime2), NULL);
+			// slime_yellow_update(&(scene->slime3), NULL);
+			// slime_yellow_update(&(scene->slime4), NULL);
 			slime_purple_update(&(scene->slime5), NULL);
 			slime_pink_update(&(scene->slime6), NULL);
 		}
 		else
 		{
-			// SDLX_RenderQueue_Add(NULL, &(scene->slime.sprite));
-			// SDLX_RenderQueue_Add(NULL, &(scene->slime2.sprite));
-			SDLX_RenderQueue_Add(NULL, &(scene->slime3.sprite));
-			SDLX_RenderQueue_Add(NULL, &(scene->slime4.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime.sprite));
+			SDLX_RenderQueue_Add(NULL, &(scene->slime2.sprite));
+			// SDLX_RenderQueue_Add(NULL, &(scene->slime3.sprite));
+			// SDLX_RenderQueue_Add(NULL, &(scene->slime4.sprite));
 			SDLX_RenderQueue_Add(NULL, &(scene->slime5.sprite));
 			SDLX_RenderQueue_Add(NULL, &(scene->slime6.sprite));
 			if (slow % 100 == 0)

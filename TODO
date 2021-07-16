@@ -1,18 +1,16 @@
-Lock on System
-
-Inventory Screen
+Timed Ticks??
 Drop System
-
+Item Pickup System
 Hexagon Grid
+Lock on System
+TREASURE SYSTEM
 
-Timed Ticks
+TUTORIAL
 
 COLLISIONS
 	Types
 	Reusable Structures
 	Reusable Functions
-
-TREASURE SYSTEM
 
 DATA-DRIVEN LEVELS
 	Wave data
@@ -23,20 +21,31 @@ DATA-DRIVEN LEVELS
 			Time of Spawn
 
 ENEMIES
-	Movement Function
+	Wall		(Takes hits)
+	Bomb		(Drops bomb on Death)
+	Juker		(Teleports)
+	Healer		(Heals Enemies in radius)
+	Voider		(Devoids Energy Blast)
+	Spiny		(Spikes on Death)
+	Avoider		(Crosshair avoid)
+	Vengeance	(Absorbs Energy, Explodes on melee)
+	Energizer	(Speed boost other enemies, paralyzes you)
+	Special Ops	(Partially Invisible)
+	Jumper		(Harder to predict movement)
+	Necro		(Summons Dead enemies)
+	Sword		(Melee attacks player)
+	Artillerist	(Produces bullets on timer)
 
 WEAPONS:
 	Fire Beam
 	Snowball
-	Spin Attack
 	Boomerang
 	Railgun
 	Shotgun
 	Slash
-	Lunge
 	Shields
 	Forever Wire
-
+	Stun Hurricane
 
 Memory Leak
 

@@ -1,0 +1,19 @@
+Enemies			depends on Gameplay
+Weapons			depends on Gameplay
+
+Collision		depends on Enemies
+
+Lock on System	depends on Gameplay
+Treasure system	depends on Drop System, Waves
+
+Drop system		depends on Inventory, Wave System
+Item Pickup		depends on Drop System
+
+heal		increased amount, invincibility frames
+laser		decrease cooldown, increase damage
+lunge		increase range, increase hitbox, increase damage, invincibility frames
+shield		increase damage taken, increase hitbox, thorn damage
+time		decrease cooldown, reset cooldowns, slower time
+whirlwind	increase damage, increase hitbox
+
+Health upgrades
