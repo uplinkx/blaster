@@ -40,12 +40,10 @@ SCENE_FILES = 			\
 	death_scene			\
 	loot_scene			\
 	\
-	level_01			\
-	level_02			\
-	level_03			\
-	level_04			\
-	level_05			\
-	level_06			\
+	\
+	play_01				\
+	level				\
+	level_init			\
 	\
 	scene_utils			\
 
@@ -65,6 +63,7 @@ SPRITE_FILES = 			\
 ENEMY_FILES = 			\
 	slime				\
 	slime_util			\
+	enemy_manager		\
 
 WEAPON_FILES = 			\
 	w_heal				\
@@ -90,6 +89,7 @@ SRC_NAMES = \
 	player \
 	ui \
 	utils \
+	waves \
 
 # List of all the source files, folders are to be added by
 # including a $(addprefix, DIR_NAME, $(DIR_FILES))

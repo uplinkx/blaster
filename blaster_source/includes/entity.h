@@ -48,7 +48,7 @@ t_weapon		lunge_cannon(void);
 void			slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (*update_fn)(t_enemy *, void *));
 void			slime_respawn(t_enemy *slime);
 
-void			slime_init(t_enemy *dst);
+void			slime_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod);
 void			slime_update(t_enemy *self, void *);
 SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2);
 void			*slime_collide(void *self, void *with, void *meta1, void *meta2);

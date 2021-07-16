@@ -13,9 +13,11 @@
 
 #include "main.h"
 
-void		slime_init(t_enemy *dst)
+void		slime_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_blue", SLIMES, 1, slime_update);
+	dst->sprite._dst.x = loc.x;
+	dst->sprite._dst.y = loc.y;
 	dst->meta1 = (void *)4;
 }
 
@@ -143,6 +145,7 @@ void	slime_update(t_enemy *slime, SDL_UNUSED void *meta)
 {
 	int			dx;
 	int			dy;
+	size_t		*score;
 	int move = rand() % 9;
 
 	dx = 0;
@@ -167,10 +170,18 @@ void	slime_update(t_enemy *slime, SDL_UNUSED void *meta)
 		slime->sprite._dst.y += dy * (int)(slime->meta1);
 
 	if (slime->hp <= 0)
-		slime_respawn(slime);
+	{
+		slime->active = SDL_FALSE;
+		score = slime->enemy_hurtbox.engage_meta2;
+		(*score)++;
+		// slime_respawn(slime);
+	}
+	else
+	{
+		SDLX_RenderQueue_Add(NULL, &(slime->sprite));
+		SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
+	}
 
-	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
-	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(slime->sprite._dst));
 }
 

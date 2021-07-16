@@ -33,9 +33,7 @@ void	*new_scene(size_t size, t_context *context, char *background_path, void *(c
 		SDLX_SetBackground(&(context->background));
 	}
 	else
-	{
 		SDLX_SetBackground(NULL);
-	}
 
 	return (result);
 }

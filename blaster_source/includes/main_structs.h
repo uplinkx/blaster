@@ -15,6 +15,7 @@
 # define MAIN_STRUCTS_H
 
 # include "SDLX/SDLX.h"
+# include "waves.h"
 
 struct s_context;
 struct s_bullet;
@@ -88,78 +89,6 @@ typedef struct	s_context
 
 }				t_context;
 
-enum	BLASTER_UI_SPRITES
-{
-	LOCK_NORM,
-	LOCK_HOVER,
-	BACK_NORM,
-	BACK_HOVER,
-
-	PLAY_NORM,
-	PLAY_HOVER,
-	CREDIT_NORM,
-	CREDIT_HOVER,
-	PAUSE_NORM,
-
-	MMENU_NORM,
-	MMENU_HOVER,
-	MREDO_NORM,
-	MREDO_HOVER,
-	MPLAY_NORM,
-	MPLAY_HOVER,
-	MBACK,
-
-	IMENU_NORM,
-	IMENU_HOVER,
-	IPREV_NORM,
-	IPREV_HOVER,
-	INEXT_NORM,
-	INEXT_HOVER,
-	IINFO_NORM,
-	IINFO_HOVER,
-	IBACK_NORM,
-	IBACK_HOVER,
-
-	LMENU_NORM,
-	LMENU_HOVER,
-	LREDO_NORM,
-	LREDO_HOVER,
-	LNEXT_NORM,
-	LNEXT_HOVER,
-	LINVT_NORM,
-	LINVT_HOVER,
-	LBACK,
-	DBACK,
-
-	ABILITY,
-	ABILITY_SEL,
-
-	EMPTY_UI,
-};
-
-enum	e_weapon_types
-{
-	B_NONE		= 0b0000,
-	B_MAINHAND	= 0b0001,
-	B_SHIELD	= 0b0010,
-	B_HEAL		= 0b0100,
-	B_SPECIAL	= 0b1000,
-};
-
-enum	BLASTER_COLLISION_TYPES
-{
-	E_NONE,
-	E_DEAD,
-	BULLETS,
-	WHIRLWIND,
-	LUNGE,
-	SLIMES,
-	SLIMES_YELLOW,
-	PLAYER,
-	HEAL,
-	GOO,
-};
-
 typedef struct	s_bullet
 {
 	SDLX_Sprite		sprite;
@@ -184,6 +113,8 @@ typedef struct	s_attacks
 
 typedef struct	s_enemy
 {
+	SDL_bool		active;
+
 	SDLX_Sprite		sprite;
 	SDLX_collision	enemy_hurtbox;
 
@@ -195,6 +126,12 @@ typedef struct	s_enemy
 
 	void			(*update)(struct s_enemy *, void *);
 }				t_enemy;
+
+typedef struct	s_enemy_m
+{
+	size_t		capacity;
+	t_enemy		*entity_array;
+}				t_enemy_m;
 
 typedef struct	s_player
 {
@@ -225,5 +162,22 @@ typedef struct	s_pmenu
 	SDLX_button	redo;
 	SDLX_button	menu;
 }				t_pmenu;
+
+typedef struct	s_level
+{
+	SDLX_button			pause;
+	t_pmenu				pause_menu;
+
+	t_player			player;
+	SDLX_Sprite			crosshair;
+
+	SDLX_Sprite			bottom_ui;
+	SDLX_button			mainhand, shield, heal, special;
+
+	t_wave				stage;
+	t_enemy_m			enemies;
+
+	SDL_Texture			*pbackground;
+}				t_level;
 
 #endif

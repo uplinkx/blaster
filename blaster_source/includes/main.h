@@ -18,11 +18,14 @@
 # include "SDLX/SDLX.h"
 
 # include "main_structs.h"
+# include "main_enums.h"
 # include "entity.h"
 # include "scenes.h"
+# include "waves.h"
 
 # define ASSETS "assets/"
 
+//PLAY WINDOW is {304x352}
 # define PLAY_WIDTH (WIN_WIDTH / DISPLAY_SCALE)
 # define BOTTOM_UI (16 * 7)
 # define PLAY_HEIGHT ((WIN_HEIGHT / DISPLAY_SCALE) - BOTTOM_UI)
@@ -80,6 +83,16 @@ void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapo
 
 void	*new_scene(size_t size, t_context *context, char *background_path, t_scene_fn close, t_scene_fn update);
 void	end_scene(t_context *context, SDLX_button *pause);
+
+/*
+** Wave Functions
+*/
+
+t_enemy	*spawn_enemy_addr(t_enemy_m *manager);
+void	init_enemy_array(t_enemy_m *manager);
+void	iter_enemies(t_enemy_m *enemies);
+
+SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man);
 
 /*
 ** Misc. Functions
