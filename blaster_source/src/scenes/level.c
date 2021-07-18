@@ -88,6 +88,7 @@ void	*level_update(t_context *context, void *vp_scene)
 		SDLX_Button_Update(&(scene->heal));
 
 		update_crosshair(&(scene->crosshair));
+		SDLX_CollisionBucket_Flush(NULL);
 		player_update(&(scene->player));
 
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
@@ -96,7 +97,6 @@ void	*level_update(t_context *context, void *vp_scene)
 		wave_done = wave_method(&(scene->stage), &(scene->enemies));
 		iter_enemies(&(scene->enemies));
 
-		SDLX_CollisionBucket_Flush(NULL);
 	}
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);

@@ -73,11 +73,11 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.originator = dst;
 
 	dst->hitbox.detect = NULL;
-	dst->vel.x = *charge + 25;
+	dst->vel.x = *charge + 10;
 	*charge = 0;
 }
 
-#define WHIRL_COOLDOWN (60)
+#define WHIRL_COOLDOWN (90)
 
 t_weapon	whirl_cannon(void)
 {

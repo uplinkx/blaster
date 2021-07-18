@@ -80,13 +80,25 @@ void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, 
 	return (NULL);
 }
 
+void	resize_healthbar(t_player *self)
+{
+	if (self->hp > self->max_hp)
+		self->hp = self->max_hp;
+
+	self->hp_s._dst.w = lerp32(((double)self->hp) / self->max_hp, 16, PLAY_WIDTH - 16);
+
+	if (self->hpl_s._dst.w > self->hp_s._dst.w)
+		self->hpl_s._dst.w--;
+	else if (self->hpl_s._dst.w < self->hp_s._dst.w)
+		self->hpl_s._dst.w = self->hp_s._dst.w;
+}
+
 void	player_update(t_player *self)
 {
 	t_weapon	*weapon;
 	t_bullet	attack;
 
 	weapon = self->weapon_equip;
-
 	if (weapon->trigger(weapon) == SDL_TRUE)
 	{
 		weapon->curr = weapon->start;
@@ -94,22 +106,13 @@ void	player_update(t_player *self)
 		projectile_add(&(self->attacks), attack);
 	}
 
-	if (self->hp > self->max_hp) { self->hp = self->max_hp; }
-
-	self->hp_s._dst.w = lerp32(((double)self->hp) / self->max_hp, 16, PLAY_WIDTH - 16);
-
-	if (self->hpl_s._dst.w > self->hp_s._dst.w)
-	{
-		self->hpl_s._dst.w--;
-	}
-	else if (self->hpl_s._dst.w < self->hp_s._dst.w)
-		self->hpl_s._dst.w = self->hp_s._dst.w;
+	resize_healthbar(self);
+	self->heart.current++;
 
 	SDLX_RenderQueue_Add(NULL, &(self->heart));
-	self->heart.current++;
 	SDLX_RenderQueue_Add(NULL, &(self->hp_s));
 	SDLX_RenderQueue_Add(NULL, &(self->hpl_s));
-
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
+
 	SDLX_CollisionBucket_add(NULL, &(self->player_hurtbox));
 }

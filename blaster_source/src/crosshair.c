@@ -19,7 +19,6 @@ void	crosshair_init(SDLX_Sprite *crosshair)
 
 	crosshair->dst = &(crosshair->_dst);
 	crosshair->_dst = (SDL_Rect){(PLAY_WIDTH) / 2 - 40, (PLAY_HEIGHT) / 2 - 40, 80, 80};
-	crosshair->angle = 0;
 }
 
 void	update_crosshair(SDLX_Sprite *crosshair)
