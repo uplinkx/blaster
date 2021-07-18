@@ -35,10 +35,8 @@ void	whirl_update(void *self, SDL_UNUSED void *meta)
 	t_bullet	*bullet;
 
 	bullet = self;
-
 	if (bullet->active == SDL_FALSE)
 		return ;
-
 
 	if (bullet->sprite.current >= (size_t)bullet->vel.x)
 	{

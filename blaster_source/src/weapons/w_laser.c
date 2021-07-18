@@ -20,7 +20,7 @@ SDL_bool	laser_fire(SDL_UNUSED t_weapon *weapon)
 	result = SDL_FALSE;
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
 	{
-		// SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
 		result = SDL_TRUE;
 	}
 	return (result);
@@ -32,10 +32,7 @@ SDL_bool	laser_yellow_fire(SDL_UNUSED t_weapon *weapon)
 
 	result = SDL_FALSE;
 	if (g_GameInput.GameInput.button_primleft != 0 && weapon->curr >= weapon->cooldown)
-	{
-		// SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
 		result = SDL_TRUE;
-	}
 	return (result);
 }
 
@@ -131,7 +128,6 @@ void	laser_green_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UN
 	dst->vel.y = SDL_cos(angle) * -12;
 
 	dst->update = laser_update;
-
 
 	dst->hitbox.type = BULLETS;
 	dst->hitbox.originator = dst;

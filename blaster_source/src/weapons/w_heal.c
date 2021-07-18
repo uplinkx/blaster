@@ -24,12 +24,6 @@ SDL_bool	heal_fire(SDL_UNUSED t_weapon *weapon)
 		result = SDL_TRUE;
 	}
 
-	// if (g_GameInput_prev.GameInput.button_primleft == -1 && g_GameInput.GameInput.button_primleft == 0 && weapon->curr >= weapon->cooldown)
-	// {
-	// 	SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
-	// 	result = SDL_TRUE;
-	// }
-
 	return (result);
 }
 

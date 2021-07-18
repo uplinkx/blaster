@@ -37,24 +37,70 @@ void	slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (
 	slime->update = update_fn;
 }
 
-void	slime_respawn(t_enemy *slime)
+SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	// SDL_Log("Slime down, red chopper slime down!");
-	int *score;
+	SDLX_collision	*hitbox;
+	t_enemy			*slime;
 
-	score = slime->enemy_hurtbox.engage_meta2;
-	*score += 1;
-	if (rand() % 2 == 1)
+	slime = self;
+	hitbox = with;
+
+	if (hitbox->type == BULLETS || hitbox->type == PLAYER || hitbox->type == WHIRLWIND)
 	{
-		slime->sprite.dst->x = rand() % PLAY_WIDTH;
-		slime->sprite.dst->y = PLAY_HEIGHT * (rand() % 2);
-	}
-	else
-	{
-		slime->sprite.dst->y = (rand() - 16) % (PLAY_HEIGHT + 32);
-		slime->sprite.dst->x = PLAY_WIDTH * (rand() % 2);
+		if (SDL_HasIntersection(&(slime->sprite._dst), hitbox->detect_meta1))
+			return (SDL_TRUE);
 	}
 
-	slime->hp = slime->max_hp;
-	// slime->enemy_hurtbox.type = SLIMES;
+	if (hitbox->type == LUNGE)
+	{
+		SDL_Point	lt;
+		SDL_Point	rt;
+		SDL_Point	lb;
+		SDL_Point	rb;
+		SDL_Rect	*box;
+		double		angle;
+
+		box = hitbox->detect_meta1;
+		box = &(hitbox->hitbox);
+		lt = (SDL_Point){box->x + 0		 - (PLAY_WIDTH / 2), box->y + 0 - (PLAY_HEIGHT / 2)};
+		rt = (SDL_Point){box->x + box->w - (PLAY_WIDTH / 2), box->y + 0 - (PLAY_HEIGHT / 2)};
+		lb = (SDL_Point){box->x + 0		 - (PLAY_WIDTH / 2), box->y + box->h - (PLAY_HEIGHT / 2)};
+		rb = (SDL_Point){box->x + box->w - (PLAY_WIDTH / 2), box->y + box->h - (PLAY_HEIGHT / 2)};
+
+		angle = hitbox->angle;
+
+		lt = SDLX_RotatePoint(&lt, angle);
+		rt = SDLX_RotatePoint(&rt, angle);
+		lb = SDLX_RotatePoint(&lb, angle);
+		rb = SDLX_RotatePoint(&rb, angle);
+
+		lt.x += PLAY_WIDTH / 2;
+		rt.x += PLAY_WIDTH / 2;
+		lb.x += PLAY_WIDTH / 2;
+		rb.x += PLAY_WIDTH / 2;
+
+		lt.y += PLAY_HEIGHT / 2;
+		rt.y += PLAY_HEIGHT / 2;
+		lb.y += PLAY_HEIGHT / 2;
+		rb.y += PLAY_HEIGHT / 2;
+
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, lt.x, lt.y);
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, rb.x, rb.y);
+		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, rt.x, rt.y, rb.x, rb.y);
+
+		// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, box);
+
+		if (
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lb.x), &(lb.y), &(lt.x), &(lt.y)) ||
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lt.x), &(lt.y), &(rt.x), &(rt.y)) ||
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lb.x), &(lb.y), &(rb.x), &(rb.y)) ||
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(rt.x), &(rt.y), &(rb.x), &(rb.y)) ||
+			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(rt.x), &(rt.y), &(lb.x), &(lb.y)) //This one checks if a slime is within the space.
+		)
+			return (SDL_TRUE);
+	}
+	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(slime->sprite._dst));
+
+	return (SDL_FALSE);
 }

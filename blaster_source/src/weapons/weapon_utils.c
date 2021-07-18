@@ -13,15 +13,10 @@
 
 #include "main.h"
 
-SDL_bool	empty_weapon_trigger(SDL_UNUSED t_weapon *self)
-{
-	return (SDL_FALSE);
-}
+SDL_bool	empty_weapon_trigger(SDL_UNUSED t_weapon *self) { return (SDL_FALSE); }
 
 void	empty_weapon_factory(SDL_UNUSED t_bullet *loc, SDL_UNUSED SDL_Point spawn, SDL_UNUSED double angle, SDL_UNUSED void *meta)
-{
-	return ;
-}
+{ return ; }
 
 void	unequip_weapon(t_weapon *dst)
 {
@@ -42,7 +37,6 @@ t_weapon	default_cannon(void)
 	default_cannon = laser_cannon();
 	return (default_cannon);
 }
-
 
 #define ABILITY_LEFT_PADDING (16)
 

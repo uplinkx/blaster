@@ -54,11 +54,8 @@ void	lunge_update(void *self, SDL_UNUSED void *meta)
 void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, void *meta)
 {
 	t_player	*player;
-	int			*charge;
 
 	player = meta;
-
-	charge = &(player->weapon_equip->meta_int);
 
 	SDLX_new_Sprite(&(dst->sprite));
 	fetch_lunge_sprite(&(dst->sprite.sprite_data), 1);
@@ -87,7 +84,6 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.detect = NULL;
 	dst->vel.x = 5;
-	*charge = 0;
 }
 
 #define LUNGE_COOLDOWN (12)

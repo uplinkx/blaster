@@ -32,8 +32,8 @@ void		slime_green_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 void		slime_yellow_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_yellow", SLIMES_YELLOW, 2, slime_yellow_update);
-	dst->sprite._dst.x = loc.x;
-	dst->sprite._dst.y = loc.y;
+	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
 
 	dst->meta1 = (void *)4;
 	dst->meta2 = (void *)0;
@@ -42,85 +42,17 @@ void		slime_yellow_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 void		slime_purple_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_purple", SLIMES, 3, slime_purple_update);
-	dst->sprite._dst.x = loc.x;
-	dst->sprite._dst.y = loc.y;
+	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
 	dst->meta2 = 0;
 }
 
 void		slime_pink_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_pink", SLIMES, 10, slime_pink_update);
-	dst->sprite._dst.x = loc.x;
-	dst->sprite._dst.y = loc.y;
+	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
 	dst->meta2 = 0;
-}
-
-SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
-{
-	SDLX_collision	*hitbox;
-	t_enemy			*slime;
-
-	slime = self;
-	hitbox = with;
-
-	if (hitbox->type == BULLETS || hitbox->type == PLAYER || hitbox->type == WHIRLWIND)
-	{
-		if (SDL_HasIntersection(&(slime->sprite._dst), hitbox->detect_meta1))
-			return (SDL_TRUE);
-	}
-
-	if (hitbox->type == LUNGE)
-	{
-		SDL_Point	lt;
-		SDL_Point	rt;
-		SDL_Point	lb;
-		SDL_Point	rb;
-		SDL_Rect	*box;
-		double		angle;
-
-		box = hitbox->detect_meta1;
-		box = &(hitbox->hitbox);
-		lt = (SDL_Point){box->x + 0		 - (PLAY_WIDTH / 2), box->y + 0 - (PLAY_HEIGHT / 2)};
-		rt = (SDL_Point){box->x + box->w - (PLAY_WIDTH / 2), box->y + 0 - (PLAY_HEIGHT / 2)};
-		lb = (SDL_Point){box->x + 0		 - (PLAY_WIDTH / 2), box->y + box->h - (PLAY_HEIGHT / 2)};
-		rb = (SDL_Point){box->x + box->w - (PLAY_WIDTH / 2), box->y + box->h - (PLAY_HEIGHT / 2)};
-
-		angle = hitbox->angle;
-
-		lt = SDLX_RotatePoint(&lt, angle);
-		rt = SDLX_RotatePoint(&rt, angle);
-		lb = SDLX_RotatePoint(&lb, angle);
-		rb = SDLX_RotatePoint(&rb, angle);
-
-		lt.x += PLAY_WIDTH / 2;
-		rt.x += PLAY_WIDTH / 2;
-		lb.x += PLAY_WIDTH / 2;
-		rb.x += PLAY_WIDTH / 2;
-
-		lt.y += PLAY_HEIGHT / 2;
-		rt.y += PLAY_HEIGHT / 2;
-		lb.y += PLAY_HEIGHT / 2;
-		rb.y += PLAY_HEIGHT / 2;
-
-		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, lt.x, lt.y);
-		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
-		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lb.x, lb.y, rb.x, rb.y);
-		// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, rt.x, rt.y, rb.x, rb.y);
-
-		// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, box);
-
-		if (
-			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lb.x), &(lb.y), &(lt.x), &(lt.y)) ||
-			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lt.x), &(lt.y), &(rt.x), &(rt.y)) ||
-			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(lb.x), &(lb.y), &(rb.x), &(rb.y)) ||
-			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(rt.x), &(rt.y), &(rb.x), &(rb.y)) ||
-			SDL_IntersectRectAndLine(&(slime->sprite._dst), &(rt.x), &(rt.y), &(lb.x), &(lb.y)) //This one checks if a slime is within the space.
-		)
-			return (SDL_TRUE);
-	}
-	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(slime->sprite._dst));
-
-	return (SDL_FALSE);
 }
 
 void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
@@ -133,19 +65,8 @@ void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED 
 
 	hurtbox = with;
 	if (hurtbox->type == PLAYER)
-	{
 		slime->hp = 0;
-	}
 
-	if (hurtbox->type == LUNGE)
-	{
-		slime->hp -= 5;
-		// slime->enemy_hurtbox.type = E_DEAD;
-	}
-	// if (hurtbox->type == WHIRLWIND)
-	// 	slime->hp -= 5;
-
-	(void)with;
 	return (NULL);
 }
 
@@ -182,7 +103,6 @@ void	slime_update(t_enemy *slime, SDL_UNUSED void *meta)
 		slime->active = SDL_FALSE;
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
-		// slime_respawn(slime);
 	}
 	else
 	{
@@ -260,7 +180,6 @@ SDL_bool	goo_detect_collision(void *self, void *with, void *meta1, void *meta2)
 		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
 			self_attack->active = SDL_FALSE;
 	}
-
 
 	(void)meta1;
 
