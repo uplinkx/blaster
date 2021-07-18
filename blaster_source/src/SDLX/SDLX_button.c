@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 01:10:16 by home              #+#    #+#             */
-/*   Updated: 2021/06/30 20:28:48 by home             ###   ########.fr       */
+/*   Updated: 2021/07/18 02:53:24 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	SDLX_Button_Init(SDLX_button *dst, int (*sprite_fn)(SDLX_Sprite_Data **, int
 
 	dst->norm_no = -1;
 	dst->focus_no = -1;
+	dst->lock = SDL_FALSE;
 
 	dst->disabled = SDL_FALSE;
 

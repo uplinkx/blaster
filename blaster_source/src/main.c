@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/18 01:54:39 by home             ###   ########.fr       */
+/*   Updated: 2021/07/18 02:38:35 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	blaster_start(t_context *context)
 {
 	context->exit = SDL_FALSE;
 	context->scene = SDL_FALSE;
-
-	context->ticks = 0;
 
 	context->meta = NULL;
 
@@ -36,6 +34,7 @@ void	blaster_start(t_context *context)
 	unequip_weapon(&(context->heal));
 
 	context->mainhand = laser_cannon();
+
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 
 	context->levels[0][0].unlocked = SDL_TRUE;
@@ -87,7 +86,7 @@ void	blaster_start(t_context *context)
 
 }
 
-void	main_loop(SDL_UNUSED void *context_addr)
+void	main_loop(void *context_addr)
 {
 	t_context	*context;
 
@@ -99,19 +98,17 @@ void	main_loop(SDL_UNUSED void *context_addr)
 	}
 
 	context->exit = SDLX_poll();
+	SDLX_record_input(NULL);
 	SDLX_KeyMap(&(g_GameInput.key_mapper), g_GameInput.keystate);
-
 	SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
 
 	context->update_fn(context, context->meta);
 
-	if (context->exit != SDL_TRUE && SDLX_discrete_frames(&(context->ticks)) != EXIT_FAILURE)
+	if (context->exit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
 	{
 		SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);
 		SDLX_ScreenReset(SDLX_GetDisplay()->renderer, NULL);
 	}
-
-	SDLX_record_input(NULL);
 
 	if (context->scene == SDL_FALSE)
 	{
@@ -129,14 +126,12 @@ int	main(void)
 	SDLX_GetDisplay();
 	blaster_start(&context);
 
-	context.init_fn(&(context), context.meta);
 	#ifdef EMCC
 		emscripten_set_main_loop_arg(main_loop, (void *)&(context), 0, SDL_TRUE);
 	#else
 		while (context.exit == SDL_FALSE)
 			main_loop(&(context));
 	#endif
-	context.close_fn(&(context), context.meta);
 
 	return (EXIT_SUCCESS);
 }

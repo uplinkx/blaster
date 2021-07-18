@@ -65,18 +65,13 @@ typedef struct	s_context
 	SDL_bool	exit;
 	SDL_bool	scene;
 
-	int			ticks;
-
 	void		*meta;
 
+	SDLX_Sprite	background;
 	SDL_Texture	*capture_texture;
 	t_scene_fn	*redo_init_fn;
 	t_scene_fn	*next_init_fn;
 	t_loot		loot;
-
-	t_level_progress	levels[5][5];
-
-	SDLX_Sprite	background;
 
 	t_scene_fn	*init_fn;
 	t_scene_fn	*update_fn;
@@ -86,6 +81,8 @@ typedef struct	s_context
 	struct s_weapon	shield;
 	struct s_weapon	heal;
 	struct s_weapon	special;
+
+	t_level_progress	levels[5][5];
 
 }				t_context;
 

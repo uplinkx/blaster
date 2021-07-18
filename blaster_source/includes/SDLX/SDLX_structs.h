@@ -177,6 +177,7 @@ typedef struct	SDLX_button
 
 	int			norm_no;
 	int			focus_no;
+	SDL_bool	lock;
 
 	SDL_bool	disabled;
 

@@ -49,13 +49,13 @@ void	*inventory_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	SDLX_Button_Init(&(scene->prev_weapon), fetch_inventory_sprite, IPREV_NORM, (SDL_Rect){0, 380, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->prev_weapon), IPREV_NORM, IPREV_HOVER);
-	scene->prev_weapon.trigger_fn = button_slide_weapon;
+	scene->prev_weapon.trigger_fn = button_carousel_weapon;
 	scene->prev_weapon.meta = &(scene->at);
 	scene->prev_weapon.meta1 = (void *)-1;
 
 	SDLX_Button_Init(&(scene->next_weapon), fetch_inventory_sprite, INEXT_NORM, (SDL_Rect){PLAY_WIDTH - 48, 380, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->next_weapon), INEXT_NORM, INEXT_HOVER);
-	scene->next_weapon.trigger_fn = button_slide_weapon;
+	scene->next_weapon.trigger_fn = button_carousel_weapon;
 	scene->next_weapon.meta = &(scene->at);
 	scene->next_weapon.meta1 = (void *)1;
 

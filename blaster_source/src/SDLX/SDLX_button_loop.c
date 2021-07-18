@@ -16,7 +16,7 @@
 void	SDLX_Button_ReFocus(SDLX_button *button)
 {
 	button->focus_once_fn(button, button->meta, button->meta_length);
-	if (button->focus_no != -1)
+	if (button->focus_no != -1 && button->lock == SDL_FALSE)
 	{
 		button->sprite_fn(&(button->sprite.sprite_data), button->focus_no);
 		button->sprite.current = 0;
@@ -37,7 +37,7 @@ void	SDLX_Button_Focus(SDLX_button *button)
 
 void	SDLX_Button_Lose_Focus(SDLX_button *button)
 {
-	if (button->norm_no != -1)
+	if (button->norm_no != -1 && button->lock == SDL_FALSE)
 	{
 		button->sprite_fn(&(button->sprite.sprite_data), button->norm_no);
 		button->sprite.current = 0;
