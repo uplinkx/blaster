@@ -12,14 +12,6 @@ COLLISIONS
 	Reusable Structures
 	Reusable Functions
 
-DATA-DRIVEN LEVELS
-	Wave data
-		Wave:
-		Wave Amount
-			Enemy Type
-			Drop Item
-			Time of Spawn
-
 ENEMIES
 	Wall		(Takes hits)
 	Bomb		(Drops bomb on Death)
