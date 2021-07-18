@@ -77,7 +77,7 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	*charge = 0;
 }
 
-#define WHIRL_COOLDOWN (35)
+#define WHIRL_COOLDOWN (60)
 
 t_weapon	whirl_cannon(void)
 {

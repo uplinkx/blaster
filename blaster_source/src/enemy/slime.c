@@ -16,34 +16,42 @@
 void		slime_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_blue", SLIMES, 1, slime_update);
+	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
+	dst->meta1 = (void *)4;
+}
+
+void		slime_green_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
+{
+	slime_default_init(dst, "slime_green", SLIMES, 2, slime_update);
 	dst->sprite._dst.x = loc.x;
 	dst->sprite._dst.y = loc.y;
 	dst->meta1 = (void *)4;
 }
 
-void		slime_green_init(t_enemy *dst)
-{
-	slime_default_init(dst, "slime_green", SLIMES, 3, slime_update);
-	dst->meta1 = (void *)4;
-}
-
-void		slime_yellow_init(t_enemy *dst)
+void		slime_yellow_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_yellow", SLIMES_YELLOW, 2, slime_yellow_update);
+	dst->sprite._dst.x = loc.x;
+	dst->sprite._dst.y = loc.y;
 
 	dst->meta1 = (void *)4;
 	dst->meta2 = (void *)0;
 }
 
-void		slime_purple_init(t_enemy *dst)
+void		slime_purple_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_purple", SLIMES, 3, slime_purple_update);
+	dst->sprite._dst.x = loc.x;
+	dst->sprite._dst.y = loc.y;
 	dst->meta2 = 0;
 }
 
-void		slime_pink_init(t_enemy *dst)
+void		slime_pink_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	slime_default_init(dst, "slime_pink", SLIMES, 10, slime_pink_update);
+	dst->sprite._dst.x = loc.x;
+	dst->sprite._dst.y = loc.y;
 	dst->meta2 = 0;
 }
 
@@ -190,6 +198,7 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 	SDL_bool	enraged;
 	int			x, y;
 	int			dx, dy;
+	size_t		*score;
 
 	enraged = SDL_FALSE;
 	y = slime->sprite._dst.y;
@@ -227,8 +236,9 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime_respawn(slime);
-		slime->meta2 = 0;
+		slime->active = SDL_FALSE;
+		score = slime->enemy_hurtbox.engage_meta2;
+		(*score)++;
 	}
 
 	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
@@ -319,6 +329,7 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 	SDL_bool	fire_range;
 	int			x, y;
 	int			dx, dy;
+	size_t		*score;
 
 	fire_range = SDL_FALSE;
 	y = slime->sprite._dst.y;
@@ -357,8 +368,9 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime_respawn(slime);
-		slime->meta2 = (void *)0;
+		slime->active = SDL_FALSE;
+		score = slime->enemy_hurtbox.engage_meta2;
+		(*score)++;
 	}
 
 	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
@@ -370,6 +382,7 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 	SDL_bool	fire_range;
 	int			x, y;
 	int			dx, dy;
+	size_t		*score;
 
 	fire_range = SDL_FALSE;
 	y = slime->sprite._dst.y;
@@ -408,8 +421,9 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime_respawn(slime);
-		slime->meta2 = (void *)0;
+		slime->active = SDL_FALSE;
+		score = slime->enemy_hurtbox.engage_meta2;
+		(*score)++;
 	}
 
 	SDLX_RenderQueue_Add(NULL, &(slime->sprite));

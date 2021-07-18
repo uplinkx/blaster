@@ -45,23 +45,33 @@ t_weapon		lunge_cannon(void);
 **Enemy
 */
 
+enum			e_enemy_t
+{
+	E_SLIME_BLUE,
+	E_SLIME_GREEN,
+	E_SLIME_YELLOW,
+	E_SLIME_PURPLE,
+	E_SLIME_PINK,
+	E_NONE_TYPE,
+};
+
 void			slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (*update_fn)(t_enemy *, void *));
 void			slime_respawn(t_enemy *slime);
 
-void			slime_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod);
+void			slime_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_update(t_enemy *self, void *);
 SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2);
 void			*slime_collide(void *self, void *with, void *meta1, void *meta2);
 
-void			slime_green_init(t_enemy *dst);
+void			slime_green_init(t_enemy *dst, SDL_Point loc, int mod);
 
-void			slime_yellow_init(t_enemy *dst);
-void			slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta);
+void			slime_yellow_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_yellow_update(t_enemy *slime, void *meta);
 
-void			slime_purple_init(t_enemy *dst);
-void			slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta);
+void			slime_purple_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_purple_update(t_enemy *slime, void *meta);
 
-void			slime_pink_init(t_enemy *dst);
-void			slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta);
+void			slime_pink_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_pink_update(t_enemy *slime, void *meta);
 
 #endif

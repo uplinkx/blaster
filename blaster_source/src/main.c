@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/16 08:12:00 by home             ###   ########.fr       */
+/*   Updated: 2021/07/18 01:54:39 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void	blaster_start(t_context *context)
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 
 	context->levels[0][0].unlocked = SDL_TRUE;
+	context->levels[0][1].unlocked = SDL_TRUE;
+	context->levels[0][2].unlocked = SDL_TRUE;
+	context->levels[0][3].unlocked = SDL_TRUE;
 
 	context->levels[0][0].init_fn = level_01_init;
 	context->levels[0][1].init_fn = level_02_init;

@@ -12,18 +12,7 @@
 ***************************************************************************/
 
 #include "main.h"
-
-// void	wave_init(t_wave *dst, int level_id)
-// {
-// 	char	*str;
-
-// 	str = NULL;
-// 	convert_file_to_str(&str, level_id);
-// 	SDL_Log("CONT:\n%s", str);
-
-// 	SDL_free(str);
-// 	dst->size = 0;
-// }
+#include "spawn_table.h"
 
 SDL_bool	begin_wave(t_wave *wave, size_t i)
 {
@@ -46,6 +35,24 @@ SDL_bool	begin_wave(t_wave *wave, size_t i)
 	return (result);
 }
 
+void	spawn_elem(int type, t_enemy *spawn_addr, SDL_Point loc, int mod)
+{
+	size_t	i;
+	size_t	size;
+	void	(*spawn_fn)(t_enemy *, SDL_Point, int);
+
+	i = 0;
+	size = (sizeof(spawn_table) / sizeof(*spawn_table));
+	spawn_fn = NULL;
+	while (i + 1 < size && type != spawn_table[i].type)
+		i++;
+
+	spawn_fn = spawn_table[i].fn;
+
+	SDL_assert(spawn_fn != NULL);
+	spawn_fn(spawn_addr, loc, mod);
+}
+
 int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man)
 {
 	size_t	i;
@@ -57,7 +64,7 @@ int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man)
 		if (wave->tick == wave->wave_array[i].spawn_tick)
 		{
 			spawn_addr = spawn_enemy_addr(enemy_man);
-			slime_init(spawn_addr, wave->wave_array[i].spawn_location, wave->wave_array[i].modifier);
+			spawn_elem(wave->wave_array[i].type, spawn_addr, wave->wave_array[i].spawn_location, wave->wave_array[i].modifier);
 			if (wave->wave_array[i].count == SDL_TRUE)
 				spawn_addr->enemy_hurtbox.engage_meta2 = &(wave->finished_no);
 		}

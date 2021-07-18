@@ -32,6 +32,12 @@ SDLX_NAMES = 			\
 	SDLX_utils			\
 	SDLX_xbox			\
 
+LEVEL_FILES = 			\
+	level_01			\
+	level_02			\
+	level_03			\
+	level_04			\
+
 SCENE_FILES = 			\
 	main_menu			\
 	level_select		\
@@ -41,7 +47,6 @@ SCENE_FILES = 			\
 	loot_scene			\
 	\
 	\
-	play_01				\
 	level				\
 	level_init			\
 	\
@@ -80,6 +85,7 @@ SRC_NAMES = \
 	$(addprefix enemy/, $(ENEMY_FILES))		\
 	$(addprefix sprite/, $(SPRITE_FILES))	\
 	$(addprefix scenes/, $(SCENE_FILES))	\
+	$(addprefix levels/, $(LEVEL_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	button \

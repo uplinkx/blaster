@@ -23,21 +23,21 @@ void	*level_01_init(t_context *context, void *vp_scene)
 void	*level_02_init(t_context *context, void *vp_scene)
 {
 	t_level	*scene = level_init(context, vp_scene);
-	scene->stage = level_01();
+	scene->stage = level_02();
 	return (NULL);
 }
 
 void	*level_03_init(t_context *context, void *vp_scene)
 {
 	t_level	*scene = level_init(context, vp_scene);
-	scene->stage = level_01();
+	scene->stage = level_03();
 	return (NULL);
 }
 
 void	*level_04_init(t_context *context, void *vp_scene)
 {
 	t_level	*scene = level_init(context, vp_scene);
-	scene->stage = level_01();
+	scene->stage = level_04();
 	return (NULL);
 }
 
