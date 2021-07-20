@@ -47,6 +47,7 @@ t_weapon		lunge_cannon(void);
 
 enum			e_enemy_t
 {
+	E_SLIME_CYAN,
 	E_SLIME_BLUE,
 	E_SLIME_GREEN,
 	E_SLIME_YELLOW,
@@ -73,5 +74,8 @@ void			slime_purple_update(t_enemy *slime, void *meta);
 
 void			slime_pink_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_pink_update(t_enemy *slime, void *meta);
+
+void			slime_blue_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_blue_update(t_enemy *slime, void *meta);
 
 #endif

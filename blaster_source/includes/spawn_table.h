@@ -25,7 +25,8 @@ typedef struct	s_spawn_elem
 
 t_spawn_elem	spawn_table[] =
 {
-	{E_SLIME_BLUE, slime_init},
+	{E_SLIME_CYAN, slime_init},
+	{E_SLIME_BLUE, slime_blue_init},
 	{E_SLIME_GREEN, slime_green_init},
 	{E_SLIME_YELLOW, slime_yellow_init},
 	{E_SLIME_PURPLE, slime_purple_init},
