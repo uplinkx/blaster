@@ -49,10 +49,12 @@ enum			e_enemy_t
 {
 	E_SLIME_CYAN,
 	E_SLIME_BLUE,
+	E_SLIME_SPINY,
 	E_SLIME_GREEN,
 	E_SLIME_YELLOW,
 	E_SLIME_PURPLE,
 	E_SLIME_PINK,
+	E_SLIME_INV,
 	E_NONE_TYPE,
 };
 
@@ -65,6 +67,7 @@ SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta
 void			*slime_collide(void *self, void *with, void *meta1, void *meta2);
 
 void			slime_green_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_inv_init(t_enemy *dst, SDL_Point loc, int mod);
 
 void			slime_yellow_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_yellow_update(t_enemy *slime, void *meta);
@@ -77,5 +80,8 @@ void			slime_pink_update(t_enemy *slime, void *meta);
 
 void			slime_blue_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_blue_update(t_enemy *slime, void *meta);
+
+void			slime_spiny_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_spiny_update(t_enemy *slime, void *meta);
 
 #endif

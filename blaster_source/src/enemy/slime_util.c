@@ -45,7 +45,7 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	slime = self;
 	hitbox = with;
 
-	if (hitbox->type == BULLETS || hitbox->type == PLAYER || hitbox->type == WHIRLWIND)
+	if (hitbox->type == BULLETS || hitbox->type == PLAYER || hitbox->type == WHIRLWIND || hitbox->type == SPINE)
 	{
 		if (SDL_HasIntersection(&(slime->sprite._dst), hitbox->detect_meta1))
 			return (SDL_TRUE);

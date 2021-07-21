@@ -53,7 +53,7 @@ void	spawn_elem(int type, t_enemy *spawn_addr, SDL_Point loc, int mod)
 	spawn_fn(spawn_addr, loc, mod);
 }
 
-int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man)
+int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 {
 	size_t	i;
 	t_enemy	*spawn_addr;
@@ -67,6 +67,8 @@ int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man)
 			spawn_elem(wave->wave_array[i].type, spawn_addr, wave->wave_array[i].spawn_location, wave->wave_array[i].modifier);
 			if (wave->wave_array[i].count == SDL_TRUE)
 				spawn_addr->enemy_hurtbox.engage_meta2 = &(wave->finished_no);
+			spawn_addr->spawn_pool = enemy_man;
+			spawn_addr->projectile_spawn = projectiles;
 		}
 		i++;
 	}
@@ -82,7 +84,7 @@ int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man)
 
 }
 
-SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man)
+SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 {
 	size_t	i;
 	size_t		completed;
@@ -94,7 +96,7 @@ SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man)
 	while (i < wave->size)
 	{
 		if (wave->waves[i].complete == SDL_FALSE && (wave->waves[i].active || begin_wave(wave, i)))
-			completed += do_wave(&(wave->waves[i]), enemy_man);
+			completed += do_wave(&(wave->waves[i]), enemy_man, projectiles);
 		killed += wave->waves[i].finished_no;
 		i++;
 	}

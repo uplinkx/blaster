@@ -24,7 +24,7 @@ SDL_bool	whirl_fire(SDL_UNUSED t_weapon *weapon)
 		result = SDL_TRUE;
 	}
 
-	if (g_GameInput.GameInput.button_primleft != 0)
+	if (g_GameInput.GameInput.button_primleft != 0 && weapon->curr >= weapon->cooldown)
 		weapon->meta_int++;
 
 	return (result);

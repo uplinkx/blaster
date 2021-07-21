@@ -94,7 +94,7 @@ void	*level_update(t_context *context, void *vp_scene)
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 		projectile_update(&(scene->player.attacks));
 
-		wave_done = wave_method(&(scene->stage), &(scene->enemies));
+		wave_done = wave_method(&(scene->stage), &(scene->enemies), &(scene->player.attacks));
 		iter_enemies(&(scene->enemies));
 
 	}

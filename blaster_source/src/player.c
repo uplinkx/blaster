@@ -55,7 +55,7 @@ SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SD
 
 	player = self;
 	hitbox = with;
-	if (hitbox->type == SLIMES || hitbox->type == GOO || hitbox->type == SLIMES_YELLOW)
+	if (hitbox->type == SLIMES || hitbox->type == GOO || hitbox->type == SLIMES_YELLOW || hitbox->type == SPINE || hitbox->type == SLIMES_INV)
 	{
 		if (SDL_HasIntersection(&(player->hurtbox), hitbox->detect_meta1) == SDL_TRUE)
 			return (SDL_TRUE);
@@ -75,7 +75,9 @@ void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, 
 		player->hp -= 10;
 	if (object->type == SLIMES_YELLOW)
 		player->hp -= 15;
-	if (object->type == GOO)
+	if (object->type == SLIMES_INV)
+		player->hp -= 20;
+	if (object->type == GOO || object->type == SPINE)
 		player->hp -= 15;
 	return (NULL);
 }

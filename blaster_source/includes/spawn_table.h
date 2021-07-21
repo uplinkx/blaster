@@ -31,6 +31,8 @@ t_spawn_elem	spawn_table[] =
 	{E_SLIME_YELLOW, slime_yellow_init},
 	{E_SLIME_PURPLE, slime_purple_init},
 	{E_SLIME_PINK, slime_pink_init},
+	{E_SLIME_SPINY, slime_spiny_init},
+	{E_SLIME_INV, slime_inv_init},
 	{E_NONE, NULL},
 };
 

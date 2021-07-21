@@ -44,14 +44,14 @@ void	*level_04_init(t_context *context, void *vp_scene)
 void	*level_05_init(t_context *context, void *vp_scene)
 {
 	t_level	*scene = level_init(context, vp_scene);
-	scene->stage = level_01();
+	scene->stage = level_05();
 	return (NULL);
 }
 
 void	*level_06_init(t_context *context, void *vp_scene)
 {
 	t_level	*scene = level_init(context, vp_scene);
-	scene->stage = level_01();
+	scene->stage = level_06();
 	return (NULL);
 }
 

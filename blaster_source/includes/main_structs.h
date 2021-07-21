@@ -19,6 +19,7 @@
 
 struct s_context;
 struct s_bullet;
+struct s_enemy_m;
 
 typedef void *(t_scene_fn)(struct s_context *, void *);
 
@@ -120,6 +121,9 @@ typedef struct	s_enemy
 
 	void			*meta1;
 	void			*meta2;
+
+	struct s_enemy_m	*spawn_pool;
+	t_attacks			*projectile_spawn;
 
 	void			(*update)(struct s_enemy *, void *);
 }				t_enemy;

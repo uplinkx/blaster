@@ -92,7 +92,7 @@ t_enemy	*spawn_enemy_addr(t_enemy_m *manager);
 void	init_enemy_array(t_enemy_m *manager);
 void	iter_enemies(t_enemy_m *enemies);
 
-SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man);
+SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles);
 
 /*
 ** Misc. Functions
