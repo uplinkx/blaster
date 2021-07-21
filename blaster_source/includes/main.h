@@ -17,10 +17,11 @@
 
 # include "SDLX/SDLX.h"
 
-# include "main_structs.h"
-# include "main_enums.h"
 # include "entity.h"
+# include "main_enums.h"
+# include "main_structs.h"
 # include "scenes.h"
+# include "sprites.h"
 # include "waves.h"
 
 # define ASSETS "assets/"
@@ -34,20 +35,14 @@
 # define MID_PLAY_HEIGHT (PLAY_HEIGHT / 2)
 
 /*
-** Sprite Handlers
+** Wave Functions
 */
 
-int		fetch_chest_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_coin_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
-int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_hp_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_heal_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_whirl_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_lunge_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_inventory_sprite(SDLX_Sprite_Data **dst, int no);
+t_enemy		*spawn_enemy_addr(t_enemy_m *manager);
+void		init_enemy_array(t_enemy_m *manager);
+void		iter_enemies(t_enemy_m *enemies);
+
+SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectiles);
 
 /*
 ** Attack/Projectile Functions
@@ -85,14 +80,12 @@ void	*new_scene(size_t size, t_context *context, char *background_path, t_scene_
 void	end_scene(t_context *context, SDLX_button *pause);
 
 /*
-** Wave Functions
+** UI Functions
 */
 
-t_enemy	*spawn_enemy_addr(t_enemy_m *manager);
-void	init_enemy_array(t_enemy_m *manager);
-void	iter_enemies(t_enemy_m *enemies);
-
-SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles);
+void	pause_menu_init(t_pmenu *menu, void *pause_addr, void *pbackground, void *context, void *restart_fn);
+void	update_pause_menu(t_pmenu *menu, SDL_Texture *pbackground);
+void	level_ui_init(SDLX_button *pause, SDLX_Sprite *bottom);
 
 /*
 ** Misc. Functions
@@ -103,13 +96,6 @@ double		ptoa(int x, int y);
 
 SDLX_iMap	*blaster_key_map(size_t *size);
 
-/*
-** UI Functions
-*/
-
-void	pause_menu_init(t_pmenu *menu, void *pause_addr, void *pbackground, void *context, void *restart_fn);
-void	update_pause_menu(t_pmenu *menu, SDL_Texture *pbackground);
-void	level_ui_init(SDLX_button *pause, SDLX_Sprite *bottom);
 
 #endif
 

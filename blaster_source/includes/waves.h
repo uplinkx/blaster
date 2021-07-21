@@ -40,7 +40,7 @@ enum	e_wave_con
 	WAVE_CONT,
 };
 
-typedef struct	s_wave_m
+typedef struct	s_wave
 {
 	size_t		tick;
 
@@ -55,9 +55,9 @@ typedef struct	s_wave_m
 
 	t_wave_elem	*wave_array;
 
-}				t_wave_m;
+}				t_wave;
 
-typedef struct	s_wave
+typedef struct	s_wave_m
 {
 	int			wave_id;
 	size_t		tick;
@@ -69,9 +69,9 @@ typedef struct	s_wave
 	SDL_bool	won;
 
 	size_t		size;
-	t_wave_m	*waves;
+	t_wave		*waves;
 
 	//treasure?
-}				t_wave;
+}				t_wave_m;
 
 #endif

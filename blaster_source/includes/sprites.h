@@ -1,0 +1,35 @@
+/***************************************************************************
+ * FILENAME:    sprites.h
+ * DESCRIPTION: Functions that fetch sprites.
+ *
+ * ENVIRONMENT:
+ *     macOS Catalina 10.15.7
+ *     Visual Studio Code 1.56.2
+ * AUTHORS:
+ *     Kevin Colour
+ * DATES:
+ *     Created: 21Jul2021
+***************************************************************************/
+
+#ifndef SPRITES_H
+# define SPRITES_H
+
+# include "SDLX/SDLX.h"
+
+/*
+** Sprite Handlers
+*/
+
+int		fetch_chest_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_coin_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
+int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_hp_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_heal_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_whirl_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_lunge_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_inventory_sprite(SDLX_Sprite_Data **dst, int no);
+
+#endif

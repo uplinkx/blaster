@@ -14,7 +14,7 @@
 #ifndef ENTITY_H
 # define ENTITY_H
 
-# include "main_structs.h"
+# include "entity_structs.h"
 
 /*
 **Player

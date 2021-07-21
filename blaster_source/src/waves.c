@@ -14,7 +14,7 @@
 #include "main.h"
 #include "spawn_table.h"
 
-SDL_bool	begin_wave(t_wave *wave, size_t i)
+SDL_bool	begin_wave(t_wave_m *wave, size_t i)
 {
 	SDL_bool	result;
 
@@ -53,7 +53,7 @@ void	spawn_elem(int type, t_enemy *spawn_addr, SDL_Point loc, int mod)
 	spawn_fn(spawn_addr, loc, mod);
 }
 
-int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
+int		do_wave(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 {
 	size_t	i;
 	t_enemy	*spawn_addr;
@@ -84,7 +84,7 @@ int		do_wave(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 
 }
 
-SDL_bool	wave_method(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
+SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 {
 	size_t	i;
 	size_t		completed;

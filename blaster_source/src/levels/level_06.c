@@ -1,9 +1,9 @@
 #include "main.h"
 #include "entity.h"
 
-t_wave	level_06(void)
+t_wave_m	level_06(void)
 {
-	t_wave level_06 = {
+	t_wave_m level_06 = {
 		.wave_id = 0,
 		.tick = 0,
 
@@ -16,7 +16,7 @@ t_wave	level_06(void)
 
 	level_06.waves = SDL_malloc(sizeof(*(level_06.waves)) * level_06.size);
 
-	level_06.waves[0] = (t_wave_m){0, WAVE_TICKS, 0, SDL_FALSE, SDL_TRUE, 18, SDL_FALSE, NULL};
+	level_06.waves[0] = (t_wave){0, WAVE_TICKS, 0, SDL_FALSE, SDL_TRUE, 18, SDL_FALSE, NULL};
 	level_06.waves[0].wave_array = SDL_malloc(sizeof(*(level_06.waves[0].wave_array)) * level_06.waves[0].size);
 
 	level_06.waves[0].wave_array[0] = (t_wave_elem){E_SLIME_BLUE, 0, 0, SDL_TRUE, {152, 0}, 0};
@@ -43,7 +43,7 @@ t_wave	level_06(void)
 	level_06.waves[0].wave_array[17] = (t_wave_elem){E_SLIME_INV, 0, 55, SDL_TRUE, {304, 352}, 0};
 
 
-	level_06.waves[1] = (t_wave_m){0, WAVE_PREV_DEFEAT, 0, SDL_FALSE, SDL_FALSE, 22, SDL_FALSE, NULL};
+	level_06.waves[1] = (t_wave){0, WAVE_PREV_DEFEAT, 0, SDL_FALSE, SDL_FALSE, 22, SDL_FALSE, NULL};
 	level_06.waves[1].wave_array = SDL_malloc(sizeof(*(level_06.waves[1].wave_array)) * level_06.waves[1].size);
 
 	level_06.waves[1].wave_array[0] = (t_wave_elem){E_SLIME_BLUE, 0, 0, SDL_TRUE, {0, 0}, 0};
@@ -74,7 +74,7 @@ t_wave	level_06(void)
 	level_06.waves[1].wave_array[20] = (t_wave_elem){E_SLIME_INV, 0, 100, SDL_TRUE, {152, 0}, 0};
 	level_06.waves[1].wave_array[21] = (t_wave_elem){E_SLIME_INV, 0, 100, SDL_TRUE, {0, 352}, 0};
 
-	level_06.waves[2] = (t_wave_m){0, WAVE_PREV_DEFEAT, 0, SDL_FALSE, SDL_FALSE, 17, SDL_FALSE, NULL};
+	level_06.waves[2] = (t_wave){0, WAVE_PREV_DEFEAT, 0, SDL_FALSE, SDL_FALSE, 17, SDL_FALSE, NULL};
 	level_06.waves[2].wave_array = SDL_malloc(sizeof(*(level_06.waves[2].wave_array)) * level_06.waves[2].size);
 
 	level_06.waves[2].wave_array[0] = (t_wave_elem){E_SLIME_BLUE, 0, 0, SDL_TRUE, {152, 0}, 0};
