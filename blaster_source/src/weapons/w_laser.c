@@ -105,6 +105,9 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.type = BULLETS;
 	dst->hitbox.originator = dst;
 
+	dst->hitbox.detect_meta1 = &(dst->sprite._dst);
+	dst->hitbox.detect_meta2 = dst;
+
 	dst->hitbox.detect = bullet_detect_collision;
 }
 
@@ -192,9 +195,11 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 
 	dst->update = laser_update;
 
-
 	dst->hitbox.type = BULLETS;
 	dst->hitbox.originator = dst;
+
+	dst->hitbox.detect_meta1 = &(dst->sprite._dst);
+	dst->hitbox.detect_meta2 = dst;
 
 	dst->hitbox.detect = bullet_detect_collision;
 }

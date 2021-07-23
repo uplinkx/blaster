@@ -74,6 +74,7 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.type = LUNGE;
 	dst->hitbox.originator = dst;
+
 	dst->hitbox.angle = angle;
 	dst->hitbox.hitbox = dst->sprite._dst;
 

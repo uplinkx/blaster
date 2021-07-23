@@ -316,14 +316,14 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 		slime->meta2++;
 	}
 
-	t_bullet	goo;
+	t_bullet	*goo;
 
 	if (fire_range == SDL_TRUE)
 	{
 		if ((int)slime->meta2 >= 30)
 		{
-			slime_goo(&goo, x, y);
-			projectile_add(slime->projectile_spawn, goo);
+			goo = spawn_projectile_addr(slime->projectile_spawn);
+			slime_goo(goo, x, y);
 			slime->meta2 = (void *)10;
 		}
 	}
@@ -369,14 +369,14 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 		slime->meta2++;
 	}
 
-	t_bullet	goo;
+	t_bullet	*goo;
 
 	if (fire_range == SDL_TRUE)
 	{
 		if ((int)slime->meta2 >= 30)
 		{
-			slime_goo(&goo, x, y);
-			projectile_add(slime->meta1, goo);
+			goo = spawn_projectile_addr(slime->meta1);
+			slime_goo(goo, x, y);
 			slime->meta2 = (void *)20;
 		}
 	}
@@ -474,7 +474,7 @@ void	slime_spiny_update(t_enemy *slime, SDL_UNUSED void *meta)
 	int			dx, dy;
 	int			x, y;
 	int			speed;
-	t_bullet	spine;
+	t_bullet	*spine;
 
 	x = slime->sprite._dst.x + 16 - (PLAY_WIDTH / 2);
 	y = slime->sprite._dst.y + 16 - (PLAY_HEIGHT / 2);
@@ -499,17 +499,17 @@ void	slime_spiny_update(t_enemy *slime, SDL_UNUSED void *meta)
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
 		angle = M_PI_4;
-		slime_spine(&(spine), slime->sprite._dst.x, slime->sprite._dst.y, angle);
-		projectile_add(slime->projectile_spawn, spine);
+		spine = spawn_projectile_addr(slime->projectile_spawn);
+		slime_spine(spine, slime->sprite._dst.x, slime->sprite._dst.y, angle);
 		angle += M_PI_2;
-		slime_spine(&(spine), slime->sprite._dst.x, slime->sprite._dst.y, angle);
-		projectile_add(slime->projectile_spawn, spine);
+		spine = spawn_projectile_addr(slime->projectile_spawn);
+		slime_spine(spine, slime->sprite._dst.x, slime->sprite._dst.y, angle);
 		angle += M_PI_2;
-		slime_spine(&(spine), slime->sprite._dst.x, slime->sprite._dst.y, angle);
-		projectile_add(slime->projectile_spawn, spine);
+		spine = spawn_projectile_addr(slime->projectile_spawn);
+		slime_spine(spine, slime->sprite._dst.x, slime->sprite._dst.y, angle);
 		angle += M_PI_2;
-		slime_spine(&(spine), slime->sprite._dst.x, slime->sprite._dst.y, angle);
-		projectile_add(slime->projectile_spawn, spine);
+		spine = spawn_projectile_addr(slime->projectile_spawn);
+		slime_spine(spine, slime->sprite._dst.x, slime->sprite._dst.y, angle);
 	}
 	else
 	{

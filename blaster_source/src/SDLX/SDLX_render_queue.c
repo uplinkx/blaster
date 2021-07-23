@@ -37,17 +37,17 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 	// SDL_Log("ERROR %zu", animation->sprite_data->cycle);
 	no = animation->current % animation->sprite_data->cycle;
 
-	ptr_rect = NULL;
-	if (animation->dst == SDLX_NULL_SELF)
-		animation->dst = &(animation->_dst);
+	ptr_rect = animation->dst;
+	if (ptr_rect == SDLX_NULL_SELF)
+		ptr_rect = &(animation->_dst);
 
-	ptr_cent = NULL;
-	if (animation->center == SDLX_NULL_SELF)
-		animation->center = &(animation->_center);
+	ptr_cent = animation->center;
+	if (ptr_cent == SDLX_NULL_SELF)
+		ptr_cent = &(animation->_center);
 
 	if (animation->dst != NULL)
 	{
-		draw_rect = *(animation->dst);
+		draw_rect = *(ptr_rect);
 		draw_rect.h *= DISPLAY_SCALE;
 		draw_rect.w *= DISPLAY_SCALE;
 		draw_rect.x *= DISPLAY_SCALE;
@@ -57,7 +57,7 @@ void	SDLX_DrawAnimation(SDL_Renderer *renderer, SDLX_Sprite *animation)
 
 	if (animation->center != NULL)
 	{
-		draw_cent = *(animation->center);
+		draw_cent = *(ptr_cent);
 		draw_cent.x *= DISPLAY_SCALE;
 		draw_cent.y *= DISPLAY_SCALE;
 		ptr_cent = &draw_cent;
@@ -156,8 +156,8 @@ void	SDLX_RenderQueue_Add(SDLX_RenderQueue *dst, SDLX_Sprite *src)
 
 	if (dst->index + 1 >= dst->capacity)
 	{
-		dst->content = SDL_realloc(dst->content, sizeof(dst->content) * (dst->capacity * ALLOC_RATE));
 		dst->capacity = dst->capacity * ALLOC_RATE;
+		dst->content = SDL_realloc(dst->content, sizeof(dst->content) * (dst->capacity));
 	}
 
 	dst->content[dst->index] = src;

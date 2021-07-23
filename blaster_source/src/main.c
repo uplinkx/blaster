@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/20 17:47:26 by home             ###   ########.fr       */
+/*   Updated: 2021/07/21 19:09:03 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ void	blaster_start(t_context *context)
 	unequip_weapon(&(context->special));
 	unequip_weapon(&(context->shield));
 	unequip_weapon(&(context->heal));
-
 	context->mainhand = laser_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
+	set_levels(context->levels);
+	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
 
-	context->levels[0][0].unlocked = SDL_TRUE;
+
+
 	context->levels[0][1].unlocked = SDL_TRUE;
 	context->levels[0][2].unlocked = SDL_TRUE;
 	context->levels[0][3].unlocked = SDL_TRUE;
@@ -45,48 +47,13 @@ void	blaster_start(t_context *context)
 
 	context->levels[1][0].unlocked = SDL_TRUE;
 
-	context->levels[0][0].init_fn = level_01_init;
-	context->levels[0][1].init_fn = level_02_init;
-	context->levels[0][2].init_fn = level_03_init;
-	context->levels[0][3].init_fn = level_04_init;
-	context->levels[0][4].init_fn = level_05_init;
-	context->levels[1][0].init_fn = level_06_init;
-	context->levels[1][1].init_fn = level_07_init;
-	context->levels[1][2].init_fn = level_08_init;
-	context->levels[1][3].init_fn = level_09_init;
-	context->levels[1][4].init_fn = level_10_init;
-	context->levels[2][0].init_fn = level_11_init;
-	context->levels[2][1].init_fn = level_12_init;
-	context->levels[2][2].init_fn = level_13_init;
-	context->levels[2][3].init_fn = level_14_init;
-	context->levels[2][4].init_fn = level_15_init;
-	context->levels[3][0].init_fn = level_16_init;
-	context->levels[3][1].init_fn = level_17_init;
-	context->levels[3][2].init_fn = level_18_init;
-	context->levels[3][3].init_fn = level_19_init;
-	context->levels[3][4].init_fn = level_20_init;
-	context->levels[4][0].init_fn = level_21_init;
-	context->levels[4][1].init_fn = level_22_init;
-	context->levels[4][2].init_fn = level_23_init;
-	context->levels[4][3].init_fn = level_24_init;
-	context->levels[4][4].init_fn = level_25_init;
-
-	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
-
-	// context->init_fn = first_level_init;
+	// context->init_fn = level_01_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
 
 	// context->mainhand = laser_yellow_cannon();
 	// context->shield = laser_green_cannon();
 	// context->heal = heal_cannon();
-	// context->special = time_cannon();
-
-	// context->levels[0][1].unlocked = SDL_TRUE;
-	// context->levels[0][2].unlocked = SDL_TRUE;
-	// context->levels[0][3].unlocked = SDL_TRUE;
-	// context->levels[0][4].unlocked = SDL_TRUE;
-
 }
 
 void	main_loop(void *context_addr)

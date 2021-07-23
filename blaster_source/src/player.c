@@ -13,6 +13,20 @@
 
 #include "main.h"
 
+void	crosshair_init(SDLX_Sprite *crosshair)
+{
+	*crosshair = SDLX_Sprite_Static(ASSETS"crosshair.png");
+
+	crosshair->dst = &(crosshair->_dst);
+	crosshair->_dst = (SDL_Rect){(PLAY_WIDTH) / 2 - 40, (PLAY_HEIGHT) / 2 - 40, 80, 80};
+}
+
+void	update_crosshair(SDLX_Sprite *crosshair)
+{
+	crosshair->angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 45;
+	SDLX_RenderQueue_Add(NULL, crosshair);
+}
+
 void	player_init(t_player *player)
 {
 	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
@@ -45,7 +59,7 @@ void	player_init(t_player *player)
 
 	player->player_hurtbox.detect_meta1 = &(player->hurtbox);
 
-	projectile_queue(&(player->attacks));
+	init_attack_array(&(player->attacks));
 }
 
 SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1)
@@ -98,14 +112,14 @@ void	resize_healthbar(t_player *self)
 void	player_update(t_player *self)
 {
 	t_weapon	*weapon;
-	t_bullet	attack;
+	t_bullet	*bullet_addr;
 
 	weapon = self->weapon_equip;
 	if (weapon->trigger(weapon) == SDL_TRUE)
 	{
 		weapon->curr = weapon->start;
-		weapon->factory(&(attack), (SDL_Point){0, 0}, 0, self);
-		projectile_add(&(self->attacks), attack);
+		bullet_addr = spawn_projectile_addr(&(self->attacks));
+		weapon->factory(bullet_addr, (SDL_Point){0, 0}, 0, self);
 	}
 
 	resize_healthbar(self);

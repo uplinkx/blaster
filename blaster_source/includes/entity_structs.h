@@ -53,7 +53,6 @@ typedef struct	s_bullet
 
 typedef struct	s_attacks
 {
-	size_t		index;
 	size_t		capacity;
 
 	t_bullet	*attacks;

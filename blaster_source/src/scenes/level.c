@@ -13,7 +13,7 @@
 
 #include "main.h"
 
-t_level	*level_init(t_context *context, SDL_UNUSED void *vp_scene)
+void	level_init(t_context *context, t_wave_m waves)
 {
 	t_level	*scene;
 
@@ -29,8 +29,7 @@ t_level	*level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
 
 	init_enemy_array(&(scene->enemies));
-
-	return (scene);
+	scene->stage = waves;
 }
 
 void	*level_close(t_context *context, void *vp_scene)

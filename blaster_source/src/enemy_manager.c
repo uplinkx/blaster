@@ -17,8 +17,8 @@
 
 void	init_enemy_array(t_enemy_m *manager)
 {
-	manager->entity_array = SDL_calloc(DEFAULT_E_SIZE, sizeof(*(manager->entity_array)));
 	manager->capacity = DEFAULT_E_SIZE;
+	manager->entity_array = SDL_calloc(manager->capacity, sizeof(*(manager->entity_array)));
 }
 
 t_enemy *spawn_enemy_addr(t_enemy_m *manager)
@@ -31,8 +31,8 @@ t_enemy *spawn_enemy_addr(t_enemy_m *manager)
 
 	if (i >= manager->capacity)
 	{
-		manager->entity_array = SDL_realloc(manager->entity_array, manager->capacity * 2);
 		manager->capacity *= 2;
+		manager->entity_array = SDL_realloc(manager->entity_array, manager->capacity * 2);
 	}
 
 	return (&(manager->entity_array[i]));

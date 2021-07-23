@@ -13,6 +13,37 @@
 
 #include "main.h"
 
+void	set_levels(t_level_progress (*levels)[5])
+{
+	levels[0][0].unlocked = SDL_TRUE;
+
+	levels[0][0].init_fn = level_01_init;
+	levels[0][1].init_fn = level_02_init;
+	levels[0][2].init_fn = level_03_init;
+	levels[0][3].init_fn = level_04_init;
+	levels[0][4].init_fn = level_05_init;
+	levels[1][0].init_fn = level_06_init;
+	levels[1][1].init_fn = level_07_init;
+	levels[1][2].init_fn = level_08_init;
+	levels[1][3].init_fn = level_09_init;
+	levels[1][4].init_fn = level_10_init;
+	levels[2][0].init_fn = level_11_init;
+	levels[2][1].init_fn = level_12_init;
+	levels[2][2].init_fn = level_13_init;
+	levels[2][3].init_fn = level_14_init;
+	levels[2][4].init_fn = level_15_init;
+	levels[3][0].init_fn = level_16_init;
+	levels[3][1].init_fn = level_17_init;
+	levels[3][2].init_fn = level_18_init;
+	levels[3][3].init_fn = level_19_init;
+	levels[3][4].init_fn = level_20_init;
+	levels[4][0].init_fn = level_21_init;
+	levels[4][1].init_fn = level_22_init;
+	levels[4][2].init_fn = level_23_init;
+	levels[4][3].init_fn = level_24_init;
+	levels[4][4].init_fn = level_25_init;
+}
+
 SDLX_iMap	*blaster_key_map(size_t *size)
 {
 	static SDLX_iMap	key_map[] =

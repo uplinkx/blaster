@@ -49,8 +49,8 @@ SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectile
 */
 
 void	projectile_update(t_attacks *queue);
-void	projectile_queue(t_attacks *attacks);
-void	projectile_add(t_attacks *dst, t_bullet src);
+void	init_attack_array(t_attacks *attacks);
+t_bullet	*spawn_projectile_addr(t_attacks *dst);
 
 void	unequip_weapon(t_weapon *dst);
 void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *shield, SDLX_button *heal, SDLX_button *special);
@@ -95,6 +95,7 @@ uint32_t	lerp32(double percent, uint32_t start, uint32_t end);
 double		ptoa(int x, int y);
 
 SDLX_iMap	*blaster_key_map(size_t *size);
+void		set_levels(t_level_progress (*levels)[5]);
 
 
 #endif

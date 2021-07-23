@@ -1,7 +1,7 @@
 NAME = blaster
 NAMEW = ../index.html
-FLAGS = -Wall -Wextra -Werror
-# FLAGS = -Wall -Wextra -Werror -fsanitize=address
+# FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
 
 LIBRARIES = -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS="['png']"
@@ -44,15 +44,9 @@ SCENE_FILES = 			\
 	main_menu			\
 	level_select		\
 	inventory			\
-	\
 	death_scene			\
 	loot_scene			\
-	\
-	\
 	level				\
-	level_init			\
-	\
-	scene_utils			\
 
 SPRITE_FILES = 			\
 	chest_sprite \
@@ -70,7 +64,6 @@ SPRITE_FILES = 			\
 ENEMY_FILES = 			\
 	slime				\
 	slime_util			\
-	enemy_manager		\
 
 WEAPON_FILES = 			\
 	w_heal				\
@@ -78,9 +71,6 @@ WEAPON_FILES = 			\
 	w_time				\
 	w_whirlwind			\
 	w_lunge				\
-	weapon_manager		\
-	weapon_utils		\
-
 
 # List of all the source files.
 SRC_NAMES = \
@@ -91,13 +81,17 @@ SRC_NAMES = \
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	button \
-	crosshair \
-	input \
+	blaster_init \
 	main \
 	player \
 	ui \
 	utils \
 	waves \
+	weapon_manager		\
+	weapon_utils		\
+	enemy_manager		\
+	level_init			\
+	scene_utils			\
 
 # List of all the source files, folders are to be added by
 # including a $(addprefix, DIR_NAME, $(DIR_FILES))
@@ -116,7 +110,7 @@ allw:
 	emcc -Wall -Wextra -Werror -O0 $(INCLUDES) -D EMCC $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAMEW)
 
 $(NAME): $(BIN_DIR) $(OBJS)
-	gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(SDL_LIB)
+	@gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(SDL_LIB)
 
 $(BIN_DIR):
 	mkdir -p $(BIN_DIR)
@@ -124,11 +118,11 @@ $(BIN_DIR):
 # These are the target object file names given by path ($(OBJS)).
 # We will create the required directories with mkdir -p.
 $(BIN_DIR)%.o: %.c
-	mkdir -p $(BIN_DIR)$(dir $<)
-	gcc $(FLAGS) $(INCLUDES) -c $< -o $@
+	@mkdir -p $(BIN_DIR)$(dir $<)
+	@gcc $(FLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
 	rm -rf $(NAME)
