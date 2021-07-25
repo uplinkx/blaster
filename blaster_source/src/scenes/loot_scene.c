@@ -69,7 +69,7 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	if (context->next_init_fn == NULL)
 	{
-		scene->next.disabled = SDL_TRUE;
+		scene->next.isDisabled = SDL_TRUE;
 		fetch_ui_sprite(&(scene->next.sprite.sprite_data), EMPTY_UI);
 		scene->level_select.sprite._dst.x =	(PLAY_WIDTH - 48) / 2 - 50;
 		scene->restart.sprite._dst.x =		(PLAY_WIDTH - 48) / 2;

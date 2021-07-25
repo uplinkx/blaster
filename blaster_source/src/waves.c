@@ -14,7 +14,7 @@
 #include "main.h"
 #include "spawn_table.h"
 
-SDL_bool	begin_wave(t_wave_m *wave, size_t i)
+SDL_bool	wave_should_begin(t_wave_m *wave, size_t i)
 {
 	SDL_bool	result;
 
@@ -27,11 +27,11 @@ SDL_bool	begin_wave(t_wave_m *wave, size_t i)
 
 	if (wave->waves[i].condition_type == WAVE_PREV_DEFEAT)
 	{
-		if (wave->waves[i - 1].complete == SDL_TRUE)
+		if (wave->waves[i - 1].isComplete == SDL_TRUE)
 			result = SDL_TRUE;
 	}
 
-	wave->waves[i].active = result;
+	wave->waves[i].isActive = result;
 	return (result);
 }
 
@@ -65,7 +65,7 @@ int		do_wave(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 		{
 			spawn_addr = spawn_enemy_addr(enemy_man);
 			spawn_elem(wave->wave_array[i].type, spawn_addr, wave->wave_array[i].spawn_location, wave->wave_array[i].modifier);
-			if (wave->wave_array[i].count == SDL_TRUE)
+			if (wave->wave_array[i].shouldCount == SDL_TRUE)
 				spawn_addr->enemy_hurtbox.engage_meta2 = &(wave->finished_no);
 			spawn_addr->spawn_pool = enemy_man;
 			spawn_addr->projectile_spawn = projectiles;
@@ -77,7 +77,7 @@ int		do_wave(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 
 	if (wave->finished_no >= wave->size)
 	{
-		wave->complete = SDL_TRUE;
+		wave->isComplete = SDL_TRUE;
 		return (1);
 	}
 	return (0);
@@ -95,7 +95,7 @@ SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectile
 	killed = 0;
 	while (i < wave->size)
 	{
-		if (wave->waves[i].complete == SDL_FALSE && (wave->waves[i].active || begin_wave(wave, i)))
+		if (wave->waves[i].isComplete == SDL_FALSE && (wave->waves[i].isActive || wave_should_begin(wave, i)))
 			completed += do_wave(&(wave->waves[i]), enemy_man, projectiles);
 		killed += wave->waves[i].finished_no;
 		i++;
@@ -105,7 +105,7 @@ SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectile
 	{
 		if (wave->win_wave == -1)
 			return (SDL_TRUE);
-		else if (wave->waves[wave->win_wave].complete == SDL_TRUE)
+		else if (wave->waves[wave->win_wave].isComplete == SDL_TRUE)
 			return (SDL_TRUE);
 	}
 	return (SDL_FALSE);

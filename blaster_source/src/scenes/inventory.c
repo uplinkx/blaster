@@ -119,13 +119,13 @@ void	*inventory_update(SDL_UNUSED t_context *context, void *vp_scene)
 	else if (scene->list[scene->at].weapon_type & B_SHIELD) { factory = context->shield.factory; }
 	else { factory = context->special.factory; }
 
-	scene->equip_weapon.disabled = SDL_TRUE;
-	scene->unequip_weapon.disabled = SDL_TRUE;
+	scene->equip_weapon.isDisabled = SDL_TRUE;
+	scene->unequip_weapon.isDisabled = SDL_TRUE;
 
 	if (scene->list[scene->at].weapon.factory != factory)
-		scene->equip_weapon.disabled = SDL_FALSE;
+		scene->equip_weapon.isDisabled = SDL_FALSE;
 	else
-		scene->unequip_weapon.disabled = SDL_FALSE;
+		scene->unequip_weapon.isDisabled = SDL_FALSE;
 
 	SDLX_Button_Update(&(scene->equip_weapon));
 	SDLX_Button_Update(&(scene->unequip_weapon));

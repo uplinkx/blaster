@@ -33,14 +33,8 @@ void	heal_update(void *self, SDL_UNUSED void *meta)
 
 	bullet = self;
 
-	if (bullet->active == SDL_FALSE)
-		return ;
-
-	if (bullet->sprite.current == 8)
-	{
-		bullet->active = SDL_FALSE;
-		return ;
-	}
+	if (bullet->isActive == SDL_FALSE) { return ; }
+	if (bullet->sprite.current == 8) { bullet->isActive = SDL_FALSE; return ; }
 
 	bullet->sprite.current++;
 	SDLX_RenderQueue_Add(NULL, &(bullet->sprite));
@@ -53,7 +47,7 @@ void	heal_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED do
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 64) / 2, 9 * 16 + 2, 64, 64};
 
-	dst->active = SDL_TRUE;
+	dst->isActive = SDL_TRUE;
 
 	dst->update = heal_update;
 
@@ -78,7 +72,7 @@ t_weapon	heal_cannon(void)
 
 	heal_cannon.curr = HEAL_COOLDOWN;
 
-	heal_cannon.enabled = SDL_TRUE;
+	heal_cannon.isEnabled = SDL_TRUE;
 
 	heal_cannon.factory = heal_factory;
 	heal_cannon.trigger = heal_fire;

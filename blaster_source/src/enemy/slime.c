@@ -124,7 +124,7 @@ void	slime_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->active = SDL_FALSE;
+		slime->isActive = SDL_FALSE;
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
 	}
@@ -155,7 +155,7 @@ void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->active = SDL_FALSE;
+		slime->isActive = SDL_FALSE;
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
 	}
@@ -209,7 +209,7 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->active = SDL_FALSE;
+		slime->isActive = SDL_FALSE;
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
 	}
@@ -231,7 +231,7 @@ SDL_bool	goo_detect_collision(void *self, void *with, void *meta1, void *meta2)
 	if (hitbox->type == PLAYER || hitbox->type == BULLETS || hitbox->type == WHIRLWIND)
 	{
 		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
-			self_attack->active = SDL_FALSE;
+			self_attack->isActive = SDL_FALSE;
 	}
 
 	(void)meta1;
@@ -246,13 +246,13 @@ void	goo_update(void *self, SDL_UNUSED void *meta)
 
 	bullet = self;
 
-	if (bullet->active == SDL_FALSE)
+	if (bullet->isActive == SDL_FALSE)
 		return ;
 
 	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
 	{
-		bullet->active = SDL_FALSE;
+		bullet->isActive = SDL_FALSE;
 		SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
@@ -278,7 +278,7 @@ void	slime_goo(t_bullet *goo, int x, int y)
 	goo->sprite._dst = (SDL_Rect){x + 8, y + 8, 16, 16};
 	goo->sprite.center = NULL;
 	goo->sprite.angle = 0;
-	goo->active = SDL_TRUE;
+	goo->isActive = SDL_TRUE;
 
 	double	angle;
 
@@ -340,7 +340,7 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->active = SDL_FALSE;
+		slime->isActive = SDL_FALSE;
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
 	}
@@ -393,7 +393,7 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->active = SDL_FALSE;
+		slime->isActive = SDL_FALSE;
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
 	}
@@ -409,13 +409,13 @@ void	spine_update(void *self, SDL_UNUSED void *meta)
 
 	bullet = self;
 
-	if (bullet->active == SDL_FALSE)
+	if (bullet->isActive == SDL_FALSE)
 		return ;
 
 	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
 	{
-		bullet->active = SDL_FALSE;
+		bullet->isActive = SDL_FALSE;
 		SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
@@ -439,7 +439,7 @@ SDL_bool	spine_detect_collision(void *self, void *with, void *meta1, void *meta2
 	if (hitbox->type == PLAYER || hitbox->type == BULLETS || hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW || hitbox->type == WHIRLWIND || hitbox->type == SLIMES_INV)
 	{
 		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
-			self_attack->active = SDL_FALSE;
+			self_attack->isActive = SDL_FALSE;
 	}
 
 	(void)meta1;
@@ -454,7 +454,7 @@ void	slime_spine(t_bullet *spine, int x, int y, double angle)
 	spine->sprite._dst = (SDL_Rect){x + 8, y + 8, 16, 16};
 	spine->sprite.center = NULL;
 	spine->sprite.angle = (angle * 180 / M_PI) + 180;
-	spine->active = SDL_TRUE;
+	spine->isActive = SDL_TRUE;
 
 	spine->vel.x = SDL_sin(angle) * 3;
 	spine->vel.y = SDL_cos(angle) * -3;
@@ -495,7 +495,7 @@ void	slime_spiny_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->active = SDL_FALSE;
+		slime->isActive = SDL_FALSE;
 		score = slime->enemy_hurtbox.engage_meta2;
 		(*score)++;
 		angle = M_PI_4;

@@ -118,8 +118,6 @@ void	SDLX_CollisionBucket_Flush(SDLX_collision_bucket *bucket);
 double	SDLX_Degree_to_Radian(double degree);
 double	SDLX_Radian_to_Degree(double degree);
 
-#define SDLX_DREALLOC(ptr, size_ptr, rate) (SDLX_drealloc(ptr, sizeof(*(*ptr)), size_ptr, rate))
-
-void	*SDLX_drealloc(void *ptr, size_t width, size_t *dependent, double rate);
+#define SDLX_CALLOC_M(what, amount) (what = SDL_calloc(amount, sizeof(*(what))))
 
 #endif

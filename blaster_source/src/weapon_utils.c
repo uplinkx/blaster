@@ -25,7 +25,7 @@ void	unequip_weapon(t_weapon *dst)
 
 	dst->curr = 0;
 
-	dst->enabled = 0;
+	dst->isEnabled = SDL_FALSE;
 	dst->factory = empty_weapon_factory;
 	dst->trigger = empty_weapon_trigger;
 }
@@ -70,10 +70,10 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	context->heal.meta_int = 0;
 
 	count = 0;
-	if (context->mainhand.enabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); mainhand->down = keys[count]; count++; }
-	if (context->shield.enabled == SDL_TRUE) { line[count] = shield; context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); shield->down = keys[count]; count++; }
-	if (context->heal.enabled == SDL_TRUE) { line[count] = heal; context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); heal->down = keys[count]; count++; }
-	if (context->special.enabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); special->down = keys[count]; count++; }
+	if (context->mainhand.isEnabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); mainhand->down = keys[count]; count++; }
+	if (context->shield.isEnabled == SDL_TRUE) { line[count] = shield; context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); shield->down = keys[count]; count++; }
+	if (context->heal.isEnabled == SDL_TRUE) { line[count] = heal; context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); heal->down = keys[count]; count++; }
+	if (context->special.isEnabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); special->down = keys[count]; count++; }
 
 	if (count == 0)
 	{
@@ -115,9 +115,9 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	context->shield.cooldown_sprite._dst = shield->sprite._dst;
 	context->heal.cooldown_sprite._dst = heal->sprite._dst;
 
-	if (context->mainhand.enabled) { *player_weapon_addr = &(context->mainhand); }
-	else if (context->shield.enabled) { *player_weapon_addr = &(context->shield); }
-	else if (context->heal.enabled) { *player_weapon_addr = &(context->heal); }
+	if (context->mainhand.isEnabled) { *player_weapon_addr = &(context->mainhand); }
+	else if (context->shield.isEnabled) { *player_weapon_addr = &(context->shield); }
+	else if (context->heal.isEnabled) { *player_weapon_addr = &(context->heal); }
 	else { *player_weapon_addr = &(context->special); }
 }
 

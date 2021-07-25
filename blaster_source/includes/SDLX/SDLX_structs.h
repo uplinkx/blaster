@@ -177,13 +177,13 @@ typedef struct	SDLX_button
 
 	int			norm_no;
 	int			focus_no;
-	SDL_bool	lock;
+	SDL_bool	isLocked;
 
-	SDL_bool	disabled;
+	SDL_bool	isDisabled;
 
-	SDL_bool	global_active;
-	SDL_bool	focused;
-	SDL_bool	triggered;
+	SDL_bool	isGloballyActive;
+	SDL_bool	isFocused;
+	SDL_bool	isTriggered;
 
 	void		*meta;
 	void		*meta1;

@@ -33,18 +33,13 @@ SDL_bool	lunge_fire(SDL_UNUSED t_weapon *weapon)
 void	lunge_update(void *self, SDL_UNUSED void *meta)
 {
 	t_bullet	*bullet;
+	size_t		duration;
 
 	bullet = self;
+	duration = bullet->vel.x;
 
-	if (bullet->active == SDL_FALSE)
-		return ;
-
-
-	if (bullet->sprite.current >= (size_t)bullet->vel.x)
-	{
-		bullet->active = SDL_FALSE;
-		return ;
-	}
+	if (bullet->isActive == SDL_FALSE) { return ; }
+	if (bullet->sprite.current >= duration) { bullet->isActive = SDL_FALSE; return ; }
 
 	bullet->sprite.current++;
 	SDLX_RenderQueue_Add(NULL, &(bullet->sprite));
@@ -68,7 +63,7 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = (angle * 180 / M_PI);
 
-	dst->active = SDL_TRUE;
+	dst->isActive = SDL_TRUE;
 
 	dst->update = lunge_update;
 
@@ -98,7 +93,7 @@ t_weapon	lunge_cannon(void)
 
 	lunge_cannon.curr = LUNGE_COOLDOWN;
 
-	lunge_cannon.enabled = SDL_TRUE;
+	lunge_cannon.isEnabled = SDL_TRUE;
 
 	lunge_cannon.factory = lunge_factory;
 	lunge_cannon.trigger = lunge_fire;

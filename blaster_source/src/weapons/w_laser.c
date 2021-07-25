@@ -49,7 +49,7 @@ SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta
 	if (hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW || hitbox->type == GOO || hitbox->type == SPINE || hitbox->type == SLIMES_INV)
 	{
 		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
-			self_attack->active = SDL_FALSE;
+			self_attack->isActive = SDL_FALSE;
 	}
 
 	(void)meta1;
@@ -64,13 +64,13 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 
 	bullet = self;
 
-	if (bullet->active == SDL_FALSE)
+	if (bullet->isActive == SDL_FALSE)
 		return ;
 
 	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
 	{
-		bullet->active = SDL_FALSE;
+		bullet->isActive = SDL_FALSE;
 		SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
@@ -92,7 +92,7 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->vel.x = 1;
 	dst->vel.y = 1;
 
-	dst->active = SDL_TRUE;
+	dst->isActive = SDL_TRUE;
 
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = (angle * 180 / M_PI);
@@ -122,7 +122,7 @@ void	laser_green_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UN
 	dst->vel.x = 1;
 	dst->vel.y = 1;
 
-	dst->active = SDL_TRUE;
+	dst->isActive = SDL_TRUE;
 
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = (angle * 180 / M_PI);
@@ -149,7 +149,7 @@ t_weapon	laser_cannon(void)
 
 	laser_cannon.curr = LASER_COOLDOWN;
 
-	laser_cannon.enabled = SDL_TRUE;
+	laser_cannon.isEnabled = SDL_TRUE;
 
 	laser_cannon.factory = laser_factory;
 	laser_cannon.trigger = laser_fire;
@@ -166,7 +166,7 @@ t_weapon	laser_green_cannon(void)
 
 	laser_cannon.curr = LASER_COOLDOWN;
 
-	laser_cannon.enabled = SDL_TRUE;
+	laser_cannon.isEnabled = SDL_TRUE;
 
 	laser_cannon.factory = laser_green_factory;
 	laser_cannon.trigger = laser_fire;
@@ -185,7 +185,7 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 	dst->vel.x = 1;
 	dst->vel.y = 1;
 
-	dst->active = SDL_TRUE;
+	dst->isActive = SDL_TRUE;
 
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = SDLX_Radian_to_Degree(angle);
@@ -213,7 +213,7 @@ t_weapon	laser_yellow_cannon(void)
 
 	laser_cannon.curr = LASER_COOLDOWN;
 
-	laser_cannon.enabled = SDL_TRUE;
+	laser_cannon.isEnabled = SDL_TRUE;
 
 	laser_cannon.factory = laser_yellow_factory;
 	laser_cannon.trigger = laser_yellow_fire;

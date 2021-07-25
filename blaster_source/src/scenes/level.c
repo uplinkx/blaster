@@ -22,7 +22,7 @@ void	level_init(t_context *context, t_wave_m waves)
 	scene->pbackground = NULL;
 
 	level_ui_init(&(scene->pause), &(scene->bottom_ui));
-	pause_menu_init(&(scene->pause_menu), &(scene->pause.triggered), &(scene->pbackground), context, context->init_fn);
+	pause_menu_init(&(scene->pause_menu), &(scene->pause.isTriggered), &(scene->pbackground), context, context->init_fn);
 
 	player_init(&(scene->player));
 	crosshair_init(&(scene->crosshair));
@@ -41,7 +41,7 @@ void	*level_close(t_context *context, void *vp_scene)
 	context->redo_init_fn = context->init_fn;
 
 	if (scene->player.hp <= 0) { context->init_fn = death_level_init; }
-	else if (scene->stage.won == SDL_TRUE)
+	else if (scene->stage.isComplete == SDL_TRUE)
 	{
 		context->init_fn = loot_level_init;
 
@@ -50,7 +50,7 @@ void	*level_close(t_context *context, void *vp_scene)
 		if (level_id <= 25)
 		{
 			level_id++;
-			context->levels[level_id / 5][level_id % 5].unlocked = SDL_TRUE;
+			context->levels[level_id / 5][level_id % 5].isUnlocked = SDL_TRUE;
 			context->shield = whirl_cannon();
 			context->next_init_fn = context->levels[level_id / 5][level_id % 5].init_fn;
 		}
@@ -75,7 +75,7 @@ void	*level_update(t_context *context, void *vp_scene)
 	scene = vp_scene;
 
 	wave_done = SDL_FALSE;
-	if (scene->pause.triggered == SDL_FALSE)
+	if (scene->pause.isTriggered == SDL_FALSE)
 	{
 		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
 
@@ -100,7 +100,7 @@ void	*level_update(t_context *context, void *vp_scene)
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);
 
-	if (scene->pause.triggered == SDL_TRUE && scene->pbackground == NULL)
+	if (scene->pause.isTriggered == SDL_TRUE && scene->pbackground == NULL)
 	{
 		scene->pause.sprite_fn(&(scene->pause.sprite.sprite_data), EMPTY_UI);
 		scene->pbackground = SDLX_CaptureScreen(NULL, 0, SDL_TRUE);
@@ -108,7 +108,7 @@ void	*level_update(t_context *context, void *vp_scene)
 	}
 
 	if (scene->player.hp <= 0) { end_scene(context, &(scene->pause)); }
-	if (wave_done) { scene->stage.won = SDL_TRUE; end_scene(context, &(scene->pause)); }
+	if (wave_done) { scene->stage.isComplete = SDL_TRUE; end_scene(context, &(scene->pause)); }
 
 	return (NULL);
 }

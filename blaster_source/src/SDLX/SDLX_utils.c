@@ -70,13 +70,5 @@ SDLX_Sprite		SDLX_Sprite_Static(char *path)
 	return (res);
 }
 
-void	*SDLX_drealloc(void *ptr, size_t width, size_t *dependent, double rate)
-{
-	*dependent = (*dependent) * rate;
-	ptr = SDL_realloc(ptr, width * (*dependent));
-	return (ptr);
-}
-
-
 double	SDLX_Degree_to_Radian(double degree) { return (degree * M_PI / 180 ); }
 double	SDLX_Radian_to_Degree(double degree) { return (degree * 180 / M_PI); }

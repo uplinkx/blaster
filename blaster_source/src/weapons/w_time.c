@@ -38,7 +38,7 @@ void	time_update(void *self, SDL_UNUSED void *meta)
 
 	bullet = self;
 
-	bullet->active = SDL_FALSE;
+	bullet->isActive = SDL_FALSE;
 	return ;
 }
 
@@ -50,7 +50,7 @@ void	time_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED do
 	dst->sprite.center = NULL;
 	dst->sprite.angle = 0;
 
-	dst->active = SDL_FALSE;
+	dst->isActive = SDL_FALSE;
 
 	dst->update = time_update;
 
@@ -77,7 +77,7 @@ t_weapon	time_cannon(void)
 
 	time_cannon.curr = time_COOLDOWN;
 
-	time_cannon.enabled = SDL_TRUE;
+	time_cannon.isEnabled = SDL_TRUE;
 
 	time_cannon.factory = time_factory;
 	time_cannon.trigger = time_fire;

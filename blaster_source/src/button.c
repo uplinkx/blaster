@@ -15,7 +15,7 @@
 
 void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length)
 {
-	if (self->triggered && self->sprite.dst->y >= 40)
+	if (self->isTriggered && self->sprite.dst->y >= 40)
 	{
 		self->sprite.dst->y -= 2;
 		self->sprite.dst->w -= 1;
@@ -32,8 +32,8 @@ void	*button_chest(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED si
 	{
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 
-		self->lock = SDL_TRUE;
-		self->triggered = SDL_TRUE;
+		self->isLocked = SDL_TRUE;
+		self->isTriggered = SDL_TRUE;
 
 		self->sprite_fn(&(self->sprite.sprite_data), 2);
 		self->sprite.current = 0;
@@ -51,7 +51,7 @@ void	*button_trigger_scene_switch(SDLX_button *self, void *vp_context, SDL_UNUSE
 	{
 		context = vp_context;
 		context->init_fn = self->meta1;
-		context->scene = SDL_FALSE;
+		context->shouldChange = SDL_TRUE;
 	}
 
 	return (NULL);
@@ -64,7 +64,7 @@ void	*button_pause(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t l
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
 
 		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
-		self->triggered = SDL_TRUE;
+		self->isTriggered = SDL_TRUE;
 	}
 
 	return (NULL);
@@ -84,7 +84,7 @@ void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t lengt
 		pause = pause_addr;
 		*pause = SDL_FALSE;
 
-		self->focused = SDL_FALSE;
+		self->isFocused = SDL_FALSE;
 		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
 
 		pbackground = self->meta1;
@@ -139,9 +139,9 @@ void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapo
 {
 	SDLX_Button_Init(dst, fetch_ui_sprite, ABILITY, (SDL_Rect){0, 400, 48, 48}, NULL);
 
-	dst->disabled = SDL_TRUE;
-	if (bound_weapon->enabled == SDL_TRUE)
-		dst->disabled = SDL_FALSE;
+	dst->isDisabled = SDL_TRUE;
+	if (bound_weapon->isEnabled == SDL_TRUE)
+		dst->isDisabled = SDL_FALSE;
 
 	dst->meta1 = bound_weapon;
 	dst->meta = player_equip_addr;

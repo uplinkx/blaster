@@ -15,7 +15,7 @@
 
 void	set_levels(t_level_progress (*levels)[5])
 {
-	levels[0][0].unlocked = SDL_TRUE;
+	levels[0][0].isUnlocked = SDL_TRUE;
 
 	levels[0][0].init_fn = level_01_init;
 	levels[0][1].init_fn = level_02_init;

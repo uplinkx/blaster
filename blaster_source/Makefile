@@ -1,7 +1,7 @@
 NAME = blaster
 NAMEW = ../index.html
-# FLAGS = -Wall -Wextra -Werror
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
 
 LIBRARIES = -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS="['png']"
@@ -80,18 +80,17 @@ SRC_NAMES = \
 	$(addprefix levels/, $(LEVEL_FILES))	\
 	$(addprefix $(SDLX_DIR), $(SDLX_NAMES))	\
 	$(addprefix weapons/, $(WEAPON_FILES))	\
-	button \
 	blaster_init \
+	button \
+	entity_manager \
+	level_init \
 	main \
 	player \
+	scene_utils \
 	ui \
 	utils \
 	waves \
-	weapon_manager		\
-	weapon_utils		\
-	enemy_manager		\
-	level_init			\
-	scene_utils			\
+	weapon_utils \
 
 # List of all the source files, folders are to be added by
 # including a $(addprefix, DIR_NAME, $(DIR_FILES))

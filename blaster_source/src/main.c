@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/21 19:09:03 by home             ###   ########.fr       */
+/*   Updated: 2021/07/25 15:58:19 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 void	blaster_start(t_context *context)
 {
-	context->exit = SDL_FALSE;
-	context->scene = SDL_FALSE;
+	context->shouldQuit = SDL_FALSE;
+	context->shouldChange = SDL_TRUE;
 
 	context->meta = NULL;
 
@@ -40,12 +40,12 @@ void	blaster_start(t_context *context)
 
 
 
-	context->levels[0][1].unlocked = SDL_TRUE;
-	context->levels[0][2].unlocked = SDL_TRUE;
-	context->levels[0][3].unlocked = SDL_TRUE;
-	context->levels[0][4].unlocked = SDL_TRUE;
+	context->levels[0][1].isUnlocked = SDL_TRUE;
+	context->levels[0][2].isUnlocked = SDL_TRUE;
+	context->levels[0][3].isUnlocked = SDL_TRUE;
+	context->levels[0][4].isUnlocked = SDL_TRUE;
 
-	context->levels[1][0].unlocked = SDL_TRUE;
+	context->levels[1][0].isUnlocked = SDL_TRUE;
 
 	// context->init_fn = level_01_init;
 	// context->init_fn = level_select_init;
@@ -61,26 +61,26 @@ void	main_loop(void *context_addr)
 	t_context	*context;
 
 	context = context_addr;
-	if (context->scene == SDL_FALSE)
+	if (context->shouldChange == SDL_TRUE)
 	{
 		context->init_fn(context, context->meta);
-		context->scene = SDL_TRUE;
+		context->shouldChange = SDL_FALSE;
 	}
 
-	context->exit = SDLX_poll();
+	context->shouldQuit = SDLX_poll();
 	SDLX_record_input(NULL);
 	SDLX_KeyMap(&(g_GameInput.key_mapper), g_GameInput.keystate);
 	SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
 
 	context->update_fn(context, context->meta);
 
-	if (context->exit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
+	if (context->shouldQuit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
 	{
 		SDLX_RenderQueue_Flush(NULL, NULL, SDL_TRUE);
 		SDLX_ScreenReset(SDLX_GetDisplay()->renderer, NULL);
 	}
 
-	if (context->scene == SDL_FALSE)
+	if (context->shouldChange == SDL_TRUE)
 	{
 		SDLX_CollisionBucket_Flush(NULL);
 		SDLX_RenderQueue_Flush(NULL, SDLX_GetDisplay()->renderer, SDL_FALSE);
@@ -99,7 +99,7 @@ int	main(void)
 	#ifdef EMCC
 		emscripten_set_main_loop_arg(main_loop, (void *)&(context), 0, SDL_TRUE);
 	#else
-		while (context.exit == SDL_FALSE)
+		while (context.shouldQuit == SDL_FALSE)
 			main_loop(&(context));
 	#endif
 

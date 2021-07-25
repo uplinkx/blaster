@@ -35,12 +35,12 @@ void	whirl_update(void *self, SDL_UNUSED void *meta)
 	t_bullet	*bullet;
 
 	bullet = self;
-	if (bullet->active == SDL_FALSE)
+	if (bullet->isActive == SDL_FALSE)
 		return ;
 
 	if (bullet->sprite.current >= (size_t)bullet->vel.x)
 	{
-		bullet->active = SDL_FALSE;
+		bullet->isActive = SDL_FALSE;
 		return ;
 	}
 
@@ -63,7 +63,7 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (48 * 3)) / 2, (PLAY_HEIGHT -  (48 * 3)) / 2 + 5, (48 * 3), (48 * 3)};
 
-	dst->active = SDL_TRUE;
+	dst->isActive = SDL_TRUE;
 
 	dst->update = whirl_update;
 
@@ -86,7 +86,7 @@ t_weapon	whirl_cannon(void)
 
 	whirl_cannon.curr = WHIRL_COOLDOWN;
 
-	whirl_cannon.enabled = SDL_TRUE;
+	whirl_cannon.isEnabled = SDL_TRUE;
 
 	whirl_cannon.factory = whirl_factory;
 	whirl_cannon.trigger = whirl_fire;

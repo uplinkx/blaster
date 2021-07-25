@@ -24,14 +24,14 @@ typedef void *(t_scene_fn)(struct s_context *, void *);
 
 typedef struct	s_level_progress
 {
-	SDL_bool	unlocked;
+	SDL_bool	isUnlocked;
 	t_scene_fn	*init_fn;
 }				t_level_progress;
 
 typedef struct	s_context
 {
-	SDL_bool	exit;
-	SDL_bool	scene;
+	SDL_bool	shouldQuit;
+	SDL_bool	shouldChange;
 
 	void		*meta;
 
@@ -81,7 +81,7 @@ typedef struct	s_level
 
 typedef struct	s_weapon_list
 {
-	SDL_bool	unlocked;
+	SDL_bool	isUnlocked;
 	int			weapon_type;
 	t_weapon	weapon;
 	char		*name;

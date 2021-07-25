@@ -23,7 +23,7 @@ typedef struct	s_wave_elem
 
 	size_t		spawn_tick;
 
-	SDL_bool	count;
+	SDL_bool	shouldCount;
 
 	SDL_Point	spawn_location;
 
@@ -47,8 +47,8 @@ typedef struct	s_wave
 	size_t		condition_type;
 	size_t		condition_info;
 
-	SDL_bool	complete;
-	SDL_bool	active;
+	SDL_bool	isComplete;
+	SDL_bool	isActive;
 
 	size_t		size;
 	size_t		finished_no;
@@ -66,7 +66,7 @@ typedef struct	s_wave_m
 	size_t		win_wave_no;
 	int			win_wave;
 
-	SDL_bool	won;
+	SDL_bool	isComplete;
 
 	size_t		size;
 	t_wave		*waves;

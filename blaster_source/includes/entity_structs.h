@@ -29,7 +29,7 @@ typedef struct	s_weapon
 
 	unsigned int	curr;
 
-	SDL_bool		enabled;
+	SDL_bool		isEnabled;
 
 	int				meta_int;
 	void			*meta;
@@ -43,10 +43,12 @@ typedef struct	s_bullet
 	SDLX_Sprite		sprite;
 
 	SDL_Point		vel;
-	SDL_bool		active;
+	SDL_bool		isActive;
 
 	void			*meta;
 	void			(*update)(void *, void *);
+
+	// void			(*realloc_fn)(t_bullet *, t_bullet *);
 
 	SDLX_collision	hitbox;
 }				t_bullet;
@@ -61,7 +63,7 @@ typedef struct	s_attacks
 
 typedef struct	s_enemy
 {
-	SDL_bool		active;
+	SDL_bool		isActive;
 
 	SDLX_Sprite		sprite;
 	SDLX_collision	enemy_hurtbox;
