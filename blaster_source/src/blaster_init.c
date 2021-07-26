@@ -61,15 +61,15 @@ SDLX_iMap	*blaster_key_map(size_t *size)
 		(SDLX_iMap){&BMAP(button_num3),	1, SDL_SCANCODE_D},
 		(SDLX_iMap){&BMAP(button_num4),	1, SDL_SCANCODE_F},
 
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_1},
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_2},
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_3},
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_4},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_1},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_2},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_3},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_4},
 
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_A},
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_S},
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_D},
-		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_F},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_A},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_S},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_D},
+		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_F},
 	};
 
 	*size = sizeof(key_map) / sizeof(*key_map);

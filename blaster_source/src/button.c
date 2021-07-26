@@ -108,6 +108,7 @@ void	*change_ability(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t len
 
 	if (self->isTriggered == SDL_TRUE)
 	{
+		SDL_Log("Ability First %d", g_GameInput.GameInput.button_primleft);
 		self->isTriggered = SDL_FALSE;
 
 		from_weapon = self->meta1;

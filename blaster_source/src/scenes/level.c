@@ -77,9 +77,9 @@ void	*level_update(t_context *context, void *vp_scene)
 	wave_done = SDL_FALSE;
 	if (scene->pause.isTriggered == SDL_FALSE)
 	{
-		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
-
 		SDLX_Button_Update(&(scene->pause));
+
+		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
 
 		SDLX_Button_Update(&(scene->mainhand));
 		SDLX_Button_Update(&(scene->special));
@@ -91,6 +91,7 @@ void	*level_update(t_context *context, void *vp_scene)
 		player_update(&(scene->player));
 
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
+
 		projectile_update(&(scene->player.attacks));
 
 		wave_done = wave_method(&(scene->stage), &(scene->enemies), &(scene->player.attacks));

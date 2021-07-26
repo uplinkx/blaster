@@ -16,23 +16,43 @@
 SDL_bool	laser_fire(SDL_UNUSED t_weapon *weapon)
 {
 	SDL_bool	result;
+	SDL_Rect	play_area;
 
 	result = SDL_FALSE;
-	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown && SDL_PointInRect(&(g_GameInput.GameInput.primary), &(play_area)))
 	{
-		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
-		result = SDL_TRUE;
+		if (g_GameInput.GameInput.button_primleft == 1)
+			result = SDL_TRUE;
+
+		if (g_GameInput.GameInput.button_primleft == 2 && weapon->meta_int == 1)
+			result = SDL_TRUE;
 	}
+
+	if (g_GameInput.GameInput.button_primleft == 0)
+		weapon->meta_int = 1;
 	return (result);
 }
 
 SDL_bool	laser_yellow_fire(SDL_UNUSED t_weapon *weapon)
 {
 	SDL_bool	result;
+	SDL_Rect	play_area;
 
 	result = SDL_FALSE;
-	if (g_GameInput.GameInput.button_primleft != 0 && weapon->curr >= weapon->cooldown)
-		result = SDL_TRUE;
+	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
+	if (weapon->curr >= weapon->cooldown && SDL_PointInRect(&(g_GameInput.GameInput.primary), &(play_area)))
+	{
+		if (g_GameInput.GameInput.button_primleft == 1)
+			result = SDL_TRUE;
+
+		if (g_GameInput.GameInput.button_primleft == 2 && weapon->meta_int == 1)
+			result = SDL_TRUE;
+	}
+
+	if (g_GameInput.GameInput.button_primleft == 0)
+		weapon->meta_int = 1;
+
 	return (result);
 }
 
