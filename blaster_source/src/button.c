@@ -103,6 +103,12 @@ void	*change_ability(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t len
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
+		self->isTriggered = SDL_TRUE;
+	}
+
+	if (self->isTriggered == SDL_TRUE)
+	{
+		self->isTriggered = SDL_FALSE;
 
 		from_weapon = self->meta1;
 		player_spot = weapon_addr;
@@ -124,7 +130,10 @@ void	*ability_button_update(SDLX_button *self, void *weapon_addr, SDL_UNUSED siz
 
 	keymap = self->down;
 	if (*keymap == 1 && *player_spot != self->meta1)
+	{
+		self->isTriggered = SDL_TRUE;
 		self->trigger_fn(self, self->meta, 0);
+	}
 
 	if (*player_spot == self->meta1)
 		self->sprite_fn(&(self->sprite.sprite_data), ABILITY_SEL);
