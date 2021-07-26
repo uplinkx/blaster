@@ -30,6 +30,7 @@ SDLX_NAMES = 			\
 	SDLX_render_queue	\
 	SDLX_render			\
 	SDLX_utils			\
+	SDLX_utilsX			\
 	SDLX_xbox			\
 
 LEVEL_FILES = 			\

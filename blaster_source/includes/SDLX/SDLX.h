@@ -120,4 +120,14 @@ double	SDLX_Radian_to_Degree(double degree);
 
 #define SDLX_CALLOC_M(what, amount) (what = SDL_calloc(amount, sizeof(*(what))))
 
+/*
+** UtilityX Functions.
+*/
+
+void	SDLX_xIter(void *base, size_t nel, size_t width, void (*apply_fn)(void *));
+void	*SDLX_xLowest(void *base, size_t nel, size_t width, int (cmp)(const void *, const void *));
+void	*SDLX_xHighest(void *base, size_t nel, size_t width, int (cmp)(const void *, const void *));
+void	*SDLX_xFirst(void *base, size_t nel, size_t width, SDL_bool (key_fn)(const void *));
+void	*SDLX_xLast(void *base, size_t nel, size_t width, SDL_bool (key_fn)(const void *));
+
 #endif
