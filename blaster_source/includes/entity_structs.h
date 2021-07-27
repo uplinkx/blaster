@@ -59,6 +59,8 @@ typedef struct	s_attacks
 
 	t_bullet	*attacks;
 
+	t_bullet	*delayed_free;
+
 }				t_attacks;
 
 typedef struct	s_enemy
@@ -83,6 +85,7 @@ typedef struct	s_enemy
 typedef struct	s_enemy_m
 {
 	size_t		capacity;
+
 	t_enemy		*entity_array;
 }				t_enemy_m;
 

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/26 14:37:35 by home             ###   ########.fr       */
+/*   Updated: 2021/07/26 19:36:13 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	blaster_start(t_context *context)
 
 	context->mainhand = laser_yellow_cannon();
 	// context->shield = laser_green_cannon();
-	context->heal = heal_cannon();
+	// context->heal = heal_cannon();
 	// context->shield = whirl_cannon();
 }
 
