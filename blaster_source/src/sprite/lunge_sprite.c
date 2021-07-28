@@ -20,7 +20,7 @@ SDLX_Sprite_Data *carve_lunge_sprite(void)
 	SDLX_Sprite_Data	*result;
 
 	result = SDL_calloc(12, sizeof(*result));
-	texture = SDLX_LoadTexture(ASSETS"lunge.png");
+	texture = SDLX_LoadTexture(ASSETS"weapons/lunge.png");
 
 	i = 0;
 	while (i < 12)

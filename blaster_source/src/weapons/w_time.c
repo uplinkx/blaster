@@ -44,7 +44,7 @@ void	time_update(void *self, SDL_UNUSED void *meta)
 
 void	time_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	dst->sprite = SDLX_Sprite_Static(ASSETS"heal.png");
+	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/heal.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){16, 16, 0, 0};
 	dst->sprite.center = NULL;

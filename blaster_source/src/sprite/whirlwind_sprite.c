@@ -20,7 +20,7 @@ SDLX_Sprite_Data *carve_whirl_sprite(void)
 	SDLX_Sprite_Data	*result;
 
 	result = SDL_calloc(11, sizeof(*result));
-	texture = SDLX_LoadTexture(ASSETS"whirlwind.png");
+	texture = SDLX_LoadTexture(ASSETS"weapons/whirlwind.png");
 
 	i = 0;
 	while (i < 11)

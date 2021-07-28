@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/26 19:36:13 by home             ###   ########.fr       */
+/*   Updated: 2021/07/28 00:28:13 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	blaster_start(t_context *context)
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 	set_levels(context->levels);
 	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
-
 
 	context->levels[0][1].isUnlocked = SDL_TRUE;
 	context->levels[0][2].isUnlocked = SDL_TRUE;

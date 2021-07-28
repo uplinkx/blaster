@@ -103,7 +103,7 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 
 void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	dst->sprite = SDLX_Sprite_Static(ASSETS"laser.png");
+	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
 	dst->sprite.center = NULL;
@@ -133,7 +133,7 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 void	laser_green_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	dst->sprite = SDLX_Sprite_Static(ASSETS"laser_green.png");
+	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser_green.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
 	dst->sprite.center = NULL;
@@ -196,7 +196,7 @@ t_weapon	laser_green_cannon(void)
 
 void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	dst->sprite = SDLX_Sprite_Static(ASSETS"laser_yellow.png");
+	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser_yellow.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
 	dst->sprite.center = NULL;

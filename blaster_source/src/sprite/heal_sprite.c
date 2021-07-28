@@ -20,7 +20,7 @@ SDLX_Sprite_Data *carve_heal_sprite(void)
 	SDLX_Sprite_Data	*result;
 
 	result = SDL_calloc(8, sizeof(*result));
-	texture = SDLX_LoadTexture(ASSETS"heal.png");
+	texture = SDLX_LoadTexture(ASSETS"weapons/heal.png");
 
 	i = 0;
 	while (i < 8)

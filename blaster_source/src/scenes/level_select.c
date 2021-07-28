@@ -37,8 +37,8 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 	int		up_offset;
 	int		tile_padding;
 
-	left_offset = 30;
-	up_offset = 50;
+	left_offset = 20;
+	up_offset = 80;
 	tile_padding = 5;
 
 	i = 0;
@@ -47,9 +47,9 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 		j = 0;
 		while (j < 5)
 		{
-			x = j * (32 + tile_padding) + left_offset;
-			y = i * (32 + tile_padding) + up_offset;
-			SDLX_Button_Init(&(scene->levels[i][j]), fetch_level_select_sprite, LOCK_NORM, (SDL_Rect){x, y, 32, 32}, NULL);
+			x = j * (48 + tile_padding) + left_offset;
+			y = i * (48 + tile_padding) + up_offset;
+			SDLX_Button_Init(&(scene->levels[i][j]), fetch_level_select_sprite, LOCK_NORM, (SDL_Rect){x, y, 48, 48}, NULL);
 			SDLX_Style_Button(&(scene->levels[i][j]), LOCK_NORM, LOCK_HOVER);
 			scene->levels[i][j].meta = context;
 			if (context->levels[i][j].isUnlocked == SDL_TRUE)
@@ -67,13 +67,13 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 	// SDLX_Style_Button(&(scene->levels[0][0]), 4, -4);
 	scene->levels[0][0].sprite_fn(&(scene->levels[0][0].sprite.sprite_data), scene->levels[0][0].norm_no);
 
-	SDLX_Button_Init(&(scene->back), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){50, 200, 32, 32}, NULL);
+	SDLX_Button_Init(&(scene->back), fetch_level_select_sprite, BACK_NORM, (SDL_Rect){50, 300, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->back), BACK_NORM, BACK_HOVER);
 	scene->back.meta = context;
 	scene->back.meta1 = main_menu_init;
 	scene->back.trigger_fn = button_trigger_scene_switch;
 
-	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){150, 200, 32, 32}, NULL);
+	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){304 - 50 - 48, 300, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->inventory), LINVT_NORM, LINVT_HOVER);
 	scene->inventory.trigger_fn = button_trigger_scene_switch;
 	scene->inventory.meta = context;
