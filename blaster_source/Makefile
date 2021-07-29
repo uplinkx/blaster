@@ -61,6 +61,7 @@ SPRITE_FILES = 			\
 	pause_sprite \
 	ui_sprites \
 	whirlwind_sprite \
+	laser_yellow_sprite \
 
 ENEMY_FILES = 			\
 	slime				\

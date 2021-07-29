@@ -9,7 +9,7 @@ t_wave_m	level_01(void)
 
 		.win_kill_count = 0,
 		.win_wave_no = 0,
-		.win_wave = 2,
+		.win_wave = 0,
 
 		.size = 3,
 	};

@@ -15,13 +15,29 @@
 
 void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length)
 {
-	if (self->isTriggered && self->sprite.dst->y >= 40)
+	SDLX_Sprite	*treasure;
+
+	treasure = self->meta;
+	if (self->isTriggered && self->sprite.dst->y >= 40 + 25)
 	{
 		self->sprite.dst->y -= 2;
 		self->sprite.dst->w -= 1;
 		self->sprite.dst->h -= 1;
 
 		self->sprite.dst->x = (PLAY_WIDTH - self->sprite.dst->w) / 2;
+	}
+	else if (self->isTriggered)
+	{
+		if (treasure->_dst.y >= 30 + 20)
+		{
+			treasure->_dst.y -= 1;
+			treasure->_dst.w += 2;
+			treasure->_dst.h += 2;
+
+			treasure->_dst.x = (PLAY_WIDTH - treasure->_dst.w) / 2;
+		}
+
+		SDLX_RenderQueue_Add(NULL, treasure);
 	}
 	return (NULL);
 }

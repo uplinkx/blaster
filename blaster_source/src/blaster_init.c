@@ -42,6 +42,32 @@ void	set_levels(t_level_progress (*levels)[5])
 	levels[4][2].init_fn = level_23_init;
 	levels[4][3].init_fn = level_24_init;
 	levels[4][4].init_fn = level_25_init;
+
+	fetch_yellow_sprite(&(levels[0][0].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[0][1].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[0][2].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[0][3].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[0][4].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[1][0].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[1][1].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[1][2].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[1][3].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[1][4].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[2][0].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[2][1].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[2][2].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[2][3].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[2][4].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[3][0].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[3][1].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[3][2].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[3][3].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[3][4].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[4][0].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[4][1].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[4][2].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[4][3].treasure.sprite_data), 1);
+	fetch_yellow_sprite(&(levels[4][4].treasure.sprite_data), 1);
 }
 
 SDLX_iMap	*blaster_key_map(size_t *size)

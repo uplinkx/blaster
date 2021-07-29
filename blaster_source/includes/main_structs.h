@@ -26,6 +26,8 @@ typedef struct	s_level_progress
 {
 	SDL_bool	isUnlocked;
 	t_scene_fn	*init_fn;
+
+	SDLX_Sprite	treasure;
 }				t_level_progress;
 
 typedef struct	s_context

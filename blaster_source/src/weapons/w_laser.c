@@ -91,7 +91,7 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
 	{
 		bullet->isActive = SDL_FALSE;
-		SDL_free(bullet->sprite.sprite_data);
+		// SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
 
@@ -104,6 +104,8 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
 	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser.png");
+	// SDLX_new_Sprite(&(dst->sprite));
+	// fetch_yellow_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
 	dst->sprite.center = NULL;
@@ -196,7 +198,9 @@ t_weapon	laser_green_cannon(void)
 
 void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser_yellow.png");
+	// dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser_yellow.png");
+	SDLX_new_Sprite(&(dst->sprite));
+	fetch_yellow_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
 	dst->sprite.center = NULL;

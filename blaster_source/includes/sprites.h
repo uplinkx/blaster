@@ -32,4 +32,6 @@ int		fetch_whirl_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_lunge_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_inventory_sprite(SDLX_Sprite_Data **dst, int no);
 
+int		fetch_yellow_sprite(SDLX_Sprite_Data **dst, int no);
+
 #endif
