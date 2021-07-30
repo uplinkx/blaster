@@ -70,9 +70,13 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->chest.trigger_fn = button_chest;
 	scene->chest.update_fn = button_chest_update;
 	scene->chest.trigger_box = scene->background._dst;
-	SDLX_Sprite		*treasure;
 
-	treasure = &(context->levels[0][0].treasure);
+	SDLX_Sprite		*treasure;
+	size_t	wave_id;
+
+	wave_id = context->wave_id;
+
+	treasure = &(context->levels[wave_id / 5][wave_id % 5].treasure_w.treasure_sprite);
 	treasure->dst = SDLX_NULL_SELF;
 	treasure->_dst = (SDL_Rect){(PLAY_WIDTH - 80) / 2, 80, 32, 32};
 	scene->chest.meta = treasure;
@@ -86,9 +90,6 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 		scene->inventory.sprite._dst.x =	(PLAY_WIDTH - 48) / 2 + 50;
 	}
 
-	size_t	wave_id;
-
-	wave_id = context->wave_id;
 	if (context->levels[wave_id / 5][wave_id % 5].wasReceived == SDL_TRUE)
 		scene->chest.meta = NULL;
 	else

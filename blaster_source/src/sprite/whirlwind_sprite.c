@@ -19,14 +19,26 @@ SDLX_Sprite_Data *carve_whirl_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(11, sizeof(*result));
+	result = SDL_calloc(13, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"weapons/whirlwind.png");
 
 	i = 0;
-	while (i < 11)
+	/* The Cooldown Icon */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){0, 0, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+	/* The Treasure Icon */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){32, 0, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+	while (i < 13)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){35 * i, 0, 35, 35};
+		result[i]._src = (SDL_Rect){35 * i, 32, 35, 35};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 11;
 		// result[i].skip = 1;
@@ -43,7 +55,9 @@ int		fetch_whirl_sprite(SDLX_Sprite_Data **dst, SDL_UNUSED int no)
 	if (sprite_arr == NULL)
 		sprite_arr = carve_whirl_sprite();
 
-	*dst = &(sprite_arr[0]);
+	if (no == 0) { *dst = &(sprite_arr[0]); }
+	else if (no == 1) { *dst = &(sprite_arr[1]); }
+	else { *dst = &(sprite_arr[2]); }
 
 	return (EXIT_SUCCESS);
 }

@@ -19,14 +19,27 @@ SDLX_Sprite_Data *carve_heal_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(8, sizeof(*result));
+	result = SDL_calloc(10, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"weapons/heal.png");
 
 	i = 0;
-	while (i < 8)
+	/* The Cooldown Icon */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){0, 0, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+	/* The Treasure Icon */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){32, 0, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+
+	while (i < 10)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){i * 48, 0, 48, 48};
+		result[i]._src = (SDL_Rect){i * 48, 32, 48, 48};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 8;
 		i++;
@@ -42,10 +55,9 @@ int		fetch_heal_sprite(SDLX_Sprite_Data **dst, SDL_UNUSED int no)
 	if (sprite_arr == NULL)
 		sprite_arr = carve_heal_sprite();
 
-	// if (no == 1)		{ (*dst) = &(sprite_arr[0]); return (EXIT_SUCCESS); }
-	// else { return (EXIT_FAILURE); }
-
-	(*dst) = &(sprite_arr[0]);
+	if (no == 0) { *dst = &(sprite_arr[0]); }
+	else if (no == 1) { *dst = &(sprite_arr[1]); }
+	else { *dst = &(sprite_arr[2]); }
 
 	return (EXIT_SUCCESS);
 }

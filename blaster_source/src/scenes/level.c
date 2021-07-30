@@ -33,7 +33,6 @@ void	level_init(t_context *context, t_wave_m waves)
 
 	/* check health containers and increase player health here */
 
-	SDL_Log("%d", waves.wave_id);
 }
 
 void	*level_close(t_context *context, void *vp_scene)
@@ -56,7 +55,6 @@ void	*level_close(t_context *context, void *vp_scene)
 		{
 			level_id++;
 			context->levels[level_id / 5][level_id % 5].isUnlocked = SDL_TRUE;
-			context->shield = whirl_cannon();
 			context->next_init_fn = context->levels[level_id / 5][level_id % 5].init_fn;
 		}
 		else

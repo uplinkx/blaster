@@ -25,6 +25,8 @@ typedef struct	s_weapon
 	SDLX_Sprite		cooldown_sprite;
 	SDLX_Sprite		ability_icon;
 
+	SDLX_Sprite		treasure_sprite;
+
 	unsigned int	start;
 	unsigned int	cooldown;
 

@@ -19,14 +19,27 @@ SDLX_Sprite_Data *carve_lunge_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(12, sizeof(*result));
+	result = SDL_calloc(14, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"weapons/lunge.png");
 
 	i = 0;
-	while (i < 12)
+	/* The Cooldown Icon */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){0, 0, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+	/* The Treasure Icon */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){32, 0, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+
+	while (i < 14)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){26 * i, 0, 26, 36};
+		result[i]._src = (SDL_Rect){26 * i, 32, 26, 36};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 11;
 		// result[i].skip = 1;
@@ -43,7 +56,9 @@ int		fetch_lunge_sprite(SDLX_Sprite_Data **dst, SDL_UNUSED int no)
 	if (sprite_arr == NULL)
 		sprite_arr = carve_lunge_sprite();
 
-	*dst = &(sprite_arr[0]);
+	if (no == 0) { *dst = &(sprite_arr[0]); }
+	else if (no == 1) { *dst = &(sprite_arr[1]); }
+	else { *dst = &(sprite_arr[2]); }
 
 	return (EXIT_SUCCESS);
 }

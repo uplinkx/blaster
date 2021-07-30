@@ -30,7 +30,7 @@ typedef struct	s_inv_scene
 
 	size_t			at;
 	size_t			cycle;
-	t_weapon_list	list[6];
+	t_weapon_list	list[5];
 
 	// SDL_Texture	*level_capture;
 }				t_inv_scene;
@@ -73,10 +73,9 @@ void	*inventory_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->cycle = sizeof(scene->list) / sizeof(*(scene->list));
 	scene->list[0] = (t_weapon_list){SDL_TRUE, B_HEAL		,heal_cannon(),			"Heal"};
 	scene->list[1] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_cannon(),		"Laser"};
-	scene->list[2] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_green_cannon(),	"Laser Green"};
-	scene->list[3] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_yellow_cannon(),	"Laser Yellow"};
-	scene->list[4] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,lunge_cannon(),		"Lunge"};
-	scene->list[5] = (t_weapon_list){SDL_TRUE, B_SHIELD		,whirl_cannon(),		"Whirlwind"};
+	scene->list[2] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_yellow_cannon(),	"Laser Yellow"};
+	scene->list[3] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,lunge_cannon(),		"Lunge"};
+	scene->list[4] = (t_weapon_list){SDL_TRUE, B_SHIELD		,whirl_cannon(),		"Whirlwind"};
 	return (NULL);
 }
 

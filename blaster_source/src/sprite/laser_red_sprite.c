@@ -1,5 +1,5 @@
 /***************************************************************************
- * FILENAME:    laser_yellow_sprite.c
+ * FILENAME:    laser_red_sprite.c
  * DESCRIPTION:
  *
  * ENVIRONMENT:
@@ -13,14 +13,14 @@
 
 #include "main.h"
 
-SDLX_Sprite_Data *carve_yellow_laser_sprite(void)
+SDLX_Sprite_Data *carve_red_laser_sprite(void)
 {
 	size_t				i;
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
 	result = SDL_calloc(3, sizeof(*result));
-	texture = SDLX_LoadTexture(ASSETS"weapons/laser_yellow.png");
+	texture = SDLX_LoadTexture(ASSETS"weapons/laser_red.png");
 
 	i = 0;
 
@@ -47,12 +47,12 @@ SDLX_Sprite_Data *carve_yellow_laser_sprite(void)
 	return (result);
 }
 
-int		fetch_yellow_sprite(SDLX_Sprite_Data **dst, int no)
+int		fetch_red_sprite(SDLX_Sprite_Data **dst, int no)
 {
 	static SDLX_Sprite_Data	*sprite_arr;
 
 	if (sprite_arr == NULL)
-		sprite_arr = carve_yellow_laser_sprite();
+		sprite_arr = carve_red_laser_sprite();
 
 	if (no == 0) { *dst = &(sprite_arr[0]); }
 	else if (no == 1) { *dst = &(sprite_arr[1]); }

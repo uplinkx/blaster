@@ -61,6 +61,7 @@ SPRITE_FILES = 			\
 	pause_sprite \
 	ui_sprites \
 	whirlwind_sprite \
+	laser_red_sprite \
 	laser_yellow_sprite \
 
 ENEMY_FILES = 			\
@@ -70,7 +71,6 @@ ENEMY_FILES = 			\
 WEAPON_FILES = 			\
 	w_heal				\
 	w_laser				\
-	w_time				\
 	w_whirlwind			\
 	w_lunge				\
 

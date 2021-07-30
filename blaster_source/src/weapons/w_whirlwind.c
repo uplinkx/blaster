@@ -59,7 +59,7 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	charge = &(player->weapon_equip->meta_int);
 
 	SDLX_new_Sprite(&(dst->sprite));
-	fetch_whirl_sprite(&(dst->sprite.sprite_data), 1);
+	fetch_whirl_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (48 * 3)) / 2, (PLAY_HEIGHT -  (48 * 3)) / 2 + 5, (48 * 3), (48 * 3)};
 
@@ -69,6 +69,7 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.type = WHIRLWIND;
 	dst->hitbox.originator = dst;
+	dst->hitbox.detect_meta1 = &(dst->sprite._dst);
 
 	dst->hitbox.detect = NULL;
 	dst->vel.x = *charge + 10;
@@ -80,6 +81,12 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 t_weapon	whirl_cannon(void)
 {
 	t_weapon	whirl_cannon;
+
+	SDLX_new_Sprite(&(whirl_cannon.ability_icon));
+	fetch_whirl_sprite(&(whirl_cannon.ability_icon.sprite_data), 0);
+
+	SDLX_new_Sprite(&(whirl_cannon.treasure_sprite));
+	fetch_whirl_sprite(&(whirl_cannon.treasure_sprite.sprite_data), 1);
 
 	whirl_cannon.start = 0;
 	whirl_cannon.cooldown = WHIRL_COOLDOWN;

@@ -103,9 +103,8 @@ void	laser_update(void *self, SDL_UNUSED void *meta)
 
 void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser.png");
-	// SDLX_new_Sprite(&(dst->sprite));
-	// fetch_yellow_sprite(&(dst->sprite.sprite_data), 2);
+	SDLX_new_Sprite(&(dst->sprite));
+	fetch_red_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
 	dst->sprite.center = NULL;
@@ -133,72 +132,8 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.detect = bullet_detect_collision;
 }
 
-void	laser_green_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
-{
-	dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser_green.png");
-	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
-	dst->sprite.center = NULL;
-	dst->sprite.angle = 0;
-
-	dst->vel.x = 1;
-	dst->vel.y = 1;
-
-	dst->isActive = SDL_TRUE;
-
-	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
-	dst->sprite.angle = (angle * 180 / M_PI);
-
-	dst->vel.x = SDL_sin(angle) * 12;
-	dst->vel.y = SDL_cos(angle) * -12;
-
-	dst->update = laser_update;
-
-	dst->hitbox.type = BULLETS;
-	dst->hitbox.originator = dst;
-
-	dst->hitbox.detect = bullet_detect_collision;
-}
-
-#define LASER_COOLDOWN (9)
-
-t_weapon	laser_cannon(void)
-{
-	t_weapon	laser_cannon;
-
-	laser_cannon.start = 0;
-	laser_cannon.cooldown = LASER_COOLDOWN;
-
-	laser_cannon.curr = LASER_COOLDOWN;
-
-	laser_cannon.isEnabled = SDL_TRUE;
-
-	laser_cannon.factory = laser_factory;
-	laser_cannon.trigger = laser_fire;
-
-	return (laser_cannon);
-}
-
-t_weapon	laser_green_cannon(void)
-{
-	t_weapon	laser_cannon;
-
-	laser_cannon.start = 0;
-	laser_cannon.cooldown = LASER_COOLDOWN - 2;
-
-	laser_cannon.curr = LASER_COOLDOWN;
-
-	laser_cannon.isEnabled = SDL_TRUE;
-
-	laser_cannon.factory = laser_green_factory;
-	laser_cannon.trigger = laser_fire;
-
-	return (laser_cannon);
-}
-
 void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
-	// dst->sprite = SDLX_Sprite_Static(ASSETS"weapons/laser_yellow.png");
 	SDLX_new_Sprite(&(dst->sprite));
 	fetch_yellow_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
@@ -228,11 +163,40 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 	dst->hitbox.detect = bullet_detect_collision;
 }
 
+#define LASER_COOLDOWN (9)
+
+t_weapon	laser_cannon(void)
+{
+	t_weapon	laser_cannon;
+
+	SDLX_new_Sprite(&(laser_cannon.ability_icon));
+	fetch_red_sprite(&(laser_cannon.ability_icon.sprite_data), 0);
+
+	SDLX_new_Sprite(&(laser_cannon.treasure_sprite));
+	fetch_red_sprite(&(laser_cannon.treasure_sprite.sprite_data), 1);
+
+	laser_cannon.start = 0;
+	laser_cannon.cooldown = LASER_COOLDOWN;
+
+	laser_cannon.curr = LASER_COOLDOWN;
+
+	laser_cannon.isEnabled = SDL_TRUE;
+
+	laser_cannon.factory = laser_factory;
+	laser_cannon.trigger = laser_fire;
+
+	return (laser_cannon);
+}
+
 t_weapon	laser_yellow_cannon(void)
 {
 	t_weapon	laser_cannon;
 
+	SDLX_new_Sprite(&(laser_cannon.ability_icon));
 	fetch_yellow_sprite(&(laser_cannon.ability_icon.sprite_data), 0);
+
+	SDLX_new_Sprite(&(laser_cannon.treasure_sprite));
+	fetch_red_sprite(&(laser_cannon.treasure_sprite.sprite_data), 1);
 
 	laser_cannon.start = 0;
 	laser_cannon.cooldown = LASER_COOLDOWN - 5;

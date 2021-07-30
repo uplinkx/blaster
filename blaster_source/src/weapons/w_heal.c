@@ -43,7 +43,7 @@ void	heal_update(void *self, SDL_UNUSED void *meta)
 void	heal_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
 {
 	SDLX_new_Sprite(&(dst->sprite));
-	fetch_heal_sprite(&(dst->sprite.sprite_data), 1);
+	fetch_heal_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 64) / 2, 9 * 16 + 2, 64, 64};
 
@@ -66,6 +66,12 @@ void	heal_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED do
 t_weapon	heal_cannon(void)
 {
 	t_weapon	heal_cannon;
+
+	SDLX_new_Sprite(&(heal_cannon.ability_icon));
+	fetch_heal_sprite(&(heal_cannon.ability_icon.sprite_data), 0);
+
+	SDLX_new_Sprite(&(heal_cannon.treasure_sprite));
+	fetch_heal_sprite(&(heal_cannon.treasure_sprite.sprite_data), 1);
 
 	heal_cannon.start = 0;
 	heal_cannon.cooldown = HEAL_COOLDOWN;

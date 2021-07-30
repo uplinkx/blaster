@@ -53,7 +53,7 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	player = meta;
 
 	SDLX_new_Sprite(&(dst->sprite));
-	fetch_lunge_sprite(&(dst->sprite.sprite_data), 1);
+	fetch_lunge_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (17 * 3)) / 2, (PLAY_HEIGHT) / 2 - 42 * 3, (17 * 3), (42 * 3)};
 
@@ -87,6 +87,12 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 t_weapon	lunge_cannon(void)
 {
 	t_weapon	lunge_cannon;
+
+	SDLX_new_Sprite(&(lunge_cannon.ability_icon));
+	fetch_lunge_sprite(&(lunge_cannon.ability_icon.sprite_data), 0);
+
+	SDLX_new_Sprite(&(lunge_cannon.treasure_sprite));
+	fetch_lunge_sprite(&(lunge_cannon.treasure_sprite.sprite_data), 1);
 
 	lunge_cannon.start = 0;
 	lunge_cannon.cooldown = LUNGE_COOLDOWN;
