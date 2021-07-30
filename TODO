@@ -15,14 +15,11 @@ COLLISIONS
 ENEMIES
 	Wall		(Takes hits)
 	Bomb		(Drops bomb on Death)
-	Juker		(Teleports)
+	Juker		(Teleports, non cursor dependent)
 	Healer		(Heals Enemies in radius)
 	Voider		(Devoids Energy Blast)
-	Spiny		(Spikes on Death)
-	Avoider		(Crosshair avoid)
 	Vengeance	(Absorbs Energy, Explodes on melee)
 	Energizer	(Speed boost other enemies, paralyzes you)
-	Special Ops	(Partially Invisible)
 	Jumper		(Harder to predict movement)
 	Necro		(Summons Dead enemies)
 	Sword		(Melee attacks player)
@@ -53,3 +50,4 @@ Info graphics:
 	Loot Scene Current Level
 
 CREDITS
+Problem on reallocation of projectiles during projectiles update
