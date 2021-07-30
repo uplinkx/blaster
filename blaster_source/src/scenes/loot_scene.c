@@ -24,6 +24,8 @@ typedef struct	s_loot_scene
 
 	SDLX_Sprite background;
 	SDL_Texture	*level_capture;
+
+	t_level_progress	*won;
 }				t_loot_scene;
 
 void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
@@ -83,6 +85,16 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 		scene->restart.sprite._dst.x =		(PLAY_WIDTH - 48) / 2;
 		scene->inventory.sprite._dst.x =	(PLAY_WIDTH - 48) / 2 + 50;
 	}
+
+	size_t	wave_id;
+
+	wave_id = context->wave_id;
+	if (context->levels[wave_id / 5][wave_id % 5].wasReceived == SDL_TRUE)
+		scene->chest.meta = NULL;
+	else
+		context->levels[wave_id / 5][wave_id % 5].wasReceived = SDL_TRUE;
+
+	context->wave_id = 0;
 
 	return (NULL);
 }

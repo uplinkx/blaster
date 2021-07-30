@@ -232,6 +232,8 @@ t_weapon	laser_yellow_cannon(void)
 {
 	t_weapon	laser_cannon;
 
+	fetch_yellow_sprite(&(laser_cannon.ability_icon.sprite_data), 0);
+
 	laser_cannon.start = 0;
 	laser_cannon.cooldown = LASER_COOLDOWN - 5;
 

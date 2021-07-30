@@ -30,6 +30,10 @@ void	level_init(t_context *context, t_wave_m waves)
 
 	init_enemy_array(&(scene->enemies));
 	scene->stage = waves;
+
+	/* check health containers and increase player health here */
+
+	SDL_Log("%d", waves.wave_id);
 }
 
 void	*level_close(t_context *context, void *vp_scene)
@@ -46,6 +50,7 @@ void	*level_close(t_context *context, void *vp_scene)
 		context->init_fn = loot_level_init;
 
 		level_id = scene->stage.wave_id;
+		context->wave_id = scene->stage.wave_id;
 
 		if (level_id <= 25)
 		{

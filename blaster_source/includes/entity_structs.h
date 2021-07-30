@@ -23,6 +23,7 @@ struct s_enemy_m;
 typedef struct	s_weapon
 {
 	SDLX_Sprite		cooldown_sprite;
+	SDLX_Sprite		ability_icon;
 
 	unsigned int	start;
 	unsigned int	cooldown;

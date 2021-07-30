@@ -25,6 +25,7 @@ typedef void *(t_scene_fn)(struct s_context *, void *);
 typedef struct	s_level_progress
 {
 	SDL_bool	isUnlocked;
+	SDL_bool	wasReceived;
 	t_scene_fn	*init_fn;
 
 	SDLX_Sprite	treasure;
@@ -41,6 +42,7 @@ typedef struct	s_context
 	SDL_Texture	*capture_texture;
 	t_scene_fn	*redo_init_fn;
 	t_scene_fn	*next_init_fn;
+	size_t		wave_id;
 
 	t_scene_fn	*init_fn;
 	t_scene_fn	*update_fn;

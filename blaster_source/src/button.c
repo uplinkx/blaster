@@ -26,7 +26,7 @@ void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UN
 
 		self->sprite.dst->x = (PLAY_WIDTH - self->sprite.dst->w) / 2;
 	}
-	else if (self->isTriggered)
+	else if (self->isTriggered && treasure != NULL)
 	{
 		if (treasure->_dst.y >= 30 + 20)
 		{
@@ -158,6 +158,7 @@ void	*ability_button_update(SDLX_button *self, void *weapon_addr, SDL_UNUSED siz
 		self->sprite_fn(&(self->sprite.sprite_data), ABILITY);
 
 
+	SDLX_RenderQueue_Add(NULL, &(from_weapon->ability_icon));
 	return (NULL);
 }
 
@@ -173,6 +174,7 @@ void	ability_button_init(SDLX_button *dst, t_weapon **player_equip_addr, t_weapo
 	dst->meta = player_equip_addr;
 	dst->trigger_fn = change_ability;
 	dst->update_fn = ability_button_update;
+	bound_weapon->ability_icon.dst = &(dst->sprite._dst);
 }
 
 void	*button_carousel_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED size_t length)
