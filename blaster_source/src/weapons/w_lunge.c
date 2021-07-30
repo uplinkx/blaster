@@ -88,6 +88,7 @@ t_weapon	lunge_cannon(void)
 {
 	t_weapon	lunge_cannon;
 
+	lunge_cannon.type = B_MAINHAND;
 	SDLX_new_Sprite(&(lunge_cannon.ability_icon));
 	fetch_lunge_sprite(&(lunge_cannon.ability_icon.sprite_data), 0);
 

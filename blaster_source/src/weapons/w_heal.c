@@ -18,6 +18,7 @@ SDL_bool	heal_fire(SDL_UNUSED t_weapon *weapon)
 	SDL_bool	result;
 
 	result = SDL_FALSE;
+
 	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
 	{
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
@@ -67,6 +68,7 @@ t_weapon	heal_cannon(void)
 {
 	t_weapon	heal_cannon;
 
+	heal_cannon.type = B_HEAL;
 	SDLX_new_Sprite(&(heal_cannon.ability_icon));
 	fetch_heal_sprite(&(heal_cannon.ability_icon.sprite_data), 0);
 

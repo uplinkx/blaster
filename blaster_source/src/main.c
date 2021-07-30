@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/30 03:39:14 by home             ###   ########.fr       */
+/*   Updated: 2021/07/30 06:45:57 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	blaster_start(t_context *context)
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
 
-	// context->mainhand = laser_yellow_cannon();
-	// context->shield = laser_green_cannon();
+	context->mainhand = laser_yellow_cannon();
 	// context->heal = heal_cannon();
 	// context->shield = whirl_cannon();
 }

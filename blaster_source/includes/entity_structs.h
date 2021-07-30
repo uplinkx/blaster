@@ -22,6 +22,7 @@ struct s_enemy_m;
 
 typedef struct	s_weapon
 {
+	int				type;
 	SDLX_Sprite		cooldown_sprite;
 	SDLX_Sprite		ability_icon;
 

@@ -84,12 +84,4 @@ typedef struct	s_level
 	SDL_Texture			*pbackground;
 }				t_level;
 
-typedef struct	s_weapon_list
-{
-	SDL_bool	isUnlocked;
-	int			weapon_type;
-	t_weapon	weapon;
-	char		*name;
-}				t_weapon_list;
-
 #endif

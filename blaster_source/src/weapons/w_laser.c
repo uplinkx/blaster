@@ -169,6 +169,7 @@ t_weapon	laser_cannon(void)
 {
 	t_weapon	laser_cannon;
 
+	laser_cannon.type = B_MAINHAND;
 	SDLX_new_Sprite(&(laser_cannon.ability_icon));
 	fetch_red_sprite(&(laser_cannon.ability_icon.sprite_data), 0);
 
@@ -192,11 +193,12 @@ t_weapon	laser_yellow_cannon(void)
 {
 	t_weapon	laser_cannon;
 
+	laser_cannon.type = B_MAINHAND;
 	SDLX_new_Sprite(&(laser_cannon.ability_icon));
 	fetch_yellow_sprite(&(laser_cannon.ability_icon.sprite_data), 0);
 
 	SDLX_new_Sprite(&(laser_cannon.treasure_sprite));
-	fetch_red_sprite(&(laser_cannon.treasure_sprite.sprite_data), 1);
+	fetch_yellow_sprite(&(laser_cannon.treasure_sprite.sprite_data), 1);
 
 	laser_cannon.start = 0;
 	laser_cannon.cooldown = LASER_COOLDOWN - 5;

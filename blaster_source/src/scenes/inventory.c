@@ -30,7 +30,7 @@ typedef struct	s_inv_scene
 
 	size_t			at;
 	size_t			cycle;
-	t_weapon_list	list[5];
+	t_weapon		list[25];
 
 	// SDL_Texture	*level_capture;
 }				t_inv_scene;
@@ -70,12 +70,35 @@ void	*inventory_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->unequip_weapon.meta = context;
 
 	scene->at = 0;
-	scene->cycle = sizeof(scene->list) / sizeof(*(scene->list));
-	scene->list[0] = (t_weapon_list){SDL_TRUE, B_HEAL		,heal_cannon(),			"Heal"};
-	scene->list[1] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_cannon(),		"Laser"};
-	scene->list[2] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,laser_yellow_cannon(),	"Laser Yellow"};
-	scene->list[3] = (t_weapon_list){SDL_TRUE, B_MAINHAND	,lunge_cannon(),		"Lunge"};
-	scene->list[4] = (t_weapon_list){SDL_TRUE, B_SHIELD		,whirl_cannon(),		"Whirlwind"};
+
+	size_t	ix;
+	size_t	jx;
+	size_t	kx;
+
+	int	count;
+
+	ix = 0;
+	scene->list[0] = laser_cannon();
+	kx = 1;
+	count = 0;
+	while (ix < 5)
+	{
+		jx = 0;
+		while (jx < 5)
+		{
+			if (context->levels[ix][jx].wasReceived)
+			{
+				count++;
+				scene->list[kx] = context->levels[ix][jx].treasure_w;
+				kx++;
+			}
+			jx++;
+		}
+		ix++;
+	}
+	scene->cycle = kx;
+
+	SDL_Log("Count: %d", count);
 	return (NULL);
 }
 
@@ -109,19 +132,19 @@ void	*inventory_update(SDL_UNUSED t_context *context, void *vp_scene)
 	void	*factory;
 
 	/*
-	** Does not yet account if two spots are the same weapon#include "../aoc++.h"
+	** Does not yet account if two spots are the same weapon
 	** Which does it equip onto first, or which does it deequip.
 	*/
 
-	if (scene->list[scene->at].weapon_type & B_MAINHAND) { factory = context->mainhand.factory; }
-	else if (scene->list[scene->at].weapon_type & B_HEAL) { factory = context->heal.factory; }
-	else if (scene->list[scene->at].weapon_type & B_SHIELD) { factory = context->shield.factory; }
+	if (scene->list[scene->at].type & B_MAINHAND) { factory = context->mainhand.factory; }
+	else if (scene->list[scene->at].type & B_HEAL) { factory = context->heal.factory; }
+	else if (scene->list[scene->at].type & B_SHIELD) { factory = context->shield.factory; }
 	else { factory = context->special.factory; }
 
 	scene->equip_weapon.isDisabled = SDL_TRUE;
 	scene->unequip_weapon.isDisabled = SDL_TRUE;
 
-	if (scene->list[scene->at].weapon.factory != factory)
+	if (scene->list[scene->at].factory != factory)
 		scene->equip_weapon.isDisabled = SDL_FALSE;
 	else
 		scene->unequip_weapon.isDisabled = SDL_FALSE;
@@ -129,7 +152,11 @@ void	*inventory_update(SDL_UNUSED t_context *context, void *vp_scene)
 	SDLX_Button_Update(&(scene->equip_weapon));
 	SDLX_Button_Update(&(scene->unequip_weapon));
 
-	SDL_Log("At: %s", scene->list[scene->at].name);
+	scene->list[scene->at].treasure_sprite.dst = SDLX_NULL_SELF;
+	scene->list[scene->at].treasure_sprite._dst = (SDL_Rect){(PLAY_WIDTH - 128) / 2, 128, 128, 128};
+	SDLX_RenderQueue_Add(NULL, &(scene->list[scene->at].treasure_sprite));
+
+	// SDL_Log("At: %s", scene->list[scene->at].name);
 
 	return (NULL);
 }

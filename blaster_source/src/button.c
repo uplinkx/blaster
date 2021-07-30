@@ -119,6 +119,7 @@ void	*change_ability(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t len
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft))
 	{
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)
+		g_GameInput.GameInput.button_primleft = ABILITY_CHANGED;
 		self->isTriggered = SDL_TRUE;
 	}
 
@@ -196,7 +197,7 @@ void	*button_carousel_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSE
 void	*button_equip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED size_t length)
 {
 	t_context		*context;
-	t_weapon_list	*new_weapon;
+	t_weapon		*new_weapon;
 
 	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
 	{
@@ -204,10 +205,10 @@ void	*button_equip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED s
 
 		context = self->meta;
 		new_weapon = self->meta1;
-		if (new_weapon->weapon_type & B_MAINHAND) { context->mainhand = new_weapon->weapon; }
-		else if (new_weapon->weapon_type & B_HEAL) { context->heal = new_weapon->weapon; }
-		else if (new_weapon->weapon_type & B_SHIELD) { context->shield = new_weapon->weapon; }
-		else if (new_weapon->weapon_type & B_SPECIAL) { context->special = new_weapon->weapon; }
+		if (new_weapon->type & B_MAINHAND) { context->mainhand = *new_weapon; }
+		else if (new_weapon->type & B_HEAL) { context->heal = *new_weapon; }
+		else if (new_weapon->type & B_SHIELD) { context->shield = *new_weapon; }
+		else if (new_weapon->type & B_SPECIAL) { context->special = *new_weapon; }
 	}
 
 	return (NULL);
@@ -216,7 +217,7 @@ void	*button_equip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED s
 void	*button_unequip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED size_t length)
 {
 	t_context	*context;
-	t_weapon_list	*new_weapon;
+	t_weapon	*new_weapon;
 
 	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
 	{
@@ -224,10 +225,10 @@ void	*button_unequip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED
 
 		context = self->meta;
 		new_weapon = self->meta1;
-		if (new_weapon->weapon_type & B_MAINHAND) { unequip_weapon(&(context->mainhand)); }
-		else if (new_weapon->weapon_type & B_HEAL) { unequip_weapon(&(context->heal)); }
-		else if (new_weapon->weapon_type & B_SHIELD) { unequip_weapon(&(context->shield)); }
-		else if (new_weapon->weapon_type & B_SPECIAL) { unequip_weapon(&(context->special)); }
+		if (new_weapon->type & B_MAINHAND) { unequip_weapon(&(context->mainhand)); }
+		else if (new_weapon->type & B_HEAL) { unequip_weapon(&(context->heal)); }
+		else if (new_weapon->type & B_SHIELD) { unequip_weapon(&(context->shield)); }
+		else if (new_weapon->type & B_SPECIAL) { unequip_weapon(&(context->special)); }
 	}
 
 	return (NULL);
