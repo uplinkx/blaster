@@ -34,7 +34,6 @@ t_bullet	*spawn_projectile_addr(t_attacks *dst)
 		ix++;
 
 	SDL_assert(ix < dst->capacity);
-
 	return (&(dst->attacks[ix]));
 }
 
@@ -47,6 +46,5 @@ t_enemy *spawn_enemy_addr(t_enemy_m *manager)
 		ix++;
 
 	SDL_assert(ix < manager->capacity);
-
 	return (&(manager->entity_array[ix]));
 }

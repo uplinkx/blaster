@@ -101,6 +101,7 @@ t_weapon	lunge_cannon(void)
 	lunge_cannon.curr = LUNGE_COOLDOWN;
 
 	lunge_cannon.isEnabled = SDL_TRUE;
+	lunge_cannon.meta_int = 0;
 
 	lunge_cannon.factory = lunge_factory;
 	lunge_cannon.trigger = lunge_fire;

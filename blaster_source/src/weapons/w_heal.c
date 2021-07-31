@@ -69,6 +69,7 @@ t_weapon	heal_cannon(void)
 	t_weapon	heal_cannon;
 
 	heal_cannon.type = B_HEAL;
+
 	SDLX_new_Sprite(&(heal_cannon.ability_icon));
 	fetch_heal_sprite(&(heal_cannon.ability_icon.sprite_data), 0);
 
@@ -81,6 +82,7 @@ t_weapon	heal_cannon(void)
 	heal_cannon.curr = HEAL_COOLDOWN;
 
 	heal_cannon.isEnabled = SDL_TRUE;
+	heal_cannon.meta_int = 0;
 
 	heal_cannon.factory = heal_factory;
 	heal_cannon.trigger = heal_fire;

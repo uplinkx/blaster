@@ -95,6 +95,7 @@ t_weapon	whirl_cannon(void)
 	whirl_cannon.curr = WHIRL_COOLDOWN;
 
 	whirl_cannon.isEnabled = SDL_TRUE;
+	whirl_cannon.meta_int = 0;
 
 	whirl_cannon.factory = whirl_factory;
 	whirl_cannon.trigger = whirl_fire;

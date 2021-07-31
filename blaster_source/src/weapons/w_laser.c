@@ -182,6 +182,7 @@ t_weapon	laser_cannon(void)
 	laser_cannon.curr = LASER_COOLDOWN;
 
 	laser_cannon.isEnabled = SDL_TRUE;
+	laser_cannon.meta_int = 0;
 
 	laser_cannon.factory = laser_factory;
 	laser_cannon.trigger = laser_fire;
@@ -206,6 +207,7 @@ t_weapon	laser_yellow_cannon(void)
 	laser_cannon.curr = LASER_COOLDOWN;
 
 	laser_cannon.isEnabled = SDL_TRUE;
+	laser_cannon.meta_int = 0;
 
 	laser_cannon.factory = laser_yellow_factory;
 	laser_cannon.trigger = laser_yellow_fire;

@@ -14,9 +14,7 @@
 #include "main.h"
 
 SDL_bool	empty_weapon_trigger(SDL_UNUSED t_weapon *self) { return (SDL_FALSE); }
-
-void	empty_weapon_factory(SDL_UNUSED t_bullet *loc, SDL_UNUSED SDL_Point spawn, SDL_UNUSED double angle, SDL_UNUSED void *meta)
-{ return ; }
+void		empty_weapon_factory(SDL_UNUSED t_bullet *loc, SDL_UNUSED SDL_Point spawn, SDL_UNUSED double angle, SDL_UNUSED void *meta) { return ; }
 
 void	unequip_weapon(t_weapon *dst)
 {
@@ -40,6 +38,19 @@ t_weapon	default_cannon(void)
 
 #define ABILITY_LEFT_PADDING (16)
 
+void	load_weapon_default_values(t_weapon *weapon, SDL_Rect cooldown_loc)
+{
+	/* The top two have to be reset because they may contain values
+	from the previous level since they are level persistent */
+	weapon->meta_int = 0;
+	weapon->curr = weapon->cooldown;
+
+	weapon->cooldown_sprite.dst = SDLX_NULL_SELF;
+	weapon->cooldown_sprite.center = SDLX_NULL_SELF;
+
+	weapon->cooldown_sprite._dst = cooldown_loc;
+}
+
 void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *shield, SDLX_button *heal, SDLX_button *special)
 {
 	size_t		i;
@@ -53,16 +64,6 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	ability_button_init(special, player_weapon_addr, &(context->special));
 	ability_button_init(shield, player_weapon_addr, &(context->shield));
 	ability_button_init(heal, player_weapon_addr, &(context->heal));
-
-	context->mainhand.curr = context->mainhand.cooldown;
-	context->special.curr = context->special.cooldown;
-	context->shield.curr = context->shield.cooldown;
-	context->heal.curr = context->heal.cooldown;
-
-	context->mainhand.meta_int = 0;
-	context->special.meta_int = 0;
-	context->shield.meta_int = 0;
-	context->heal.meta_int = 0;
 
 	count = 0;
 	if (context->mainhand.isEnabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); mainhand->down = keys[count]; count++; }
@@ -80,12 +81,9 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 		count++;
 
 		ability_button_init(mainhand, player_weapon_addr, &(context->mainhand));
-		context->mainhand.curr = context->mainhand.cooldown;
-		context->mainhand.meta_int = 0;
 	}
 
 	i = 0;
-	SDL_assert(count != 0);
 	ability_bar_width = 304 - ABILITY_LEFT_PADDING - ABILITY_LEFT_PADDING;
 	ability_space = (ability_bar_width - (mainhand->sprite._dst.w * count)) / (count);
 	while (i < count)
@@ -95,20 +93,10 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 		i++;
 	}
 
-	context->mainhand.cooldown_sprite.dst = SDLX_NULL_SELF;
-	context->special.cooldown_sprite.dst = SDLX_NULL_SELF;
-	context->shield.cooldown_sprite.dst = SDLX_NULL_SELF;
-	context->heal.cooldown_sprite.dst = SDLX_NULL_SELF;
-
-	context->mainhand.cooldown_sprite.center = SDLX_NULL_SELF;
-	context->special.cooldown_sprite.center = SDLX_NULL_SELF;
-	context->shield.cooldown_sprite.center = SDLX_NULL_SELF;
-	context->heal.cooldown_sprite.center = SDLX_NULL_SELF;
-
-	context->mainhand.cooldown_sprite._dst = mainhand->sprite._dst;
-	context->special.cooldown_sprite._dst = special->sprite._dst;
-	context->shield.cooldown_sprite._dst = shield->sprite._dst;
-	context->heal.cooldown_sprite._dst = heal->sprite._dst;
+	load_weapon_default_values(&(context->mainhand), mainhand->sprite._dst);
+	load_weapon_default_values(&(context->special), special->sprite._dst);
+	load_weapon_default_values(&(context->shield), shield->sprite._dst);
+	load_weapon_default_values(&(context->heal), heal->sprite._dst);
 
 	if (context->mainhand.isEnabled) { *player_weapon_addr = &(context->mainhand); }
 	else if (context->shield.isEnabled) { *player_weapon_addr = &(context->shield); }

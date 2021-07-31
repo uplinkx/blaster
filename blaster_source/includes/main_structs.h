@@ -28,7 +28,6 @@ typedef struct	s_level_progress
 	SDL_bool	wasReceived;
 	t_scene_fn	*init_fn;
 
-	SDLX_Sprite	treasure;
 	t_weapon	treasure_w;
 }				t_level_progress;
 

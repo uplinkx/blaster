@@ -13,87 +13,33 @@
 
 #include "main.h"
 
-void	set_levels(t_level_progress (*levels)[5])
+void	set_levels(t_level_progress (*levels)[5][5])
 {
-	levels[0][0].isUnlocked = SDL_TRUE;
-
-	levels[0][0].init_fn = level_01_init;
-	levels[0][1].init_fn = level_02_init;
-	levels[0][2].init_fn = level_03_init;
-	levels[0][3].init_fn = level_04_init;
-	levels[0][4].init_fn = level_05_init;
-	levels[1][0].init_fn = level_06_init;
-	levels[1][1].init_fn = level_07_init;
-	levels[1][2].init_fn = level_08_init;
-	levels[1][3].init_fn = level_09_init;
-	levels[1][4].init_fn = level_10_init;
-	levels[2][0].init_fn = level_11_init;
-	levels[2][1].init_fn = level_12_init;
-	levels[2][2].init_fn = level_13_init;
-	levels[2][3].init_fn = level_14_init;
-	levels[2][4].init_fn = level_15_init;
-	levels[3][0].init_fn = level_16_init;
-	levels[3][1].init_fn = level_17_init;
-	levels[3][2].init_fn = level_18_init;
-	levels[3][3].init_fn = level_19_init;
-	levels[3][4].init_fn = level_20_init;
-	levels[4][0].init_fn = level_21_init;
-	levels[4][1].init_fn = level_22_init;
-	levels[4][2].init_fn = level_23_init;
-	levels[4][3].init_fn = level_24_init;
-	levels[4][4].init_fn = level_25_init;
-
-	fetch_lunge_sprite(&(levels[0][0].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[0][1].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[0][2].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[0][3].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[0][4].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[1][0].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[1][1].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[1][2].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[1][3].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[1][4].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[2][0].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[2][1].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[2][2].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[2][3].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[2][4].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[3][0].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[3][1].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[3][2].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[3][3].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[3][4].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[4][0].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[4][1].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[4][2].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[4][3].treasure.sprite_data), 1);
-	fetch_yellow_sprite(&(levels[4][4].treasure.sprite_data), 1);
-
-	levels[0][0].treasure_w = heal_cannon();
-	levels[0][1].treasure_w = lunge_cannon();
-	levels[0][2].treasure_w = whirl_cannon();
-	levels[0][3].treasure_w = laser_yellow_cannon();
-	levels[0][4].treasure_w = laser_cannon();
-	levels[1][0].treasure_w = laser_cannon();
-	levels[1][1].treasure_w = laser_cannon();
-	levels[1][2].treasure_w = laser_cannon();
-	levels[1][3].treasure_w = laser_cannon();
-	levels[1][4].treasure_w = laser_cannon();
-	levels[2][0].treasure_w = laser_cannon();
-	levels[2][1].treasure_w = laser_cannon();
-	levels[2][2].treasure_w = laser_cannon();
-	levels[2][3].treasure_w = laser_cannon();
-	levels[2][4].treasure_w = laser_cannon();
-	levels[3][0].treasure_w = laser_cannon();
-	levels[3][1].treasure_w = laser_cannon();
-	levels[3][2].treasure_w = laser_cannon();
-	levels[3][3].treasure_w = laser_cannon();
-	levels[3][4].treasure_w = laser_cannon();
-	levels[4][0].treasure_w = laser_cannon();
-	levels[4][1].treasure_w = laser_cannon();
-	levels[4][2].treasure_w = laser_cannon();
-	levels[4][3].treasure_w = laser_cannon();
-	levels[4][4].treasure_w = laser_cannon();
+	(*levels)[0][0] = (t_level_progress){ SDL_TRUE, SDL_FALSE, level_01_init, heal_cannon()};
+	(*levels)[0][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_02_init, lunge_cannon()};
+	(*levels)[0][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_03_init, whirl_cannon()};
+	(*levels)[0][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_04_init, laser_yellow_cannon()};
+	(*levels)[0][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_05_init, laser_cannon()};
+	(*levels)[1][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_06_init, laser_cannon()};
+	(*levels)[1][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_07_init, laser_cannon()};
+	(*levels)[1][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_08_init, laser_cannon()};
+	(*levels)[1][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_09_init, laser_cannon()};
+	(*levels)[1][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_10_init, laser_cannon()};
+	(*levels)[2][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_11_init, laser_cannon()};
+	(*levels)[2][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_12_init, laser_cannon()};
+	(*levels)[2][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_13_init, laser_cannon()};
+	(*levels)[2][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_14_init, laser_cannon()};
+	(*levels)[2][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_15_init, laser_cannon()};
+	(*levels)[3][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_16_init, laser_cannon()};
+	(*levels)[3][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_17_init, laser_cannon()};
+	(*levels)[3][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_18_init, laser_cannon()};
+	(*levels)[3][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_19_init, laser_cannon()};
+	(*levels)[3][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_20_init, laser_cannon()};
+	(*levels)[4][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_21_init, laser_cannon()};
+	(*levels)[4][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_22_init, laser_cannon()};
+	(*levels)[4][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_23_init, laser_cannon()};
+	(*levels)[4][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_24_init, laser_cannon()};
+	(*levels)[4][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_25_init, laser_cannon()};
 }
 
 SDLX_iMap	*blaster_key_map(size_t *size)

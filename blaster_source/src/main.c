@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/07/30 06:45:57 by home             ###   ########.fr       */
+/*   Updated: 2021/07/30 17:10:29 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,13 @@ void	blaster_start(t_context *context)
 	context->mainhand = laser_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
-	set_levels(context->levels);
+	set_levels(&(context->levels));
 	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
 
 	// context->levels[0][1].isUnlocked = SDL_TRUE;
 	// context->levels[0][2].isUnlocked = SDL_TRUE;
 	// context->levels[0][3].isUnlocked = SDL_TRUE;
 	// context->levels[0][4].isUnlocked = SDL_TRUE;
-
-	// context->levels[1][0].isUnlocked = SDL_TRUE;
 
 	// context->init_fn = level_01_init;
 	// context->init_fn = level_select_init;
