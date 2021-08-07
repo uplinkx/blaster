@@ -27,6 +27,7 @@ void	slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (
 	slime->enemy_hurtbox.originator = slime;
 	slime->enemy_hurtbox.hitbox_ptr = &(slime->sprite._dst);
 	slime->enemy_hurtbox.type = type;
+	slime->enemy_hurtbox.response_amount = C_PROJECTILE | C_PLAYER | C_MELEE;
 	slime->enemy_hurtbox.detect = slime_detect_collision;
 	slime->enemy_hurtbox.engage = slime_collide;
 
@@ -40,18 +41,19 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 {
 	SDLX_collision	*hitbox;
 	t_enemy			*slime;
+	SDL_bool		(*collide_fn)(SDLX_collision *, SDLX_collision *);
 
 	slime = self;
 	hitbox = with;
 
-	if (hitbox->type == BULLETS || hitbox->type == C_PLAYER || hitbox->type == WHIRLWIND || hitbox->type == SPINE)
+	if (hitbox->type & slime->enemy_hurtbox.response_amount)
 	{
-		if (SDL_HasIntersection(&(slime->sprite._dst), hitbox->hitbox_ptr))
+		collide_fn = SDLX_Collide_RectToRect;
+		if (hitbox->type & C_ARECT)
+			collide_fn = SDLX_Collide_RectToARect;
+
+		if (collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
 			return (SDL_TRUE);
 	}
-
-	if (hitbox->type == LUNGE)
-		return (SDLX_Collide_RectToARect(&(slime->enemy_hurtbox), hitbox));
-
 	return (SDL_FALSE);
 }

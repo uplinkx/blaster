@@ -52,7 +52,7 @@ void	heal_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED do
 
 	dst->update = heal_update;
 
-	dst->hitbox.type = HEAL;
+	dst->hitbox.type = C_NONE | C_RECT;
 	dst->hitbox.originator = dst;
 
 	dst->hitbox.detect = NULL;

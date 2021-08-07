@@ -67,7 +67,8 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->update = whirl_update;
 
-	dst->hitbox.type = WHIRLWIND;
+	dst->hitbox.type = C_MELEE | C_RECT;
+	dst->hitbox.response_amount = C_E_BODY | C_E_PROJECTILE;
 	dst->hitbox.originator = dst;
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
 

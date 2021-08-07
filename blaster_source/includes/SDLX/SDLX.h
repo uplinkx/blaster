@@ -113,6 +113,7 @@ void	SDLX_CollisionBucket_Flush(SDLX_collision_bucket *bucket);
 
 SDL_bool	SDLX_Collide_RectToRect(SDLX_collision *hitbox1, SDLX_collision *hitbox2);
 SDL_bool	SDLX_Collide_RectToARect(SDLX_collision *hitbox1, SDLX_collision *angle_box);
+SDL_bool	SDLX_Collide_ARectToRect(SDLX_collision *angle_box, SDLX_collision *hitbox1);
 
 /*
 ** Misc. Functions.

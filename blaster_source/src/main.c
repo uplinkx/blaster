@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/08/07 00:13:28 by home             ###   ########.fr       */
+/*   Updated: 2021/08/07 03:24:54 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ void	blaster_start(t_context *context)
 	set_levels(&(context->levels));
 	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
 
-	// context->levels[0][1].isUnlocked = SDL_TRUE;
-	// context->levels[0][2].isUnlocked = SDL_TRUE;
-	// context->levels[0][3].isUnlocked = SDL_TRUE;
-	// context->levels[0][4].isUnlocked = SDL_TRUE;
+	context->levels[0][1].isUnlocked = SDL_TRUE;
+	context->levels[0][2].isUnlocked = SDL_TRUE;
+	context->levels[0][3].isUnlocked = SDL_TRUE;
+	context->levels[0][4].isUnlocked = SDL_TRUE;
 
 	// context->init_fn = level_01_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
 
 	context->mainhand = laser_yellow_cannon();
-	context->mainhand = lunge_cannon();
+	// context->mainhand = lunge_cannon();
 	// context->heal = heal_cannon();
 	// context->shield = whirl_cannon();
 }

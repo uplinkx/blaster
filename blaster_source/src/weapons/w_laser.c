@@ -66,7 +66,7 @@ SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void *meta1,
 	hitbox = with;
 
 	self_attack = self;
-	if (hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW || hitbox->type == GOO || hitbox->type == SPINE || hitbox->type == SLIMES_INV)
+	if (hitbox->type & self_attack->hitbox.response_amount)
 	{
 		if (SDL_HasIntersection(self_attack->hitbox.hitbox_ptr, hitbox->hitbox_ptr))
 			self_attack->isActive = SDL_FALSE;
@@ -120,11 +120,11 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->update = laser_update;
 
-	dst->hitbox.type = BULLETS;
+	dst->hitbox.type = C_PROJECTILE | C_RECT;
+	dst->hitbox.response_amount = C_E_BODY | C_E_PROJECTILE;
 	dst->hitbox.originator = dst;
 
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
-	// dst->hitbox.detect_meta2 = dst;
 
 	dst->hitbox.detect = bullet_detect_collision;
 }
@@ -151,11 +151,11 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 
 	dst->update = laser_update;
 
-	dst->hitbox.type = BULLETS;
+	dst->hitbox.type = C_PROJECTILE | C_RECT;
+	dst->hitbox.response_amount = C_E_BODY | C_E_PROJECTILE;
 	dst->hitbox.originator = dst;
 
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
-	// dst->hitbox.detect_meta2 = dst;
 
 	dst->hitbox.detect = bullet_detect_collision;
 }

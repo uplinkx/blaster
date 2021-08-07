@@ -34,9 +34,9 @@ SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SD
 
 	player = self;
 	hitbox = with;
-	if (hitbox->type == SLIMES || hitbox->type == GOO || hitbox->type == SLIMES_YELLOW || hitbox->type == SPINE || hitbox->type == SLIMES_INV)
+	if (hitbox->type & player->player_hurtbox.response_amount)
 	{
-		if (SDL_HasIntersection(&(player->hurtbox), hitbox->hitbox_ptr) == SDL_TRUE)
+		if (SDLX_Collide_RectToRect(hitbox, &(player->player_hurtbox)))
 			return (SDL_TRUE);
 	}
 	return (SDL_FALSE);
@@ -46,18 +46,14 @@ void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, 
 {
 	t_player	*player;
 	SDLX_collision	*object;
+	int				damage_taken;
+
 
 	player = self;
-
 	object = with;
-	if (object->type == SLIMES)
-		player->hp -= 10;
-	if (object->type == SLIMES_YELLOW)
-		player->hp -= 15;
-	if (object->type == SLIMES_INV)
-		player->hp -= 20;
-	if (object->type == GOO || object->type == SPINE)
-		player->hp -= 15;
+	damage_taken = (int)(object->engage_meta1);
+	player->hp -= damage_taken;
+
 	return (NULL);
 }
 
@@ -123,6 +119,7 @@ void	player_init(t_player *player)
 	player->player_hurtbox.detect = player_hit;
 	player->player_hurtbox.engage = player_collide;
 	player->player_hurtbox.type = C_PLAYER;
+	player->player_hurtbox.response_amount = C_E_BODY | C_E_PROJECTILE;
 	player->hurtbox.x = player->sprite._dst.x + 5;
 	player->hurtbox.y = player->sprite._dst.y + 5;
 	player->hurtbox.h = player->sprite._dst.h - 10;
