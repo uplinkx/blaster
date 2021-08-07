@@ -13,9 +13,9 @@
 
 #include "main.h"
 
-void		slime_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
+void		slime_cyan_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
-	slime_default_init(dst, "slime_cyan", SLIMES, 1, slime_update);
+	slime_default_init(dst, "slime_cyan", SLIMES, 1, slime_cyan_update);
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
 	dst->meta1 = (void *)4;
@@ -47,7 +47,7 @@ void		slime_blue_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 
 void		slime_green_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
-	slime_default_init(dst, "slime_green", SLIMES, 2, slime_update);
+	slime_default_init(dst, "slime_green", SLIMES, 2, slime_blue_update);
 	dst->sprite._dst.x = loc.x;
 	dst->sprite._dst.y = loc.y;
 	dst->meta1 = (void *)4;
@@ -88,13 +88,13 @@ void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED 
 	slime->hp -= 1;
 
 	hurtbox = with;
-	if (hurtbox->type == PLAYER)
+	if (hurtbox->type == C_PLAYER)
 		slime->hp = 0;
 
 	return (NULL);
 }
 
-void	slime_update(t_enemy *slime, SDL_UNUSED void *meta)
+void	slime_cyan_update(t_enemy *slime, SDL_UNUSED void *meta)
 {
 	int			dx;
 	int			dy;
@@ -125,7 +125,7 @@ void	slime_update(t_enemy *slime, SDL_UNUSED void *meta)
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
-		score = slime->enemy_hurtbox.engage_meta2;
+		score = slime->score_ptr;
 		(*score)++;
 	}
 	else
@@ -156,7 +156,7 @@ void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
-		score = slime->enemy_hurtbox.engage_meta2;
+		score = slime->score_ptr;
 		(*score)++;
 	}
 	else
@@ -210,7 +210,7 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
-		score = slime->enemy_hurtbox.engage_meta2;
+		score = slime->score_ptr;
 		(*score)++;
 	}
 
@@ -218,24 +218,19 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 }
 
-SDL_bool	goo_detect_collision(void *self, void *with, void *meta1, void *meta2)
+SDL_bool	goo_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	SDLX_collision	*self_box;
 	SDLX_collision	*hitbox;
 	t_bullet		*self_attack;
 
-	self_box = self;
 	hitbox = with;
 
-	self_attack = meta2;
-	if (hitbox->type == PLAYER || hitbox->type == BULLETS || hitbox->type == WHIRLWIND)
+	self_attack = self;
+	if (hitbox->type == C_PLAYER || hitbox->type == BULLETS || hitbox->type == WHIRLWIND)
 	{
-		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
+		if (SDL_HasIntersection(self_attack->hitbox.hitbox_ptr, hitbox->hitbox_ptr))
 			self_attack->isActive = SDL_FALSE;
 	}
-
-	(void)meta1;
-
 	return (SDL_FALSE);
 }
 
@@ -341,7 +336,7 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
-		score = slime->enemy_hurtbox.engage_meta2;
+		score = slime->score_ptr;
 		(*score)++;
 	}
 
@@ -394,7 +389,7 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
-		score = slime->enemy_hurtbox.engage_meta2;
+		score = slime->score_ptr;
 		(*score)++;
 	}
 
@@ -426,17 +421,17 @@ void	spine_update(void *self, SDL_UNUSED void *meta)
 	SDLX_CollisionBucket_add(NULL, &(bullet->hitbox));
 }
 
-SDL_bool	spine_detect_collision(SDL_UNUSED void *self, void *with, void *meta1, void *meta2)
+SDL_bool	spine_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
 	SDLX_collision	*hitbox;
 	t_bullet		*self_attack;
 
 	hitbox = with;
 
-	self_attack = meta2;
-	if (hitbox->type == PLAYER || hitbox->type == BULLETS || hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW || hitbox->type == WHIRLWIND || hitbox->type == SLIMES_INV)
+	self_attack = self;
+	if (hitbox->type == C_PLAYER || hitbox->type == BULLETS || hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW || hitbox->type == WHIRLWIND || hitbox->type == SLIMES_INV)
 	{
-		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
+		if (SDL_HasIntersection(self_attack->hitbox.hitbox_ptr, hitbox->hitbox_ptr))
 			self_attack->isActive = SDL_FALSE;
 	}
 
@@ -461,8 +456,8 @@ void	slime_spine(t_bullet *spine, int x, int y, double angle)
 	spine->hitbox.originator = spine;
 
 	/* Careful with setting pointers to internal pointers that may change */
-	spine->hitbox.detect_meta1 = &(spine->sprite._dst);
-	spine->hitbox.detect_meta2 = spine;
+	spine->hitbox.hitbox_ptr = &(spine->sprite._dst);
+	// spine->hitbox.detect_meta2 = spine;
 	spine->meta = &(spine->sprite._dst);
 
 	spine->hitbox.detect = spine_detect_collision;
@@ -497,7 +492,7 @@ void	slime_spiny_update(t_enemy *slime, SDL_UNUSED void *meta)
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
-		score = slime->enemy_hurtbox.engage_meta2;
+		score = slime->score_ptr;
 		(*score)++;
 		angle = M_PI_4;
 		spine = spawn_projectile_addr(slime->projectile_spawn);

@@ -19,42 +19,38 @@
 
 struct s_bullet;
 struct s_enemy_m;
+typedef struct s_enemy_m t_enemy_m;
 
 typedef struct	s_weapon
 {
 	int				type;
-	SDLX_Sprite		cooldown_sprite;
-	SDLX_Sprite		ability_icon;
+	SDL_bool		(*trigger)(struct s_weapon *);
+	void			(*factory)(struct s_bullet *, SDL_Point, double , void *);
 
 	SDLX_Sprite		treasure_sprite;
+	SDLX_Sprite		cooldown_sprite;
+	SDLX_Sprite		ability_icon;
 
 	unsigned int	start;
 	unsigned int	cooldown;
 
 	unsigned int	curr;
 
-	SDL_bool		isEnabled;
-
-	int				meta_int;
 	void			*meta;
-
-	SDL_bool	(*trigger)(struct s_weapon *);
-	void		(*factory)(struct s_bullet *, SDL_Point, double , void *);
+	int				meta_int;
+	SDL_bool		isEnabled;
 }				t_weapon;
 
 typedef struct	s_bullet
 {
 	SDLX_Sprite		sprite;
-
-	SDL_Point		vel;
-	SDL_bool		isActive;
-
-	void			*meta;
+	SDLX_collision	hitbox;
 	void			(*update)(void *, void *);
 
-	// void			(*realloc_fn)(t_bullet *, t_bullet *);
+	SDL_Point		vel;
 
-	SDLX_collision	hitbox;
+	void			*meta;
+	SDL_bool		isActive;
 }				t_bullet;
 
 typedef struct	s_attacks
@@ -62,28 +58,23 @@ typedef struct	s_attacks
 	size_t		capacity;
 
 	t_bullet	*attacks;
-
-	t_bullet	*delayed_free;
-
 }				t_attacks;
 
 typedef struct	s_enemy
 {
-	SDL_bool		isActive;
-
 	SDLX_Sprite		sprite;
 	SDLX_collision	enemy_hurtbox;
+	void			(*update)(struct s_enemy *, void *);
 
 	int				hp;
 	int				max_hp;
+	size_t			*score_ptr;
 
 	void			*meta1;
 	void			*meta2;
-
-	struct s_enemy_m	*spawn_pool;
-	t_attacks			*projectile_spawn;
-
-	void			(*update)(struct s_enemy *, void *);
+	SDL_bool		isActive;
+	t_attacks		*projectile_spawn;
+	t_enemy_m		*spawn_pool;
 }				t_enemy;
 
 typedef struct	s_enemy_m
@@ -97,21 +88,17 @@ typedef struct	s_player
 {
 	SDLX_Sprite		sprite;
 	SDL_Rect		hurtbox;
+	SDLX_collision	player_hurtbox;
+
+	int				hp;
+	int				max_hp;
 
 	SDLX_Sprite		hp_s;
 	SDLX_Sprite		hpl_s;
 	SDLX_Sprite		heart;
 
-	int				hp;
-	int				max_hp;
-
 	t_weapon		*weapon_equip;
-
-	SDLX_collision	player_hurtbox;
-
-	//These are not permanent.
-	t_attacks			attacks;
-	void				*meta;
+	t_attacks		attacks;
 }				t_player;
 
 #endif

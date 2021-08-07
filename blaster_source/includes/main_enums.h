@@ -75,21 +75,52 @@ enum	e_weapon_types
 	B_HEART		= 0b10000,
 };
 
-enum	BLASTER_COLLISION_TYPES
+enum	e_collision_types
 {
-	E_NONE,
-	E_DEAD,
-	BULLETS,
-	WHIRLWIND,
-	LUNGE,
-	SLIMES,
-	SLIMES_YELLOW,
-	SLIMES_INV,
-	PLAYER,
-	HEAL,
+	/* The lower bits are box type interpret collision */
 
-	GOO,
-	SPINE,
+	C_RECT			= 0b0000000000000000001, /* Regular Rectangle */
+	C_ARECT			= 0b0000000000000000010, /* Angled Rectangle */
+
+	/* The following bits are categorical types */
+
+	C_PLAYER		= 0b0000000000000000100, /* Player */
+	C_PROJECTILE	= 0b0000000000000001000, /* Player Projectile */
+	C_MELEE			= 0b0000000000000010000, /* Player Melee */
+	C_E_PROJECTILE	= 0b0000000000000100000, /* Enemy Projectile */
+	C_E_BODY		= 0b0000000000001000000, /* Enemy Body */
+	C_DEAD			= 0b0000000000010000000, /* Dead / No-Collide */
+	C_NONE			= C_DEAD, /* Dead / No-Collide */
+
+	/* The Following are actual hitboxtypes, they should be '|'ed with a type! */
+
+	BULLETS			= 0b0000000000100000000 | C_PROJECTILE | C_RECT,
+	WHIRLWIND		= 0b0000000001000000000 | C_MELEE | C_ARECT,
+	LUNGE			= 0b0000000010000000000 | C_MELEE | C_RECT,
+	SLIMES			= 0b0000000100000000000 | C_E_BODY | C_RECT,
+	SLIMES_YELLOW	= 0b0000001000000000000 | C_E_BODY | C_RECT,
+	SLIMES_INV		= 0b0000010000000000000 | C_E_BODY | C_RECT,
+	HEAL			= 0b0000100000000000000 | C_NONE | C_RECT,
+	GOO				= 0b0001000000000000000 | C_E_PROJECTILE | C_RECT,
+	SPINE			= 0b0010000000000000000 | C_E_PROJECTILE | C_RECT,
+
 };
+
+// enum	BLASTER_COLLISION_TYPES
+// {
+// 	// E_NONE,
+// 	// E_DEAD,
+// 	// BULLETS,
+// 	WHIRLWIND,
+// 	LUNGE,
+// 	SLIMES,
+// 	SLIMES_YELLOW,
+// 	SLIMES_INV,
+// 	PLAYER,
+// 	HEAL,
+
+// 	GOO,
+// 	SPINE,
+// };
 
 #endif

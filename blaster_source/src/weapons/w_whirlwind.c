@@ -69,7 +69,7 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.type = WHIRLWIND;
 	dst->hitbox.originator = dst;
-	dst->hitbox.detect_meta1 = &(dst->sprite._dst);
+	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
 
 	dst->hitbox.detect = NULL;
 	dst->vel.x = *charge + 10;

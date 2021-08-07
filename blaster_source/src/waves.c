@@ -66,7 +66,7 @@ int		do_wave(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 			spawn_addr = spawn_enemy_addr(enemy_man);
 			spawn_elem(wave->wave_array[i].type, spawn_addr, wave->wave_array[i].spawn_location, wave->wave_array[i].modifier);
 			if (wave->wave_array[i].shouldCount == SDL_TRUE)
-				spawn_addr->enemy_hurtbox.engage_meta2 = &(wave->finished_no);
+				spawn_addr->score_ptr = &(wave->finished_no);
 			spawn_addr->spawn_pool = enemy_man;
 			spawn_addr->projectile_spawn = projectiles;
 		}

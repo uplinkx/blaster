@@ -17,7 +17,7 @@
 #define DEFAULT_P_SIZE (200)
 
 void	init_enemy_array(t_enemy_m *manager) { manager->capacity = DEFAULT_E_SIZE; SDLX_CALLOC_M(manager->entity_array, manager->capacity); }
-void	init_attack_array(t_attacks *manager) { manager->capacity = DEFAULT_P_SIZE; SDLX_CALLOC_M(manager->attacks, manager->capacity); manager->delayed_free = NULL; }
+void	init_attack_array(t_attacks *manager) { manager->capacity = DEFAULT_P_SIZE; SDLX_CALLOC_M(manager->attacks, manager->capacity); }
 
 void	enemy_apply_fn(void *ptr) {t_enemy *enemy = ptr; if (enemy->isActive) { enemy->update(enemy, NULL); } }
 void	projectile_apply_fn(void *ptr) {t_bullet *projectile = ptr; if (projectile->isActive) { projectile->update(projectile, NULL); } }

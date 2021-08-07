@@ -27,41 +27,6 @@ void	update_crosshair(SDLX_Sprite *crosshair)
 	SDLX_RenderQueue_Add(NULL, crosshair);
 }
 
-void	player_init(t_player *player)
-{
-	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
-	player->sprite.dst = &(player->sprite._dst);
-	player->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 48) / 2, (PLAY_HEIGHT - 48) / 2, 48, 48};
-
-	SDLX_new_Sprite(&(player->hp_s));
-	fetch_hp_sprite(&(player->hp_s.sprite_data), 1);
-	player->hp_s._dst = (SDL_Rect){20, 375, 0, 8};
-
-	SDLX_new_Sprite(&(player->hpl_s));
-	fetch_hp_sprite(&(player->hpl_s.sprite_data), -1);
-	player->hpl_s._dst = (SDL_Rect){20, 375, 50, 8};
-
-	SDLX_new_Sprite(&(player->heart));
-	fetch_hp_sprite(&(player->heart.sprite_data), 3);
-	player->heart._dst = (SDL_Rect){4, 364, 32, 32};
-
-	player->hp = 100;
-	player->max_hp = 100;
-
-	player->player_hurtbox.originator = player;
-	player->player_hurtbox.detect = player_hit;
-	player->player_hurtbox.engage = player_collide;
-	player->player_hurtbox.type = PLAYER;
-	player->hurtbox.x = player->sprite._dst.x + 5;
-	player->hurtbox.y = player->sprite._dst.y + 5;
-	player->hurtbox.h = player->sprite._dst.h - 10;
-	player->hurtbox.w = player->sprite._dst.w - 10;
-
-	player->player_hurtbox.detect_meta1 = &(player->hurtbox);
-
-	init_attack_array(&(player->attacks));
-}
-
 SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1)
 {
 	SDLX_collision	*hitbox;
@@ -71,7 +36,7 @@ SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SD
 	hitbox = with;
 	if (hitbox->type == SLIMES || hitbox->type == GOO || hitbox->type == SLIMES_YELLOW || hitbox->type == SPINE || hitbox->type == SLIMES_INV)
 	{
-		if (SDL_HasIntersection(&(player->hurtbox), hitbox->detect_meta1) == SDL_TRUE)
+		if (SDL_HasIntersection(&(player->hurtbox), hitbox->hitbox_ptr) == SDL_TRUE)
 			return (SDL_TRUE);
 	}
 	return (SDL_FALSE);
@@ -131,4 +96,39 @@ void	player_update(t_player *self)
 	SDLX_RenderQueue_Add(NULL, &(self->sprite));
 
 	SDLX_CollisionBucket_add(NULL, &(self->player_hurtbox));
+}
+
+void	player_init(t_player *player)
+{
+	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
+	player->sprite.dst = &(player->sprite._dst);
+	player->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 48) / 2, (PLAY_HEIGHT - 48) / 2, 48, 48};
+
+	SDLX_new_Sprite(&(player->hp_s));
+	fetch_hp_sprite(&(player->hp_s.sprite_data), 1);
+	player->hp_s._dst = (SDL_Rect){20, 375, 0, 8};
+
+	SDLX_new_Sprite(&(player->hpl_s));
+	fetch_hp_sprite(&(player->hpl_s.sprite_data), -1);
+	player->hpl_s._dst = (SDL_Rect){20, 375, 50, 8};
+
+	SDLX_new_Sprite(&(player->heart));
+	fetch_hp_sprite(&(player->heart.sprite_data), 3);
+	player->heart._dst = (SDL_Rect){4, 364, 32, 32};
+
+	player->hp = 100;
+	player->max_hp = 100;
+
+	player->player_hurtbox.originator = player;
+	player->player_hurtbox.detect = player_hit;
+	player->player_hurtbox.engage = player_collide;
+	player->player_hurtbox.type = C_PLAYER;
+	player->hurtbox.x = player->sprite._dst.x + 5;
+	player->hurtbox.y = player->sprite._dst.y + 5;
+	player->hurtbox.h = player->sprite._dst.h - 10;
+	player->hurtbox.w = player->sprite._dst.w - 10;
+
+	player->player_hurtbox.hitbox_ptr = &(player->hurtbox);
+
+	init_attack_array(&(player->attacks));
 }

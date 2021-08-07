@@ -21,8 +21,6 @@
 */
 
 void		player_init(t_player *dst);
-SDL_bool	player_hit(SDL_UNUSED void *self, void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1);
-void		*player_collide(void *self, void *with, SDL_UNUSED void *meta, SDL_UNUSED void *meta1);
 void		player_update(t_player *self);
 
 /*
@@ -31,8 +29,6 @@ void		player_update(t_player *self);
 
 t_weapon		laser_cannon(void);
 t_weapon		laser_yellow_cannon(void);
-
-t_weapon		time_cannon(void);
 
 t_weapon		heal_cannon(void);
 
@@ -59,11 +55,11 @@ enum			e_enemy_t
 
 void			slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (*update_fn)(t_enemy *, void *));
 void			slime_respawn(t_enemy *slime);
-
-void			slime_init(t_enemy *dst, SDL_Point loc, int mod);
-void			slime_update(t_enemy *self, void *);
-SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2);
 void			*slime_collide(void *self, void *with, void *meta1, void *meta2);
+SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2);
+
+void			slime_blue_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_blue_update(t_enemy *slime, void *meta);
 
 void			slime_green_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_inv_init(t_enemy *dst, SDL_Point loc, int mod);
@@ -77,8 +73,8 @@ void			slime_purple_update(t_enemy *slime, void *meta);
 void			slime_pink_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_pink_update(t_enemy *slime, void *meta);
 
-void			slime_blue_init(t_enemy *dst, SDL_Point loc, int mod);
-void			slime_blue_update(t_enemy *slime, void *meta);
+void			slime_cyan_init(t_enemy *dst, SDL_Point loc, int mod);
+void			slime_cyan_update(t_enemy *self, void *);
 
 void			slime_spiny_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_spiny_update(t_enemy *slime, void *meta);

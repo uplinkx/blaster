@@ -53,6 +53,6 @@ void		ename_factory(t_enemy *dst, SDL_Point spawn_point, SDL_UNUSED void *meta)
 	dst->sprite._dst = (SDL_Rect){spawn_point.x, spawn_point.y, 32, 32};
 	dst->sprite.center = SDLX_NULL_SELF;
 
-	dst->enemy_hurtbox.type = E_NONE;
+	dst->enemy_hurtbox.type = C_NONE;
 	dst->enemy_hurtbox.type = dst;
 }

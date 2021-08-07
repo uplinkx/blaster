@@ -58,7 +58,7 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (17 * 3)) / 2, (PLAY_HEIGHT) / 2 - 42 * 3, (17 * 3), (42 * 3)};
 
 	dst->sprite.center = SDLX_NULL_SELF;
-	dst->sprite._center = (SDL_Point){(17 * 3) / 2, 42 * 3};
+	dst->sprite._center = (SDL_Point){(17 * 3) / 2, (42 * 3)};
 
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = (angle * 180 / M_PI);
@@ -72,6 +72,8 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.angle = angle;
 	dst->hitbox.hitbox = dst->sprite._dst;
+	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
+	dst->hitbox.center = &(dst->sprite._center);
 
 	dst->hitbox.hitbox.x += 20;
 	dst->hitbox.hitbox.y += 10;

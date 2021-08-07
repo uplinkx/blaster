@@ -56,7 +56,7 @@ SDL_bool	laser_yellow_fire(SDL_UNUSED t_weapon *weapon)
 	return (result);
 }
 
-SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta2)
+SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
 	SDLX_collision	*self_box;
 	SDLX_collision	*hitbox;
@@ -65,15 +65,12 @@ SDL_bool	bullet_detect_collision(void *self, void *with, void *meta1, void *meta
 	self_box = self;
 	hitbox = with;
 
-	self_attack = meta2;
+	self_attack = self;
 	if (hitbox->type == SLIMES || hitbox->type == SLIMES_YELLOW || hitbox->type == GOO || hitbox->type == SPINE || hitbox->type == SLIMES_INV)
 	{
-		if (SDL_HasIntersection(meta1, hitbox->detect_meta1))
+		if (SDL_HasIntersection(self_attack->hitbox.hitbox_ptr, hitbox->hitbox_ptr))
 			self_attack->isActive = SDL_FALSE;
 	}
-
-	(void)meta1;
-
 	return (SDL_FALSE);
 }
 
@@ -126,8 +123,8 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.type = BULLETS;
 	dst->hitbox.originator = dst;
 
-	dst->hitbox.detect_meta1 = &(dst->sprite._dst);
-	dst->hitbox.detect_meta2 = dst;
+	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
+	// dst->hitbox.detect_meta2 = dst;
 
 	dst->hitbox.detect = bullet_detect_collision;
 }
@@ -157,8 +154,8 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 	dst->hitbox.type = BULLETS;
 	dst->hitbox.originator = dst;
 
-	dst->hitbox.detect_meta1 = &(dst->sprite._dst);
-	dst->hitbox.detect_meta2 = dst;
+	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
+	// dst->hitbox.detect_meta2 = dst;
 
 	dst->hitbox.detect = bullet_detect_collision;
 }
