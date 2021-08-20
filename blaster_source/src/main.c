@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/08/20 11:25:45 by home             ###   ########.fr       */
+/*   Updated: 2021/08/20 15:54:21 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	blaster_start(t_context *context)
 	// context->mainhand = laser_yellow_cannon();
 	// context->mainhand = lunge_cannon();
 	// context->heal = heal_cannon();
-	// context->shield = whirl_cannon();
+	context->shield = shield_cannon();
+	context->shield = emp_cannon();
 }
 
 void	main_loop(void *context_addr)

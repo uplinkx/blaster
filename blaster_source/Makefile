@@ -53,6 +53,7 @@ SCENE_FILES = 			\
 SPRITE_FILES = 			\
 	chest_sprite \
 	coin_sprite \
+	emp_sprite \
 	heal_sprite \
 	hp_sprite \
 	inventory_sprite \
@@ -71,10 +72,12 @@ ENEMY_FILES = 			\
 	slime_util			\
 
 WEAPON_FILES = 			\
+	w_emp				\
 	w_heal				\
 	w_laser				\
-	w_whirlwind			\
 	w_lunge				\
+	w_shield			\
+	w_whirlwind			\
 
 # List of all the source files.
 SRC_NAMES = \

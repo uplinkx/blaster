@@ -120,6 +120,7 @@ void	player_init(t_player *player)
 	player->player_hurtbox.engage = player_collide;
 	player->player_hurtbox.type = C_PLAYER;
 	player->player_hurtbox.response_amount = C_E_BODY | C_E_PROJECTILE;
+
 	player->hurtbox.x = player->sprite._dst.x + 10;
 	player->hurtbox.y = player->sprite._dst.y + 10;
 	player->hurtbox.h = player->sprite._dst.h - 20;

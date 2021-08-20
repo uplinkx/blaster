@@ -87,11 +87,25 @@ enum	e_collision_types
 	C_PLAYER		= 0b00000000000000000100, /* Player */
 	C_PROJECTILE	= 0b00000000000000001000, /* Player Projectile */
 	C_MELEE			= 0b00000000000000010000, /* Player Melee */
-	C_E_PROJECTILE	= 0b00000000000000100000, /* Enemy Projectile */
-	C_E_BODY		= 0b00000000000001000000, /* Enemy Body */
+	C_FIELD			= 0b00000000000000100000, /* Player Melee */
+	C_E_PROJECTILE	= 0b00000000000001000000, /* Enemy Projectile */
+	C_E_BODY		= 0b00000000000010000000, /* Enemy Body */
 
-	C_DEAD			= 0b00000000000010000000, /* Dead / No-Collide */
+	C_DEAD			= 0b00000000000100000000, /* Dead / No-Collide */
 	C_NONE			= C_DEAD, /* Dead / No-Collide */
+};
+
+typedef	struct	s_effects
+{
+	int		info;
+	double	record;
+}				t_effects;
+
+enum	e_effects
+{
+	RUNIC_SHIELD,
+	EMP_FIELD,
+	EFFECT_SIZE
 };
 
 #endif

@@ -16,6 +16,7 @@
 # define ENITY_STRUCTS_H
 
 # include "SDLX/SDLX.h"
+# include "main_enums.h"
 
 struct s_bullet;
 struct s_enemy_m;
@@ -74,6 +75,7 @@ typedef struct	s_enemy
 
 	void			*meta1;
 	void			*meta2;
+	t_effects		effects[EFFECT_SIZE];
 	SDL_bool		isActive;
 	t_attacks		*projectile_spawn;
 	t_enemy_m		*spawn_pool;

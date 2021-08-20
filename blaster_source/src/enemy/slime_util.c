@@ -24,6 +24,7 @@ void	slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (
 	slime->sprite.dst = SDLX_NULL_SELF;
 	slime->sprite._dst = (SDL_Rect){10, 10, 32, 32};
 
+	SDL_memset(&(slime->effects), 0, sizeof(slime->effects));
 	slime->enemy_hurtbox.originator = slime;
 	slime->enemy_hurtbox.hitbox_ptr = &(slime->sprite._dst);
 	slime->enemy_hurtbox.type = type;
@@ -55,6 +56,22 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 		if (collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
 			return (SDL_TRUE);
 	}
+
+	if (hitbox->type & C_FIELD && SDLX_Collide_RectToRect(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
+		slime->effects[(size_t)hitbox->engage_meta1].info++;
+
+	if (slime->effects[RUNIC_SHIELD].info >= 22)
+	{
+		slime->effects[RUNIC_SHIELD].info = 0;
+		return (SDL_TRUE);
+	}
+
+	if (slime->effects[EMP_FIELD].info == 1)
+	{
+		slime->effects[(size_t)hitbox->engage_meta1].record = slime->speed;
+		slime->speed = 0;
+	}
+
 	return (SDL_FALSE);
 }
 

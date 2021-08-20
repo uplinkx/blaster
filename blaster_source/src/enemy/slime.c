@@ -160,6 +160,13 @@ void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
 	slime->sprite._dst.x = slime->delta.x;
 	slime->sprite._dst.y = slime->delta.y;
 
+	if (slime->effects[EMP_FIELD].info != 0)
+	{
+		slime->effects[EMP_FIELD].info = 0;
+		slime->speed = slime->effects[EMP_FIELD].record;
+		slime->sprite.current += 4;
+	}
+
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
