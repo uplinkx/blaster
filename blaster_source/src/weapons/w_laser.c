@@ -144,7 +144,7 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 	dst->isActive = SDL_TRUE;
 
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
-	dst->sprite.angle = SDLX_Radian_to_Degree(angle);
+	dst->sprite.angle = SDLX_Radian_to_Degree(angle) - 90;
 
 	dst->vel.x = SDL_sin(angle) * 16;
 	dst->vel.y = SDL_cos(angle) * -16;
@@ -160,7 +160,7 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 	dst->hitbox.detect = bullet_detect_collision;
 }
 
-#define LASER_COOLDOWN (9)
+#define LASER_COOLDOWN (12)
 
 t_weapon	laser_cannon(void)
 {

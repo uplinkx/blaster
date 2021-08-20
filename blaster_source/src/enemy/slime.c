@@ -13,21 +13,48 @@
 
 #include "main.h"
 
+#define SPAWN_RAD (200)
+
 void		slime_cyan_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
-	slime_default_init(dst, "slime_cyan", C_E_BODY, 1, slime_cyan_update);
+	double	angle;
+
+	slime_default_init(dst, "slime_cyan", C_E_BODY, 3, slime_blue_update);
+	angle = loc.y;
+	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
-	dst->meta1 = (void *)4;
-	dst->enemy_hurtbox.engage_meta1 = (void *)10;
+	dst->speed = .85;
+
+	if (mod >> 8 > 0)
+		dst->speed = 1.5;
+
+	dst->enemy_hurtbox.engage_meta1 = (void *)20;
+	dst->enemy_hurtbox.detect = slime_detect_collision_once;
+
+	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->delta.y = loc.y - (dst->sprite._dst.h / 2);
+	dst->sprite.current = mod;
 }
 
 void		slime_spiny_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
+	double	angle;
+
 	slime_default_init(dst, "slime_spiny", C_E_BODY, 1, slime_spiny_update);
+	angle = loc.y;
+	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
+
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
-	dst->meta1 = (void *)4;
+	dst->speed = 2;
+	// dst->meta1 = (void *)4;
+	if (mod >> 8 > 0)
+		dst->speed = .85;
+
+	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->delta.y = loc.y - (dst->sprite._dst.h / 2);
+
 	dst->enemy_hurtbox.engage_meta1 = (void *)10;
 }
 
@@ -40,13 +67,27 @@ void		slime_inv_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 	dst->enemy_hurtbox.engage_meta1 = (void *)20;
 }
 
-void		slime_blue_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
+void		slime_blue_init(t_enemy *dst, SDL_Point loc, int mod)
 {
+	double	angle;
+
 	slime_default_init(dst, "slime_blue", C_E_BODY, 1, slime_blue_update);
+	angle = loc.y;
+	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
-	dst->meta1 = (void *)4;
 	dst->enemy_hurtbox.engage_meta1 = (void *)10;
+	dst->speed = 1.5;
+
+	fetch_slime_sprite(&(dst->sprite.sprite_data), 0);
+	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->delta.y = loc.y - (dst->sprite._dst.h / 2);
+
+	if (mod >> 8 > 0)
+		dst->speed = .85;
+	else
+		dst->sprite.current = mod;
+
 }
 
 void		slime_green_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
@@ -102,64 +143,22 @@ void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED 
 	return (NULL);
 }
 
-void	slime_cyan_update(t_enemy *slime, SDL_UNUSED void *meta)
-{
-	int			dx;
-	int			dy;
-	size_t		*score;
-	int move = rand() % 9;
-
-	dx = 0;
-	dy = 0;
-	if (move % 3 == 1)
-		dx++;
-	else if (move % 3 == 2)
-		dx--;
-
-	if (move / 3 == 1)
-		dy++;
-	else if (move / 3 == 2)
-		dy--;
-
-	int x = slime->sprite._dst.x - MID_PLAY_WIDTH + 16;
-	int y = slime->sprite._dst.y - MID_PLAY_HEIGHT + 16;
-
-	if (x * x + y * y > (x + dx) * (x + dx) + y * y)
-		slime->sprite._dst.x += dx * (int)(slime->meta1);
-
-	if (x * x + y * y > x * x + (y + dy) * (y + dy))
-		slime->sprite._dst.y += dy * (int)(slime->meta1);
-
-	if (slime->hp <= 0)
-	{
-		slime->isActive = SDL_FALSE;
-		score = slime->score_ptr;
-		(*score)++;
-	}
-	else
-	{
-		SDLX_RenderQueue_Add(NULL, &(slime->sprite));
-		SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
-	}
-
-	// SDL_RenderDrawRect(SDLX_GetDisplay()->renderer, &(slime->sprite._dst));
-}
-
 void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
 {
 	size_t		*score;
 	double		angle;
-	int			dx, dy;
+	double		dx, dy;
 
-	angle = ptoa(slime->sprite._dst.x + 16, slime->sprite._dst.y + 16);
+	angle = ptoa(slime->delta.x + 16, slime->delta.y + 16);
 
-	dx = SDL_sin(angle) * 2;
-	dy = SDL_cos(angle) * -2;
+	dx = SDL_sin(angle) * (slime->speed);
+	dy = SDL_cos(angle) * -(slime->speed);
 
-	SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, WIN_WIDTH / 2, WIN_HEIGHT / 2, WIN_WIDTH / 2 + dx, WIN_HEIGHT / 2 + dy);
+	slime->delta.x -= dx;
+	slime->delta.y -= dy;
 
-	slime->sprite._dst.x -= dx;
-	slime->sprite._dst.y -= dy;
+	slime->sprite._dst.x = slime->delta.x;
+	slime->sprite._dst.y = slime->delta.y;
 
 	if (slime->hp <= 0)
 	{
@@ -169,6 +168,7 @@ void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
 	}
 	else
 	{
+		slime->sprite.current++;
 		SDLX_RenderQueue_Add(NULL, &(slime->sprite));
 		SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 	}
@@ -480,27 +480,30 @@ void	slime_spiny_update(t_enemy *slime, SDL_UNUSED void *meta)
 {
 	size_t		*score;
 	double		angle;
-	int			dx, dy;
-	int			x, y;
-	int			speed;
+	double		dx, dy;
+	double		x, y;
+	double		speed;
 	t_bullet	*spine;
 
-	x = slime->sprite._dst.x + 16 - (PLAY_WIDTH / 2);
-	y = slime->sprite._dst.y + 16 - (PLAY_HEIGHT / 2);
+	x = slime->delta.x + 16 - (PLAY_WIDTH / 2);
+	y = slime->delta.y + 16 - (PLAY_HEIGHT / 2);
 
-	speed = 2;
-	angle = ptoa(slime->sprite._dst.x + 16, slime->sprite._dst.y + 16);
-	if (x * x + y * y < 100 * 100)
+	speed = slime->speed;
+	angle = ptoa(slime->delta.x + 16, slime->delta.y + 16);
+	if (x * x + y * y < 80 * 80)
 	{
 		angle += M_PI_2;
-		speed += 2;
+		speed = 4;
 	}
 
 	dx = SDL_sin(angle) * (speed);
 	dy = SDL_cos(angle) * -(speed);
 
-	slime->sprite._dst.x -= dx;
-	slime->sprite._dst.y -= dy;
+	slime->delta.x -= dx;
+	slime->delta.y -= dy;
+
+	slime->sprite._dst.x = slime->delta.x;
+	slime->sprite._dst.y = slime->delta.y;
 
 	if (slime->hp <= 0)
 	{

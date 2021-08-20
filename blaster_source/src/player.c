@@ -23,7 +23,7 @@ void	crosshair_init(SDLX_Sprite *crosshair)
 
 void	update_crosshair(SDLX_Sprite *crosshair)
 {
-	crosshair->angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 45;
+	crosshair->angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 90 - 45;
 	SDLX_RenderQueue_Add(NULL, crosshair);
 }
 
@@ -120,10 +120,10 @@ void	player_init(t_player *player)
 	player->player_hurtbox.engage = player_collide;
 	player->player_hurtbox.type = C_PLAYER;
 	player->player_hurtbox.response_amount = C_E_BODY | C_E_PROJECTILE;
-	player->hurtbox.x = player->sprite._dst.x + 5;
-	player->hurtbox.y = player->sprite._dst.y + 5;
-	player->hurtbox.h = player->sprite._dst.h - 10;
-	player->hurtbox.w = player->sprite._dst.w - 10;
+	player->hurtbox.x = player->sprite._dst.x + 10;
+	player->hurtbox.y = player->sprite._dst.y + 10;
+	player->hurtbox.h = player->sprite._dst.h - 20;
+	player->hurtbox.w = player->sprite._dst.w - 20;
 
 	player->player_hurtbox.hitbox_ptr = &(player->hurtbox);
 

@@ -63,6 +63,8 @@ typedef struct	s_attacks
 typedef struct	s_enemy
 {
 	SDLX_Sprite		sprite;
+	SDL_FPoint		delta;
+	double			speed;
 	SDLX_collision	enemy_hurtbox;
 	void			(*update)(struct s_enemy *, void *);
 

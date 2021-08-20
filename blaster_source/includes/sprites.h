@@ -22,6 +22,7 @@
 
 int		fetch_chest_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_coin_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_slime_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);

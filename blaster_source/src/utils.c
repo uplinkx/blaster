@@ -25,3 +25,10 @@ double		ptoa(int x, int y)
 {
 	return (SDL_atan2(x - MID_PLAY_WIDTH, MID_PLAY_HEIGHT - y));
 }
+
+void		circle_spawn(int *x, int *y, int radius, double angle)
+{
+	angle = SDLX_Degree_to_Radian(angle);
+	*x = MID_PLAY_WIDTH + SDL_cos(angle) * radius;
+	*y = MID_PLAY_HEIGHT - SDL_sin(angle) * radius;
+}

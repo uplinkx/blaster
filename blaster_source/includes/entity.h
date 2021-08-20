@@ -57,6 +57,7 @@ void			slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void
 void			slime_respawn(t_enemy *slime);
 void			*slime_collide(void *self, void *with, void *meta1, void *meta2);
 SDL_bool		slime_detect_collision(void *self, void *with, void *meta1, void *meta2);
+SDL_bool		slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2);
 
 void			slime_blue_init(t_enemy *dst, SDL_Point loc, int mod);
 void			slime_blue_update(t_enemy *slime, void *meta);

@@ -60,6 +60,7 @@ SPRITE_FILES = 			\
 	loot_sprite \
 	lunge_sprite \
 	pause_sprite \
+	slime_sprite \
 	ui_sprites \
 	whirlwind_sprite \
 	laser_red_sprite \

@@ -2,7 +2,7 @@
 # define SDLX_CONFIG_H
 
 #ifdef EMCC
-	# define DISPLAY_SCALE (5)
+	# define DISPLAY_SCALE (4)
 #else
 	# define DISPLAY_SCALE (2)
 #endif

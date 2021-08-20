@@ -57,3 +57,36 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	}
 	return (SDL_FALSE);
 }
+
+SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
+{
+	SDLX_collision	*hitbox;
+	t_enemy			*slime;
+	t_bullet		*bullet;
+	SDL_bool		(*collide_fn)(SDLX_collision *, SDLX_collision *);
+
+	slime = self;
+	hitbox = with;
+
+	if (hitbox->type & C_PROJECTILE)
+	{
+		bullet = hitbox->originator;
+		if (bullet->isActive == SDL_FALSE)
+			return (SDL_FALSE);
+	}
+
+	if (hitbox->type & slime->enemy_hurtbox.response_amount)
+	{
+		collide_fn = SDLX_Collide_RectToRect;
+		if (hitbox->type & C_ARECT)
+			collide_fn = SDLX_Collide_RectToARect;
+
+		if (collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
+		{
+			if (hitbox->type & C_PROJECTILE)
+				bullet->isActive = SDL_FALSE;
+			return (SDL_TRUE);
+		}
+	}
+	return (SDL_FALSE);
+}
