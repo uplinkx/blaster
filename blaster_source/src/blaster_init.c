@@ -48,6 +48,7 @@ SDLX_iMap	*blaster_key_map(size_t *size)
 	{
 		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_SPACE},
 		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_SCANCODE_KP_ENTER},
+		(SDLX_iMap){&BMAP(button_START),	1, SDL_SCANCODE_ESCAPE},
 
 		(SDLX_iMap){&BMAP(button_num1),	1, SDL_SCANCODE_1},
 		(SDLX_iMap){&BMAP(button_num2),	1, SDL_SCANCODE_2},

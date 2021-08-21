@@ -72,6 +72,7 @@ void	update_status(t_enemy *self);
 
 void	*button_trigger_scene_switch(SDLX_button *self, void *meta, SDL_UNUSED size_t length);
 void	*button_pause(SDLX_button *self, void *vp_context, SDL_UNUSED size_t length);
+void	*button_pause_key(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t length);
 void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length);
 
 void	*button_chest(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UNUSED size_t length);

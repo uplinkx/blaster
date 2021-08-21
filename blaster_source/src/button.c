@@ -82,7 +82,18 @@ void	*button_pause(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t l
 		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
 		self->isTriggered = SDL_TRUE;
 	}
+	return (NULL);
+}
 
+void	*button_pause_key(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size_t length)
+{
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, START))
+	{
+		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, START)
+
+		self->sprite_fn(&(self->sprite.sprite_data), self->norm_no);
+		self->isTriggered = SDL_TRUE;
+	}
 	return (NULL);
 }
 

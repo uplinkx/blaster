@@ -21,6 +21,7 @@ void	level_ui_init(SDLX_button *pause, SDLX_Sprite *bottom)
 
 	SDLX_Button_Init(pause, fetch_ui_sprite, PAUSE_NORM, (SDL_Rect){PLAY_WIDTH - 35, 6, 32, 32}, NULL);
 	pause->trigger_fn = button_pause;
+	pause->update_fn = button_pause_key;
 }
 
 #define MENU_SCALE (3)
