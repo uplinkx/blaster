@@ -92,3 +92,34 @@ SDL_bool	SDLX_Collide_ARectToRect(SDLX_collision *angle_box, SDLX_collision *hit
 {
 	return (SDLX_Collide_RectToARect(hitbox1, angle_box));
 }
+
+SDL_bool	SDLX_Collide_CircleToRect(SDLX_collision *circle, SDLX_collision *hitbox)
+{
+	SDL_bool	res;
+	int			x, y;
+	int			x1, y1;
+	int			dx, dy;
+	int			r;
+
+	res = SDL_FALSE;
+	SDL_assert(circle->hitbox_ptr != NULL);
+	SDL_assert(hitbox->hitbox_ptr != NULL);
+	x = circle->hitbox_ptr->x + (circle->hitbox_ptr->w / 2);
+	y = circle->hitbox_ptr->y + (circle->hitbox_ptr->h / 2);
+	x1 = hitbox->hitbox_ptr->x + (hitbox->hitbox_ptr->w / 2);
+	y1 = hitbox->hitbox_ptr->y + (hitbox->hitbox_ptr->h / 2);
+
+	r = (circle->hitbox_ptr->w + circle->hitbox_ptr->h) / 4;
+	dx = x1 - x;
+	dy = y1 - y;
+
+	if (dx * dx + dy * dy < r * r)
+		res = SDL_TRUE;
+
+	return (res);
+}
+
+SDL_bool	SDLX_Collide_RectToCircle(SDLX_collision *hitbox, SDLX_collision *circle)
+{
+	return (SDLX_Collide_CircleToRect(circle, hitbox));
+}

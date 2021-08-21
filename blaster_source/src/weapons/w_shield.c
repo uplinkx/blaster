@@ -60,7 +60,7 @@ void	mini_shield_factory(t_bullet *dst)
 
 	dst->update = mini_shield_update;
 
-	dst->hitbox.type = C_MELEE | C_RECT;
+	dst->hitbox.type = C_MELEE | C_CIRCLE;
 	dst->hitbox.response_amount = C_E_BODY | C_E_PROJECTILE;
 	dst->hitbox.originator = dst;
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
@@ -108,7 +108,7 @@ void	shield_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED 
 
 	dst->update = shield_update;
 
-	dst->hitbox.type = C_FIELD | C_RECT;
+	dst->hitbox.type = C_FIELD | C_CIRCLE;
 	dst->hitbox.response_amount = C_E_BODY | C_E_PROJECTILE;
 	dst->hitbox.originator = dst;
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);

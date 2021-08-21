@@ -47,17 +47,19 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	slime = self;
 	hitbox = with;
 
+	collide_fn = SDLX_Collide_RectToRect;
+	if (hitbox->type & C_ARECT)
+		collide_fn = SDLX_Collide_RectToARect;
+	else if (hitbox->type & C_CIRCLE)
+		collide_fn = SDLX_Collide_RectToCircle;
+
 	if (hitbox->type & slime->enemy_hurtbox.response_amount)
 	{
-		collide_fn = SDLX_Collide_RectToRect;
-		if (hitbox->type & C_ARECT)
-			collide_fn = SDLX_Collide_RectToARect;
-
 		if (collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
 			return (SDL_TRUE);
 	}
 
-	if (hitbox->type & C_FIELD && SDLX_Collide_RectToRect(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
+	if (hitbox->type & C_FIELD && collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
 		slime->effects[(size_t)hitbox->engage_meta1].info++;
 
 	if (slime->effects[RUNIC_SHIELD].info >= 22)

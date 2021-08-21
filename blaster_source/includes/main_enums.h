@@ -81,17 +81,18 @@ enum	e_collision_types
 
 	C_RECT			= 0b00000000000000000001, /* Regular Rectangle */
 	C_ARECT			= 0b00000000000000000010, /* Angled Rectangle */
+	C_CIRCLE		= 0b00000000000000000100, /* Circle Collision */
 
 	/* The following bits are categorical types */
 
-	C_PLAYER		= 0b00000000000000000100, /* Player */
-	C_PROJECTILE	= 0b00000000000000001000, /* Player Projectile */
-	C_MELEE			= 0b00000000000000010000, /* Player Melee */
-	C_FIELD			= 0b00000000000000100000, /* Player Melee */
-	C_E_PROJECTILE	= 0b00000000000001000000, /* Enemy Projectile */
-	C_E_BODY		= 0b00000000000010000000, /* Enemy Body */
+	C_PLAYER		= 0b00000000000000001000, /* Player */
+	C_PROJECTILE	= 0b00000000000000010000, /* Player Projectile */
+	C_MELEE			= 0b00000000000000100000, /* Player Melee */
+	C_FIELD			= 0b00000000000001000000, /* Player Melee */
+	C_E_PROJECTILE	= 0b00000000000010000000, /* Enemy Projectile */
+	C_E_BODY		= 0b00000000000100000000, /* Enemy Body */
 
-	C_DEAD			= 0b00000000000100000000, /* Dead / No-Collide */
+	C_DEAD			= 0b00000000001000000000, /* Dead / No-Collide */
 	C_NONE			= C_DEAD, /* Dead / No-Collide */
 };
 

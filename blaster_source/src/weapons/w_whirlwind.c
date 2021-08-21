@@ -61,7 +61,7 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	SDLX_new_Sprite(&(dst->sprite));
 	fetch_whirl_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (48 * 3)) / 2, (PLAY_HEIGHT -  (48 * 3)) / 2 + 5, (48 * 3), (48 * 3)};
+	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (32 * 3)) / 2, (PLAY_HEIGHT -  (32 * 3)) / 2 + 5, (32 * 3), (32 * 3)};
 
 	dst->isActive = SDL_TRUE;
 
