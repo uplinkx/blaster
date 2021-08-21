@@ -36,5 +36,6 @@ int		fetch_heal_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_red_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_yellow_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_emp_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_shield_sprite(SDLX_Sprite_Data **dst, int no);
 
 #endif

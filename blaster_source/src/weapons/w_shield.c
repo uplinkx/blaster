@@ -49,10 +49,9 @@ void	mini_shield_update(void *self, SDL_UNUSED void *meta)
 
 void	mini_shield_factory(t_bullet *dst)
 {
-	// SDLX_new_Sprite(&(dst->sprite));
-	// fetch_shield_sprite(&(dst->sprite.sprite_data), 2);
+	SDLX_new_Sprite(&(dst->sprite));
+	fetch_shield_sprite(&(dst->sprite.sprite_data), 2);
 
-	dst->sprite = SDLX_Sprite_Static(ASSETS"shield2.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (30 * 3)) / 2, (PLAY_HEIGHT -  (30 * 3)) / 2 + 5, (30 * 3), (30 * 3)};
 
@@ -98,10 +97,9 @@ void	shield_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED 
 	player = meta;
 	dst->meta = &(player->attacks);
 
-	// SDLX_new_Sprite(&(dst->sprite));
-	// fetch_shield_sprite(&(dst->sprite.sprite_data), 2);
+	SDLX_new_Sprite(&(dst->sprite));
+	fetch_shield_sprite(&(dst->sprite.sprite_data), 2);
 
-	dst->sprite = SDLX_Sprite_Static(ASSETS"shield2.png");
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (48 * 3)) / 2, (PLAY_HEIGHT -  (48 * 3)) / 2 + 5, (48 * 3), (48 * 3)};
 
@@ -127,16 +125,11 @@ t_weapon	shield_cannon(void)
 
 	shield_cannon.type = B_SHIELD;
 
-	// SDLX_new_Sprite(&(shield_cannon.ability_icon));
-	// fetch_shield_sprite(&(shield_cannon.ability_icon.sprite_data), 0);
-
-	// SDLX_new_Sprite(&(shield_cannon.treasure_sprite));
-	// fetch_shield_sprite(&(shield_cannon.treasure_sprite.sprite_data), 1);
-
 	SDLX_new_Sprite(&(shield_cannon.ability_icon));
-	fetch_yellow_sprite(&(shield_cannon.ability_icon.sprite_data), 0);
+	fetch_shield_sprite(&(shield_cannon.ability_icon.sprite_data), 0);
+
 	SDLX_new_Sprite(&(shield_cannon.treasure_sprite));
-	fetch_yellow_sprite(&(shield_cannon.treasure_sprite.sprite_data), 1);
+	fetch_shield_sprite(&(shield_cannon.treasure_sprite.sprite_data), 1);
 
 	shield_cannon.start = 0;
 	shield_cannon.cooldown = SHIELD_COOLDOWN;
