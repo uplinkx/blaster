@@ -105,5 +105,14 @@ SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *me
 			return (SDL_TRUE);
 		}
 	}
+
+	if (hitbox->type & C_FIELD && SDLX_Collide_RectToRect(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
+		slime->effects[(size_t)hitbox->engage_meta1].info++;
+
+	if (slime->effects[EMP_FIELD].info == 1)
+	{
+		slime->effects[(size_t)hitbox->engage_meta1].record = slime->speed;
+		slime->speed = 0;
+	}
 	return (SDL_FALSE);
 }

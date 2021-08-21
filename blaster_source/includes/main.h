@@ -59,6 +59,13 @@ void	update_cooldowns(t_weapon *mainhand, t_weapon *shield, t_weapon *heal, t_we
 void	crosshair_init(SDLX_Sprite *crosshair);
 void	update_crosshair(SDLX_Sprite *crosshair);
 
+
+/*
+** Game System/Mechanics Functions
+*/
+
+void	update_status(t_enemy *self);
+
 /*
 ** Button Functions
 */

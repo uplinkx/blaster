@@ -74,7 +74,6 @@ t_wave_m	level_03(void)
 	level_03.waves[1].wave_array[26] = (t_wave_elem){E_SLIME_BLUE, 0, 14 * t, SDL_TRUE, {0, 260}, 0};
 	level_03.waves[1].wave_array[27] = (t_wave_elem){E_SLIME_BLUE, 0, 11 * t, SDL_TRUE, {0, 270}, 0};
 	level_03.waves[1].wave_array[28] = (t_wave_elem){E_SLIME_BLUE, 0, 4 * t, SDL_TRUE, {0, 280}, 0};
-	level_03.waves[1].wave_array[29] = (t_wave_elem){E_SLIME_BLUE, 0, 19 * t, SDL_TRUE, {0, 290}, 0};
 	level_03.waves[1].wave_array[29] = (t_wave_elem){E_SLIME_BLUE, 0, 2 * t, SDL_TRUE, {0, 290}, 0};
 	level_03.waves[1].wave_array[30] = (t_wave_elem){E_SLIME_BLUE, 0, 17 * t, SDL_TRUE, {0, 300}, 0};
 	level_03.waves[1].wave_array[31] = (t_wave_elem){E_SLIME_BLUE, 0, 21 * t, SDL_TRUE, {0, 310}, 0};
@@ -116,7 +115,6 @@ t_wave_m	level_03(void)
 	level_03.waves[2].wave_array[26] = (t_wave_elem){E_SLIME_BLUE, 0, 36 * t, SDL_TRUE, {0, 260}, 0};
 	level_03.waves[2].wave_array[27] = (t_wave_elem){E_SLIME_BLUE, 0, 10 * t, SDL_TRUE, {0, 270}, 0};
 	level_03.waves[2].wave_array[28] = (t_wave_elem){E_SLIME_BLUE, 0, 17 * t, SDL_TRUE, {0, 280}, 0};
-	level_03.waves[2].wave_array[29] = (t_wave_elem){E_SLIME_BLUE, 0, 20 * t, SDL_TRUE, {0, 290}, 0};
 	level_03.waves[2].wave_array[29] = (t_wave_elem){E_SLIME_BLUE, 0, 26 * t, SDL_TRUE, {0, 290}, 0};
 	level_03.waves[2].wave_array[30] = (t_wave_elem){E_SLIME_BLUE, 0, 23 * t, SDL_TRUE, {0, 300}, 0};
 	level_03.waves[2].wave_array[31] = (t_wave_elem){E_SLIME_BLUE, 0, 32 * t, SDL_TRUE, {0, 310}, 0};

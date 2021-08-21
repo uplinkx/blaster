@@ -95,6 +95,7 @@ SRC_NAMES = \
 	main \
 	player \
 	scene_utils \
+	status_effects \
 	ui \
 	utils \
 	waves \

@@ -160,12 +160,7 @@ void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
 	slime->sprite._dst.x = slime->delta.x;
 	slime->sprite._dst.y = slime->delta.y;
 
-	if (slime->effects[EMP_FIELD].info != 0)
-	{
-		slime->effects[EMP_FIELD].info = 0;
-		slime->speed = slime->effects[EMP_FIELD].record;
-		slime->sprite.current += 4;
-	}
+	update_status(slime);
 
 	if (slime->hp <= 0)
 	{
@@ -221,6 +216,8 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	slime->sprite._dst.x = x;
 	slime->sprite._dst.y = y;
+
+	update_status(slime);
 
 	if (slime->hp <= 0)
 	{
@@ -350,6 +347,8 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 	slime->sprite._dst.x = x;
 	slime->sprite._dst.y = y;
 
+	update_status(slime);
+
 	if (slime->hp <= 0)
 	{
 		slime->isActive = SDL_FALSE;
@@ -402,6 +401,8 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	slime->sprite._dst.x = x;
 	slime->sprite._dst.y = y;
+
+	update_status(slime);
 
 	if (slime->hp <= 0)
 	{
@@ -511,6 +512,8 @@ void	slime_spiny_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	slime->sprite._dst.x = slime->delta.x;
 	slime->sprite._dst.y = slime->delta.y;
+
+	update_status(slime);
 
 	if (slime->hp <= 0)
 	{
