@@ -65,16 +65,7 @@ void	emp_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED dou
 	dst->hitbox.originator = dst;
 	dst->hitbox.engage_meta1 = (void *)EMP_FIELD;
 
-	dst->hitbox.hitbox.x = dst->sprite._dst.x;
-	dst->hitbox.hitbox.y = dst->sprite._dst.y;
-	dst->hitbox.hitbox.h = dst->sprite._dst.h;
-	dst->hitbox.hitbox.w = dst->sprite._dst.w;
-
-	// dst->hitbox.hitbox.x = dst->sprite._dst.x + 20;
-	// dst->hitbox.hitbox.y = dst->sprite._dst.y + 20;
-	// dst->hitbox.hitbox.h = dst->sprite._dst.h - 40;
-	// dst->hitbox.hitbox.w = dst->sprite._dst.w - 40;
-
+	dst->hitbox.hitbox = dst->sprite._dst;
 	dst->hitbox.hitbox_ptr = &(dst->hitbox.hitbox);
 
 	dst->hitbox.detect = NULL;

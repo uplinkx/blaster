@@ -41,6 +41,7 @@ LEVEL_FILES = 			\
 	level_04			\
 	level_05			\
 	level_06			\
+	level_07			\
 
 SCENE_FILES = 			\
 	main_menu			\
