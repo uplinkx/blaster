@@ -55,7 +55,7 @@ void	mini_shield_factory(t_bullet *dst)
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (30 * 3)) / 2, (PLAY_HEIGHT -  (30 * 3)) / 2 + 5, (30 * 3), (30 * 3)};
 
-	dst->vel.x = 30;
+	dst->vel.x = 35;
 	dst->isActive = SDL_TRUE;
 
 	dst->update = mini_shield_update;
