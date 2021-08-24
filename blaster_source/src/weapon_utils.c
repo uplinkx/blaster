@@ -51,7 +51,7 @@ void	load_weapon_default_values(t_weapon *weapon, SDL_Rect cooldown_loc)
 	weapon->cooldown_sprite._dst = cooldown_loc;
 }
 
-void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *shield, SDLX_button *heal, SDLX_button *special)
+void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *offhand, SDLX_button *defense, SDLX_button *special)
 {
 	size_t		i;
 	size_t		ability_bar_width;
@@ -62,13 +62,13 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 
 	ability_button_init(mainhand, player_weapon_addr, &(context->mainhand));
 	ability_button_init(special, player_weapon_addr, &(context->special));
-	ability_button_init(shield, player_weapon_addr, &(context->shield));
-	ability_button_init(heal, player_weapon_addr, &(context->heal));
+	ability_button_init(offhand, player_weapon_addr, &(context->offhand));
+	ability_button_init(defense, player_weapon_addr, &(context->defense));
 
 	count = 0;
 	if (context->mainhand.isEnabled == SDL_TRUE) { line[count] = mainhand; context->mainhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); mainhand->down = keys[count]; count++; }
-	if (context->shield.isEnabled == SDL_TRUE) { line[count] = shield; context->shield.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); shield->down = keys[count]; count++; }
-	if (context->heal.isEnabled == SDL_TRUE) { line[count] = heal; context->heal.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); heal->down = keys[count]; count++; }
+	if (context->offhand.isEnabled == SDL_TRUE) { line[count] = offhand; context->offhand.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); offhand->down = keys[count]; count++; }
+	if (context->defense.isEnabled == SDL_TRUE) { line[count] = defense; context->defense.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); defense->down = keys[count]; count++; }
 	if (context->special.isEnabled == SDL_TRUE) { line[count] = special; context->special.cooldown_sprite = SDLX_Sprite_Static(ASSETS"cooldown.png"); special->down = keys[count]; count++; }
 
 	if (count == 0)
@@ -95,12 +95,12 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 
 	load_weapon_default_values(&(context->mainhand), mainhand->sprite._dst);
 	load_weapon_default_values(&(context->special), special->sprite._dst);
-	load_weapon_default_values(&(context->shield), shield->sprite._dst);
-	load_weapon_default_values(&(context->heal), heal->sprite._dst);
+	load_weapon_default_values(&(context->offhand), offhand->sprite._dst);
+	load_weapon_default_values(&(context->defense), defense->sprite._dst);
 
 	if (context->mainhand.isEnabled) { *player_weapon_addr = &(context->mainhand); }
-	else if (context->shield.isEnabled) { *player_weapon_addr = &(context->shield); }
-	else if (context->heal.isEnabled) { *player_weapon_addr = &(context->heal); }
+	else if (context->offhand.isEnabled) { *player_weapon_addr = &(context->offhand); }
+	else if (context->defense.isEnabled) { *player_weapon_addr = &(context->defense); }
 	else { *player_weapon_addr = &(context->special); }
 }
 
@@ -118,10 +118,10 @@ void	update_cooldown(t_weapon *weapon)
 	SDLX_RenderQueue_Add(NULL, &(weapon->cooldown_sprite));
 }
 
-void	update_cooldowns(t_weapon *mainhand, t_weapon *shield, t_weapon *heal, t_weapon *special)
+void	update_cooldowns(t_weapon *mainhand, t_weapon *offhand, t_weapon *defense, t_weapon *special)
 {
 	if (mainhand->isEnabled) { update_cooldown(mainhand); }
-	if (shield->isEnabled) { update_cooldown(shield); }
-	if (heal->isEnabled) { update_cooldown(heal); }
+	if (offhand->isEnabled) { update_cooldown(offhand); }
+	if (defense->isEnabled) { update_cooldown(defense); }
 	if (special->isEnabled) { update_cooldown(special); }
 }

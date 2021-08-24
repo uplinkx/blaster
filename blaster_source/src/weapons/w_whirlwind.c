@@ -83,7 +83,7 @@ t_weapon	whirl_cannon(void)
 {
 	t_weapon	whirl_cannon;
 
-	whirl_cannon.type = B_SHIELD;
+	whirl_cannon.type = B_DEFENSE;
 	SDLX_new_Sprite(&(whirl_cannon.ability_icon));
 	fetch_whirl_sprite(&(whirl_cannon.ability_icon.sprite_data), 0);
 

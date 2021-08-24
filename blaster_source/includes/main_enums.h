@@ -69,8 +69,8 @@ enum	e_weapon_types
 {
 	B_NONE		= 0b00000,
 	B_MAINHAND	= 0b00001,
-	B_SHIELD	= 0b00010,
-	B_HEAL		= 0b00100,
+	B_OFFHAND	= 0b00010,
+	B_DEFENSE	= 0b00100,
 	B_SPECIAL	= 0b01000,
 	B_HEART		= 0b10000,
 };
@@ -106,6 +106,7 @@ enum	e_effects
 {
 	RUNIC_SHIELD,
 	EMP_FIELD,
+	GHOST_BURN,
 	EFFECT_SIZE
 };
 

@@ -37,7 +37,7 @@ typedef struct	s_weapon
 
 	unsigned int	curr;
 
-	void			*meta;
+	void			*meta_wpn;
 	int				meta_int;
 	SDL_bool		isEnabled;
 }				t_weapon;

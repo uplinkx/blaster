@@ -123,7 +123,7 @@ t_weapon	shield_cannon(void)
 {
 	t_weapon	shield_cannon;
 
-	shield_cannon.type = B_SHIELD;
+	shield_cannon.type = B_DEFENSE;
 
 	SDLX_new_Sprite(&(shield_cannon.ability_icon));
 	fetch_shield_sprite(&(shield_cannon.ability_icon.sprite_data), 0);

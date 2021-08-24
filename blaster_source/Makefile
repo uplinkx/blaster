@@ -42,6 +42,7 @@ LEVEL_FILES = 			\
 	level_05			\
 	level_06			\
 	level_07			\
+	level_08			\
 
 SCENE_FILES = 			\
 	main_menu			\
@@ -55,6 +56,7 @@ SPRITE_FILES = 			\
 	chest_sprite \
 	coin_sprite \
 	emp_sprite \
+	ghostfire_sprite \
 	heal_sprite \
 	hp_sprite \
 	inventory_sprite \
@@ -75,6 +77,7 @@ ENEMY_FILES = 			\
 
 WEAPON_FILES = 			\
 	w_emp				\
+	w_ghostfire			\
 	w_heal				\
 	w_laser				\
 	w_lunge				\

@@ -112,7 +112,11 @@ void		slime_yellow_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 
 void		slime_purple_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
-	slime_default_init(dst, "slime_purple", C_E_BODY, 3, slime_purple_update);
+	double	angle;
+
+	slime_default_init(dst, "slime_purple", C_E_BODY, 5, slime_purple_update);
+	angle = loc.y;
+	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
 	dst->meta2 = 0;
@@ -298,9 +302,10 @@ void	slime_goo(t_bullet *goo, int x, int y)
 	goo->update = goo_update;
 
 	goo->hitbox.type = C_E_PROJECTILE | C_RECT;
-	goo->hitbox.response_amount = C_PLAYER | C_MELEE | C_PROJECTILE;
+	goo->hitbox.response_amount = C_PLAYER | C_MELEE | C_PROJECTILE | C_FIELD;
 	goo->hitbox.engage_meta1 = (void *)15;
 	goo->hitbox.originator = goo;
+	goo->hitbox.hitbox_ptr = &(goo->sprite._dst);
 
 	goo->hitbox.detect = goo_detect_collision;
 }
@@ -319,7 +324,7 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 	dx = x - ((PLAY_WIDTH - 16 * 3) / 2);
 	dy = y - ((PLAY_WIDTH + 16 * 3) / 2);
 
-	if ((dx * dx) + (dy * dy) < 100 * 100)
+	if ((dx * dx) + (dy * dy) < 140 * 140)
 	{
 		fire_range = SDL_TRUE;
 		slime->meta2++;
@@ -329,7 +334,7 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (fire_range == SDL_TRUE)
 	{
-		if ((int)slime->meta2 >= 30)
+		if ((int)slime->meta2 >= 42)
 		{
 			goo = spawn_projectile_addr(slime->projectile_spawn);
 			slime_goo(goo, x, y);
@@ -386,7 +391,7 @@ void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
 	{
 		if ((int)slime->meta2 >= 30)
 		{
-			goo = spawn_projectile_addr(slime->meta1);
+			goo = spawn_projectile_addr(slime->projectile_spawn);
 			slime_goo(goo, x, y);
 			slime->meta2 = (void *)20;
 		}

@@ -68,7 +68,7 @@ t_weapon	heal_cannon(void)
 {
 	t_weapon	heal_cannon;
 
-	heal_cannon.type = B_HEAL;
+	heal_cannon.type = B_DEFENSE;
 
 	SDLX_new_Sprite(&(heal_cannon.ability_icon));
 	fetch_heal_sprite(&(heal_cannon.ability_icon.sprite_data), 0);

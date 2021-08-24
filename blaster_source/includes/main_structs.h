@@ -49,8 +49,8 @@ typedef struct	s_context
 	t_scene_fn	*close_fn;
 
 	t_weapon	mainhand;
-	t_weapon	shield;
-	t_weapon	heal;
+	t_weapon	offhand;
+	t_weapon	defense;
 	t_weapon	special;
 
 	t_level_progress	levels[5][5];
@@ -72,7 +72,7 @@ typedef struct	s_level
 	t_pmenu				pause_menu;
 
 	SDLX_Sprite			bottom_ui;
-	SDLX_button			mainhand, shield, heal, special;
+	SDLX_button			mainhand, offhand, defense, special;
 
 	t_player			player;
 	SDLX_Sprite			crosshair;

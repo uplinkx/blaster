@@ -27,4 +27,14 @@ void	update_status(t_enemy *self)
 		self->speed = self->effects[EMP_FIELD].record;
 		self->sprite.current += 4;
 	}
+
+	if (self->effects[GHOST_BURN].info != 0)
+	{
+		self->effects[GHOST_BURN].info++;
+		if (self->effects[GHOST_BURN].info % 4 == 0)
+			self->hp--;
+
+		if (self->effects[GHOST_BURN].info == 37)
+			self->effects[GHOST_BURN].info = 0;
+	}
 }

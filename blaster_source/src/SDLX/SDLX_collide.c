@@ -44,10 +44,10 @@ SDL_bool	SDLX_Collide_RectToARect(SDLX_collision *hitbox1, SDLX_collision *angle
 
 	norm.x = 0;
 	norm.y = 0;
-	if (angle_box->center != NULL)
+	if (angle_box->center_ptr != NULL)
 	{
-		norm.x = angle_box->center->x - (box->w / 2);
-		norm.y = angle_box->center->y - (box->h / 2);
+		norm.x = angle_box->center_ptr->x - (box->w / 2);
+		norm.y = angle_box->center_ptr->y - (box->h / 2);
 	}
 
 	lt = (SDL_Point){norm.x - (box->w / 2), norm.y + (box->h / 2)};
@@ -60,15 +60,15 @@ SDL_bool	SDLX_Collide_RectToARect(SDLX_collision *hitbox1, SDLX_collision *angle
 	lb = SDLX_RotatePoint(&lb, angle);
 	rb = SDLX_RotatePoint(&rb, angle);
 
-	lt.x += (box->x + (angle_box->center->x));
-	rt.x += (box->x + (angle_box->center->x));
-	lb.x += (box->x + (angle_box->center->x));
-	rb.x += (box->x + (angle_box->center->x));
+	lt.x += (box->x + (angle_box->center_ptr->x));
+	rt.x += (box->x + (angle_box->center_ptr->x));
+	lb.x += (box->x + (angle_box->center_ptr->x));
+	rb.x += (box->x + (angle_box->center_ptr->x));
 
-	lt.y += (box->y + (angle_box->center->y));
-	rt.y += (box->y + (angle_box->center->y));
-	lb.y += (box->y + (angle_box->center->y));
-	rb.y += (box->y + (angle_box->center->y));
+	lt.y += (box->y + (angle_box->center_ptr->y));
+	rt.y += (box->y + (angle_box->center_ptr->y));
+	lb.y += (box->y + (angle_box->center_ptr->y));
+	rb.y += (box->y + (angle_box->center_ptr->y));
 	// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, rt.x, rt.y);
 	// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, lt.x, lt.y, lb.x, lb.y);
 	// SDL_RenderDrawLine(SDLX_GetDisplay()->renderer, rt.x, rt.y, rb.x, rb.y);

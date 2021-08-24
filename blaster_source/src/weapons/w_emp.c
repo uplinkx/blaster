@@ -77,7 +77,7 @@ t_weapon	emp_cannon(void)
 {
 	t_weapon	emp_cannon;
 
-	emp_cannon.type = B_SHIELD;
+	emp_cannon.type = B_DEFENSE;
 
 	SDLX_new_Sprite(&(emp_cannon.ability_icon));
 	fetch_emp_sprite(&(emp_cannon.ability_icon.sprite_data), 0);

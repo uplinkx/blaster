@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/08/21 02:32:43 by home             ###   ########.fr       */
+/*   Updated: 2021/08/23 18:01:13 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	blaster_start(t_context *context)
 
 	unequip_weapon(&(context->mainhand));
 	unequip_weapon(&(context->special));
-	unequip_weapon(&(context->shield));
-	unequip_weapon(&(context->heal));
+	unequip_weapon(&(context->offhand));
+	unequip_weapon(&(context->defense));
 	context->mainhand = laser_cannon();
 
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
@@ -45,15 +45,15 @@ void	blaster_start(t_context *context)
 	context->levels[0][4].isUnlocked = SDL_TRUE;
 	context->levels[1][0].isUnlocked = SDL_TRUE;
 
-	context->init_fn = level_07_init;
+	context->init_fn = level_08_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
 
 	// context->mainhand = laser_yellow_cannon();
-	// context->mainhand = lunge_cannon();
-	// context->heal = heal_cannon();
-	context->shield = shield_cannon();
-	// context->shield = emp_cannon();
+	context->offhand = ghostfire_cannon();
+	// context->defense = heal_cannon();
+	context->defense = shield_cannon();
+	// context->offhand = emp_cannon();
 }
 
 void	main_loop(void *context_addr)

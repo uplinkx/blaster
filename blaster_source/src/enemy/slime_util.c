@@ -116,5 +116,6 @@ SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *me
 		slime->effects[(size_t)hitbox->engage_meta1].record = slime->speed;
 		slime->speed = 0;
 	}
+
 	return (SDL_FALSE);
 }

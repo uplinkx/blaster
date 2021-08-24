@@ -53,8 +53,8 @@ void	init_attack_array(t_attacks *attacks);
 t_bullet	*spawn_projectile_addr(t_attacks *dst);
 
 void	unequip_weapon(t_weapon *dst);
-void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *shield, SDLX_button *heal, SDLX_button *special);
-void	update_cooldowns(t_weapon *mainhand, t_weapon *shield, t_weapon *heal, t_weapon *special);
+void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *offhand, SDLX_button *defense, SDLX_button *special);
+void	update_cooldowns(t_weapon *mainhand, t_weapon *offhand, t_weapon *defense, t_weapon *special);
 
 void	crosshair_init(SDLX_Sprite *crosshair);
 void	update_crosshair(SDLX_Sprite *crosshair);

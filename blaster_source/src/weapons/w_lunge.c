@@ -73,13 +73,15 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.angle = angle;
 	dst->hitbox.hitbox = dst->sprite._dst;
-	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
-	dst->hitbox.center = &(dst->sprite._center);
+	dst->hitbox.hitbox_ptr = &(dst->hitbox.hitbox);
+	dst->hitbox.center = dst->sprite._center;
+	dst->hitbox.center_ptr = &(dst->hitbox.center);
 
-	dst->hitbox.hitbox.x += 20;
-	dst->hitbox.hitbox.y += 10;
-	dst->hitbox.hitbox.h -= 10;
-	dst->hitbox.hitbox.w -= 40;
+	dst->hitbox.hitbox.x += 10;
+	// dst->hitbox.hitbox.y += 10;
+	// dst->hitbox.hitbox.h -= 10;
+	dst->hitbox.hitbox.w -= 20;
+	dst->hitbox.center_ptr->x -= 10;
 
 	dst->hitbox.detect = NULL;
 	dst->vel.x = 5;
@@ -91,7 +93,7 @@ t_weapon	lunge_cannon(void)
 {
 	t_weapon	lunge_cannon;
 
-	lunge_cannon.type = B_MAINHAND;
+	lunge_cannon.type = B_OFFHAND;
 	SDLX_new_Sprite(&(lunge_cannon.ability_icon));
 	fetch_lunge_sprite(&(lunge_cannon.ability_icon.sprite_data), 0);
 

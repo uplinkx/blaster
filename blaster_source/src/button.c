@@ -217,8 +217,8 @@ void	*button_equip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED s
 		context = self->meta;
 		new_weapon = self->meta1;
 		if (new_weapon->type & B_MAINHAND) { context->mainhand = *new_weapon; }
-		else if (new_weapon->type & B_HEAL) { context->heal = *new_weapon; }
-		else if (new_weapon->type & B_SHIELD) { context->shield = *new_weapon; }
+		else if (new_weapon->type & B_DEFENSE) { context->defense = *new_weapon; }
+		else if (new_weapon->type & B_OFFHAND) { context->offhand = *new_weapon; }
 		else if (new_weapon->type & B_SPECIAL) { context->special = *new_weapon; }
 	}
 
@@ -237,8 +237,8 @@ void	*button_unequip_weapon(SDLX_button *self, SDL_UNUSED void *addr, SDL_UNUSED
 		context = self->meta;
 		new_weapon = self->meta1;
 		if (new_weapon->type & B_MAINHAND) { unequip_weapon(&(context->mainhand)); }
-		else if (new_weapon->type & B_HEAL) { unequip_weapon(&(context->heal)); }
-		else if (new_weapon->type & B_SHIELD) { unequip_weapon(&(context->shield)); }
+		else if (new_weapon->type & B_DEFENSE) { unequip_weapon(&(context->defense)); }
+		else if (new_weapon->type & B_OFFHAND) { unequip_weapon(&(context->offhand)); }
 		else if (new_weapon->type & B_SPECIAL) { unequip_weapon(&(context->special)); }
 	}
 

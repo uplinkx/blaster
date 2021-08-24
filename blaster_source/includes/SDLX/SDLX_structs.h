@@ -215,7 +215,8 @@ typedef struct	SDLX_collision
 	double		angle;
 	SDL_Rect	hitbox;
 	SDL_Rect	*hitbox_ptr;
-	SDL_Point	*center;
+	SDL_Point	center;
+	SDL_Point	*center_ptr;
 
 	size_t		response_amount;
 	size_t		*response_type;

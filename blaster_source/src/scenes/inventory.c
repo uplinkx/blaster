@@ -137,8 +137,8 @@ void	*inventory_update(SDL_UNUSED t_context *context, void *vp_scene)
 	*/
 
 	if (scene->list[scene->at].type & B_MAINHAND) { factory = context->mainhand.factory; }
-	else if (scene->list[scene->at].type & B_HEAL) { factory = context->heal.factory; }
-	else if (scene->list[scene->at].type & B_SHIELD) { factory = context->shield.factory; }
+	else if (scene->list[scene->at].type & B_DEFENSE) { factory = context->defense.factory; }
+	else if (scene->list[scene->at].type & B_OFFHAND) { factory = context->offhand.factory; }
 	else { factory = context->special.factory; }
 
 	scene->equip_weapon.isDisabled = SDL_TRUE;

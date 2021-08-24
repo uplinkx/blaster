@@ -26,7 +26,7 @@ void	level_init(t_context *context, t_wave_m waves)
 
 	player_init(&(scene->player));
 	crosshair_init(&(scene->crosshair));
-	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->shield), &(scene->heal), &(scene->special));
+	load_weapons(context, &(scene->player.weapon_equip), &(scene->mainhand), &(scene->offhand), &(scene->defense), &(scene->special));
 
 	init_enemy_array(&(scene->enemies));
 	scene->stage = waves;
@@ -82,12 +82,12 @@ void	*level_update(t_context *context, void *vp_scene)
 	{
 		SDLX_Button_Update(&(scene->pause));
 
-		update_cooldowns(&(context->mainhand), &(context->shield), &(context->heal), &(context->special));
+		update_cooldowns(&(context->mainhand), &(context->offhand), &(context->defense), &(context->special));
 
 		SDLX_Button_Update(&(scene->mainhand));
 		SDLX_Button_Update(&(scene->special));
-		SDLX_Button_Update(&(scene->shield));
-		SDLX_Button_Update(&(scene->heal));
+		SDLX_Button_Update(&(scene->offhand));
+		SDLX_Button_Update(&(scene->defense));
 
 		update_crosshair(&(scene->crosshair));
 		SDLX_CollisionBucket_Flush(NULL);

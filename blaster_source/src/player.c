@@ -52,6 +52,7 @@ void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, 
 	player = self;
 	object = with;
 	damage_taken = (int)(object->engage_meta1);
+	SDL_Log("Taking %d", damage_taken);
 	player->hp -= damage_taken;
 
 	return (NULL);
