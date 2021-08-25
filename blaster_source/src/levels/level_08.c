@@ -4,7 +4,7 @@
 t_wave_m	level_08(void)
 {
 	t_wave_m level_08 = {
-		.wave_id = 0,
+		.wave_id = 7,
 		.tick = 0,
 
 		.win_kill_count = 0,
@@ -139,10 +139,11 @@ t_wave_m	level_08(void)
 	level_08.waves[3].wave_array[36] = (t_wave_elem){E_SLIME_BLUE, 0, t * 8 + 80, SDL_TRUE, {0, 46 + 53}, 0};
 	level_08.waves[3].wave_array[37] = (t_wave_elem){E_SLIME_BLUE, 0, t * 9 + 80, SDL_TRUE, {0, 54 + 53}, 0};
 
-	level_08.waves[4] = (t_wave){0, WAVE_PREV_DEFEAT, 0, SDL_FALSE, SDL_FALSE, 1, SDL_FALSE, NULL};
+	level_08.waves[4] = (t_wave){0, WAVE_PREV_DEFEAT, 0, SDL_FALSE, SDL_FALSE, 2, SDL_FALSE, NULL};
 	level_08.waves[4].wave_array = SDL_malloc(sizeof(*(level_08.waves[4].wave_array)) * level_08.waves[4].size);
 
-	level_08.waves[4].wave_array[0] = (t_wave_elem){E_SLIME_PURPLE, 0, 0, SDL_TRUE, {0, 0}, 0};
+	level_08.waves[4].wave_array[0] = (t_wave_elem){E_SLIME_CYAN, 0, 0, SDL_TRUE, {0, 0}, 0};
+	level_08.waves[4].wave_array[1] = (t_wave_elem){E_SLIME_PURP, 0, 20, SDL_TRUE, {0, 0}, 0};
 
 	return level_08;
 }

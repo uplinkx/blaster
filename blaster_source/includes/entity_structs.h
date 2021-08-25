@@ -46,6 +46,7 @@ typedef struct	s_bullet
 {
 	SDLX_Sprite		sprite;
 	SDLX_collision	hitbox;
+	SDL_FPoint		delta;
 	void			(*update)(void *, void *);
 
 	SDL_Point		vel;

@@ -29,7 +29,7 @@ void		slime_cyan_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 	if (mod >> 8 > 0)
 		dst->speed = 1.5;
 
-	dst->enemy_hurtbox.engage_meta1 = (void *)20;
+	dst->enemy_hurtbox.engage_meta1 = (void *)15;
 	dst->enemy_hurtbox.detect = slime_detect_collision_once;
 
 	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
@@ -114,11 +114,18 @@ void		slime_purple_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
 	double	angle;
 
-	slime_default_init(dst, "slime_purple", C_E_BODY, 5, slime_purple_update);
+	slime_default_init(dst, "slime_purple", C_E_BODY, 3, slime_purple_update);
 	angle = loc.y;
 	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
+
+	dst->speed = 1.3;
+	if (mod >> 8 > 0)
+		dst->speed = .85;
+
+	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->delta.y = loc.y - (dst->sprite._dst.h / 2);
 	dst->meta2 = 0;
 	dst->enemy_hurtbox.engage_meta1 = (void *)10;
 }
@@ -268,16 +275,19 @@ void	goo_update(void *self, SDL_UNUSED void *meta)
 		return ;
 	}
 
-	double x, y;
-	double angle;
+	double		angle;
+	double		dx, dy;
 
-	angle = ptoa(bullet->sprite._dst.x, bullet->sprite._dst.y);
+	angle = ptoa(bullet->delta.x + 16, bullet->delta.y + 16);
 
-	x = SDL_sin(angle) * 3;
-	y = SDL_cos(angle) * -3;
+	dx = SDL_sin(angle) * (bullet->vel.x);
+	dy = SDL_cos(angle) * -(bullet->vel.x);
 
-	bullet->sprite._dst.x -= x;
-	bullet->sprite._dst.y -= y;
+	bullet->delta.x -= dx;
+	bullet->delta.y -= dy;
+
+	bullet->sprite._dst.x = bullet->delta.x;
+	bullet->sprite._dst.y = bullet->delta.y;
 	SDLX_RenderQueue_Add(NULL, &(bullet->sprite));
 	SDLX_CollisionBucket_add(NULL, &(bullet->hitbox));
 }
@@ -291,13 +301,10 @@ void	slime_goo(t_bullet *goo, int x, int y)
 	goo->sprite.angle = 0;
 	goo->isActive = SDL_TRUE;
 
-	double	angle;
+	goo->delta.x = goo->sprite._dst.x;
+	goo->delta.y = goo->sprite._dst.y;
 
-	angle = ptoa(x + 8, y + 8);
-	goo->sprite.angle = (angle * 180 / M_PI) + 180.0;
-
-	goo->vel.x = SDL_sin(angle) * 3;
-	goo->vel.y = SDL_cos(angle) * -3;
+	goo->vel.x = 3;
 
 	goo->update = goo_update;
 
@@ -313,16 +320,17 @@ void	slime_goo(t_bullet *goo, int x, int y)
 void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 {
 	SDL_bool	fire_range;
-	int			x, y;
-	int			dx, dy;
+	double		x, y;
+	double		dx, dy;
+	double		angle;
 	size_t		*score;
 
 	fire_range = SDL_FALSE;
-	y = slime->sprite._dst.y;
-	x = slime->sprite._dst.x;
+	y = slime->delta.y;
+	x = slime->delta.x;
 
-	dx = x - ((PLAY_WIDTH - 16 * 3) / 2);
-	dy = y - ((PLAY_WIDTH + 16 * 3) / 2);
+	dx = x - MID_PLAY_WIDTH + (slime->sprite._dst.w / 2);
+	dy = y - MID_PLAY_HEIGHT + (slime->sprite._dst.h / 2);
 
 	if ((dx * dx) + (dy * dy) < 140 * 140)
 	{
@@ -338,19 +346,23 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 		{
 			goo = spawn_projectile_addr(slime->projectile_spawn);
 			slime_goo(goo, x, y);
-			slime->meta2 = (void *)10;
+			slime->meta2 = (void *)0;
 		}
 	}
 	else
 	{
-		if (x < (PLAY_WIDTH - 32) / 2) x++;
-		else x--;
-		if (y < (PLAY_WIDTH + 32) / 2) y++;
-		else y--;
+		angle = ptoa(slime->delta.x + 16, slime->delta.y + 16);
+
+		dx = SDL_sin(angle) * (slime->speed);
+		dy = SDL_cos(angle) * -(slime->speed);
+
+		slime->delta.x -= dx;
+		slime->delta.y -= dy;
+
+		slime->sprite._dst.x = slime->delta.x;
+		slime->sprite._dst.y = slime->delta.y;
 	}
 
-	slime->sprite._dst.x = x;
-	slime->sprite._dst.y = y;
 
 	update_status(slime);
 

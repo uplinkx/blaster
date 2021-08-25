@@ -121,7 +121,7 @@ t_weapon	ghostfire_cannon(void)
 {
 	t_weapon	ghostfire_cannon;
 
-	ghostfire_cannon.type = B_MAINHAND;
+	ghostfire_cannon.type = B_OFFHAND;
 	SDLX_new_Sprite(&(ghostfire_cannon.ability_icon));
 	fetch_ghostfire_sprite(&(ghostfire_cannon.ability_icon.sprite_data), 0);
 

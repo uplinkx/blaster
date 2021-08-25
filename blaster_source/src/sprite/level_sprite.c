@@ -52,13 +52,13 @@ SDLX_Sprite_Data *carve_level_select_sprite(void)
 	while (j < 20)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){16 * (j % 5), 16 * (j / 4) + 16, 16, 16};
+		result[i]._src = (SDL_Rect){16 * (j % 5), 16 * (j / 5) + 16, 16, 16};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 1;
 		i++;
 
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){16 * (j % 5), 16 * (j / 4) + (16 * 6), 16, 16};
+		result[i]._src = (SDL_Rect){16 * (j % 5), 16 * (j / 5) + (16 * 6), 16, 16};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 1;
 		i++;
@@ -72,7 +72,6 @@ SDLX_Sprite_Data *carve_level_select_sprite(void)
 int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no)
 {
 	static SDLX_Sprite_Data	*sprite_arr;
-	int		which;
 
 	if (sprite_arr == NULL)
 		sprite_arr = carve_level_select_sprite();
@@ -82,16 +81,21 @@ int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no)
 	else if (no == BACK_NORM)	{ (*dst) = &(sprite_arr[2]); return (EXIT_SUCCESS); }
 	else if (no == BACK_HOVER)	{ (*dst) = &(sprite_arr[3]); return (EXIT_SUCCESS); }
 	else if (no == -100)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
-	else {
-		which = (no - 4) * 2;
-		if (no <= 0)
-		{
-			which = (no + 4) * -2;
-			(*dst) = &(sprite_arr[which + 4 + 1]); return (EXIT_SUCCESS);
-		}
-		else
-		{
-			(*dst) = &(sprite_arr[which + 4]); return (EXIT_SUCCESS);
-		}
+	else if (no >> 18 == 4)
+	{
+		no ^= (4 << 18);
+		(*dst) = &(sprite_arr[no * 2 + 4]); return (EXIT_SUCCESS);
 	}
+	else if (no >> 18 == 8)
+	{
+		no ^= (8 << 18);
+		(*dst) = &(sprite_arr[no * 2 + 4 + 1]); return (EXIT_SUCCESS);
+	}
+		// }
+		// else
+		// {
+		// 	(*dst) = &(sprite_arr[which + 4]); return (EXIT_SUCCESS);
+		// }
+	// }
+	return (EXIT_FAILURE);
 }

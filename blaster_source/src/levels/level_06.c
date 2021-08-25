@@ -4,7 +4,7 @@
 t_wave_m	level_06(void)
 {
 	t_wave_m level_06 = {
-		.wave_id = 0,
+		.wave_id = 5,
 		.tick = 0,
 
 		.win_kill_count = 0,

@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/08/23 18:01:13 by home             ###   ########.fr       */
+/*   Updated: 2021/08/25 14:19:17 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,16 @@ void	blaster_start(t_context *context)
 	context->levels[0][2].isUnlocked = SDL_TRUE;
 	context->levels[0][3].isUnlocked = SDL_TRUE;
 	context->levels[0][4].isUnlocked = SDL_TRUE;
-	context->levels[1][0].isUnlocked = SDL_TRUE;
 
-	context->init_fn = level_08_init;
+	context->levels[1][0].isUnlocked = SDL_TRUE;
+	context->levels[1][1].isUnlocked = SDL_TRUE;
+	context->levels[1][2].isUnlocked = SDL_TRUE;
+	context->levels[1][3].isUnlocked = SDL_TRUE;
+	context->levels[1][4].isUnlocked = SDL_TRUE;
+
+	// context->levels[2][0].isUnlocked = SDL_TRUE;
+
+	context->init_fn = level_11_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
 

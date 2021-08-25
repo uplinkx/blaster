@@ -3,14 +3,9 @@ Drop System
 Item Pickup System
 Hexagon Grid
 Lock on System
-TREASURE SYSTEM
+TREASURE SYSTEM (with Hearts)
 
 TUTORIAL
-
-COLLISIONS
-	Types
-	Reusable Structures
-	Reusable Functions
 
 ENEMIES
 	Wall		(Takes hits)

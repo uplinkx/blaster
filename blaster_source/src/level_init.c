@@ -21,10 +21,10 @@ void	*level_05_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(
 void	*level_06_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_06()); return (NULL); }
 void	*level_07_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_07()); return (NULL); }
 void	*level_08_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_08()); return (NULL); }
+void	*level_09_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_09()); return (NULL); }
+void	*level_10_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_10()); return (NULL); }
+void	*level_11_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_11()); return (NULL); }
 
-void	*level_09_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }
-void	*level_10_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }
-void	*level_11_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }
 void	*level_12_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }
 void	*level_13_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }
 void	*level_14_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }

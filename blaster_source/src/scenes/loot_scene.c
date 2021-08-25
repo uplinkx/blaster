@@ -97,6 +97,15 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	context->wave_id = 0;
 
+
+
+	if (context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_MAINHAND) { context->mainhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
+	else if (context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_DEFENSE) { context->defense = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
+	else if (context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_OFFHAND) { context->offhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
+	else { context->special = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
+
+
+
 	return (NULL);
 }
 
