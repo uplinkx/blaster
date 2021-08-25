@@ -26,6 +26,7 @@ void	slime_default_init(t_enemy *slime, char *kind, int type, int max_hp, void (
 
 	SDL_memset(&(slime->effects), 0, sizeof(slime->effects));
 	slime->enemy_hurtbox.originator = slime;
+
 	slime->enemy_hurtbox.hitbox_ptr = &(slime->sprite._dst);
 	slime->enemy_hurtbox.type = type;
 	slime->enemy_hurtbox.response_amount = C_PROJECTILE | C_PLAYER | C_MELEE;
@@ -42,8 +43,10 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 {
 	SDLX_collision	*hitbox;
 	t_enemy			*slime;
+	SDL_bool		result;
 	SDL_bool		(*collide_fn)(SDLX_collision *, SDLX_collision *);
 
+	result = SDL_FALSE;
 	slime = self;
 	hitbox = with;
 
@@ -56,7 +59,7 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	if (hitbox->type & slime->enemy_hurtbox.response_amount)
 	{
 		if (collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
-			return (SDL_TRUE);
+			result = SDL_TRUE;
 	}
 
 	if (hitbox->type & C_FIELD && collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
@@ -65,7 +68,7 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	if (slime->effects[RUNIC_SHIELD].info >= 22)
 	{
 		slime->effects[RUNIC_SHIELD].info = 0;
-		return (SDL_TRUE);
+			result = SDL_TRUE;
 	}
 
 	if (slime->effects[EMP_FIELD].info == 1)
@@ -74,7 +77,7 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 		slime->speed = 0;
 	}
 
-	return (SDL_FALSE);
+	return (result);
 }
 
 SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)

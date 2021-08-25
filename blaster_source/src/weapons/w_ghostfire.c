@@ -25,7 +25,8 @@ SDL_bool	ghostfire_fire(t_weapon *weapon)
 	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, primleft) &&
 		/* weapon->curr * 3 >= weapon->cooldown is the same as:
 		weapon->curr >= (weapon->cooldown / 3) */
-		weapon->curr * 3 >= weapon->cooldown && SDL_PointInRect(&(g_GameInput.GameInput.primary), &(play_area)))
+		weapon->curr * 3 >= weapon->cooldown &&
+		 SDL_PointInRect(&(g_GameInput.GameInput.primary), &(play_area)))
 	{
 		if (g_GameInput.GameInput.button_primleft == 1)
 			result = SDL_TRUE;
@@ -66,10 +67,9 @@ void	ghostfire_update(void *self, SDL_UNUSED void *meta)
 		return ;
 
 	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
-	if (bullet->sprite.current == 16)
+	if (bullet->sprite.current == 21)
 	{
 		bullet->isActive = SDL_FALSE;
-		// SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
 
@@ -90,7 +90,7 @@ void	ghostfire_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUS
 	SDLX_new_Sprite(&(dst->sprite));
 	fetch_ghostfire_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 34, 28};
+	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 17, MID_PLAY_HEIGHT - 14, 34, 28};
 	dst->sprite.center = NULL;
 	dst->sprite.angle = 0;
 
@@ -102,8 +102,8 @@ void	ghostfire_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUS
 	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
 	dst->sprite.angle = (angle * 180 / M_PI);
 
-	dst->vel.x = SDL_sin(angle) * 6;
-	dst->vel.y = SDL_cos(angle) * -6;
+	dst->vel.x = SDL_sin(angle) * 5;
+	dst->vel.y = SDL_cos(angle) * -5;
 
 	dst->update = ghostfire_update;
 
