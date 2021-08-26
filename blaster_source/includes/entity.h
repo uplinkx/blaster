@@ -29,6 +29,7 @@ void		player_update(t_player *self);
 
 t_weapon		laser_cannon(void);
 t_weapon		laser_yellow_cannon(void);
+t_weapon		faser_cannon(void);
 
 t_weapon		ghostfire_cannon(void);
 t_weapon		lunge_cannon(void);

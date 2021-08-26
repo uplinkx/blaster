@@ -61,6 +61,7 @@ SPRITE_FILES = 			\
 	chest_sprite \
 	coin_sprite \
 	emp_sprite \
+	faser_sprite \
 	ghostfire_sprite \
 	heal_sprite \
 	hp_sprite \
@@ -82,6 +83,7 @@ ENEMY_FILES = 			\
 
 WEAPON_FILES = 			\
 	w_emp				\
+	w_faser				\
 	w_ghostfire			\
 	w_heal				\
 	w_laser				\
