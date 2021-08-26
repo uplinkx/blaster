@@ -35,11 +35,11 @@ void	set_levels(t_level_progress (*levels)[5][5])
 	(*levels)[3][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_18_init, laser_cannon()};
 	(*levels)[3][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_19_init, laser_cannon()};
 	(*levels)[3][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_20_init, laser_cannon()};
-	(*levels)[4][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_21_init, laser_cannon()};
-	(*levels)[4][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_22_init, laser_cannon()};
-	(*levels)[4][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_23_init, laser_cannon()};
-	(*levels)[4][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_24_init, laser_cannon()};
-	(*levels)[4][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_25_init, laser_cannon()};
+	// (*levels)[4][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_21_init, laser_cannon()};
+	// (*levels)[4][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_22_init, laser_cannon()};
+	// (*levels)[4][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_23_init, laser_cannon()};
+	// (*levels)[4][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_24_init, laser_cannon()};
+	// (*levels)[4][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_25_init, laser_cannon()};
 }
 
 SDLX_iMap	*blaster_key_map(size_t *size)
@@ -69,6 +69,32 @@ SDLX_iMap	*blaster_key_map(size_t *size)
 		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_S},
 		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_D},
 		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_F},
+	};
+
+	*size = sizeof(key_map) / sizeof(*key_map);
+	return (&key_map[0]);
+}
+
+SDLX_iMap	*blaster_pad_map(size_t *size)
+{
+	static SDLX_iMap	key_map[] =
+	{
+		(SDLX_iMap){&BMAP(button_num1),	1, SDL_CONTROLLER_BUTTON_DPAD_LEFT},
+		(SDLX_iMap){&BMAP(button_num2),	1, SDL_CONTROLLER_BUTTON_DPAD_RIGHT},
+		(SDLX_iMap){&BMAP(button_num3),	1, SDL_CONTROLLER_BUTTON_DPAD_UP},
+		(SDLX_iMap){&BMAP(button_num4),	1, SDL_CONTROLLER_BUTTON_DPAD_DOWN},
+
+		(SDLX_iMap){&BMAP(button_num1),	1, SDL_CONTROLLER_BUTTON_Y},
+		(SDLX_iMap){&BMAP(button_num2),	1, SDL_CONTROLLER_BUTTON_X},
+		(SDLX_iMap){&BMAP(button_num3),	1, SDL_CONTROLLER_BUTTON_B},
+		(SDLX_iMap){&BMAP(button_num4),	1, SDL_CONTROLLER_BUTTON_A},
+
+		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_CONTROLLER_BUTTON_DPAD_LEFT},
+		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_CONTROLLER_BUTTON_DPAD_RIGHT},
+		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_CONTROLLER_BUTTON_DPAD_UP},
+		(SDLX_iMap){&BMAP(button_primleft),	1, SDL_CONTROLLER_BUTTON_DPAD_DOWN},
+
+		(SDLX_iMap){&BMAP(button_START),	1, SDL_CONTROLLER_BUTTON_START},
 	};
 
 	*size = sizeof(key_map) / sizeof(*key_map);

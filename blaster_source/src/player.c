@@ -23,7 +23,20 @@ void	crosshair_init(SDLX_Sprite *crosshair)
 
 void	update_crosshair(SDLX_Sprite *crosshair)
 {
-	crosshair->angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 90 - 45;
+	double x, y;
+
+	x = g_GameInput.GameInput.leftaxis.x / 32767.0;
+	y = g_GameInput.GameInput.leftaxis.y / 32767.0;
+
+	if (SDL_fabs(x) > 0.25 || SDL_fabs(y) > .25)
+	{
+		g_GameInput.GameInput.primary.x = x * 3 + MID_PLAY_WIDTH;
+		g_GameInput.GameInput.primary.y = y * 3 + MID_PLAY_HEIGHT;
+	}
+
+	if (g_GameInput.GameInput.primary.y <= PLAY_HEIGHT)
+		crosshair->angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 90 - 45;
+
 	SDLX_RenderQueue_Add(NULL, crosshair);
 }
 
@@ -52,7 +65,6 @@ void		*player_collide(void *self, SDL_UNUSED void *with, SDL_UNUSED void *meta, 
 	player = self;
 	object = with;
 	damage_taken = (int)(object->engage_meta1);
-	SDL_Log("Taking %d", damage_taken);
 	player->hp -= damage_taken;
 
 	return (NULL);
@@ -113,8 +125,8 @@ void	player_init(t_player *player)
 	fetch_hp_sprite(&(player->heart.sprite_data), 3);
 	player->heart._dst = (SDL_Rect){4, 364, 32, 32};
 
-	player->hp = 100;
-	player->max_hp = 100;
+	player->hp =		100;
+	player->max_hp =	100;
 
 	player->player_hurtbox.originator = player;
 	player->player_hurtbox.detect = player_hit;

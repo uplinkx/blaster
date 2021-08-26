@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/08/25 14:19:17 by home             ###   ########.fr       */
+/*   Updated: 2021/08/25 23:39:24 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	blaster_start(t_context *context)
 	SDL_memset(&(context->levels), 0, sizeof(context->levels));
 	set_levels(&(context->levels));
 	g_GameInput.key_mapper.map_arr = blaster_key_map(&(g_GameInput.key_mapper.amount));
+	g_GameInput.pad_mapper.map_arr = blaster_pad_map(&(g_GameInput.pad_mapper.amount));
 
 	context->levels[0][1].isUnlocked = SDL_TRUE;
 	context->levels[0][2].isUnlocked = SDL_TRUE;
@@ -50,9 +51,12 @@ void	blaster_start(t_context *context)
 	context->levels[1][3].isUnlocked = SDL_TRUE;
 	context->levels[1][4].isUnlocked = SDL_TRUE;
 
+	context->levels[2][0].isUnlocked = SDL_TRUE;
+	context->levels[2][1].isUnlocked = SDL_TRUE;
+
 	// context->levels[2][0].isUnlocked = SDL_TRUE;
 
-	context->init_fn = level_11_init;
+	// context->init_fn = level_12_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
 
@@ -61,11 +65,16 @@ void	blaster_start(t_context *context)
 	// context->defense = heal_cannon();
 	context->defense = shield_cannon();
 	// context->offhand = emp_cannon();
+
+	context->levels[0][4].wasReceived = SDL_TRUE;
+	context->levels[1][4].wasReceived = SDL_TRUE;
 }
 
 void	main_loop(void *context_addr)
 {
 	t_context	*context;
+	SDL_GameController	*controller;
+	// int			pad;
 
 	context = context_addr;
 	if (context->shouldChange == SDL_TRUE)
@@ -78,6 +87,18 @@ void	main_loop(void *context_addr)
 	SDLX_record_input(NULL);
 	SDLX_KeyMap(&(g_GameInput.key_mapper), g_GameInput.keystate);
 	SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
+
+	controller = NULL;
+	controller = SDLX_XboxController_link(0);
+	if (controller != NULL)
+	{
+		SDLX_ControllerMap(&(g_GameInput.pad_mapper), controller);
+		SDLX_FillXbox_Axis(&(g_GameInput), controller);
+
+		int trigger = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+		if (trigger > 100)
+			g_GameInput.GameInput.button_primleft = 1;
+	}
 
 	context->update_fn(context, context->meta);
 

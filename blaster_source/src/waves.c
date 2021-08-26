@@ -27,7 +27,7 @@ SDL_bool	wave_should_begin(t_wave_m *wave, size_t i)
 
 	if (wave->waves[i].condition_type == WAVE_PREV_DEFEAT)
 	{
-		if (wave->waves[i - 1].isComplete == SDL_TRUE)
+		if (wave->waves[i - 1 - wave->waves[i].condition_info].isComplete == SDL_TRUE)
 			result = SDL_TRUE;
 	}
 
