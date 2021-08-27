@@ -39,7 +39,7 @@ SDLX_Sprite_Data *carve_faser_laser_sprite(void)
 
 	/* The Attack Sprite */
 	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){0, 32, 12, 11};
+	result[i]._src = (SDL_Rect){0, 32, 10, 9};
 	result[i].src = &(result[i]._src);
 	result[i].cycle = 1;
 	i++;

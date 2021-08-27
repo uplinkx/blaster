@@ -19,7 +19,7 @@ SDL_bool	emp_fire(SDL_UNUSED t_weapon *weapon)
 
 	result = SDL_FALSE;
 
-	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) && weapon->curr >= weapon->cooldown)
+	if ((SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft) || g_GameInput.GameInput.button_primleft == ABILITY_CHANGED) && weapon->curr >= weapon->cooldown)
 	{
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft);
 		result = SDL_TRUE;
@@ -31,8 +31,10 @@ SDL_bool	emp_fire(SDL_UNUSED t_weapon *weapon)
 void	emp_update(void *self, SDL_UNUSED void *meta)
 {
 	t_bullet	*bullet;
+	t_player	*player;
 
 	bullet = self;
+	player = bullet->meta;
 	if (bullet->isActive == SDL_FALSE)
 		return ;
 
@@ -41,6 +43,9 @@ void	emp_update(void *self, SDL_UNUSED void *meta)
 		bullet->isActive = SDL_FALSE;
 		return ;
 	}
+
+	if (!(player->weapon_equip->type & B_DEFENSE))
+		player->weapon_equip->curr++;
 
 	bullet->sprite.current++;
 	SDLX_RenderQueue_Add(NULL, &(bullet->sprite));
@@ -55,10 +60,11 @@ void	emp_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED dou
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (40 * 3)) / 2, (PLAY_HEIGHT -  (40 * 3)) / 2 + 5, (40 * 3), (40 * 3)};
 
-	dst->vel.x = 100;
+	dst->vel.x = 50;
 	dst->isActive = SDL_TRUE;
 
 	dst->update = emp_update;
+	dst->meta = meta;
 
 	dst->hitbox.type = C_FIELD | C_CIRCLE;
 	dst->hitbox.response_amount = C_E_BODY | C_E_PROJECTILE;
@@ -71,7 +77,7 @@ void	emp_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED dou
 	dst->hitbox.detect = NULL;
 }
 
-#define EMP_COOLDOWN (150)
+#define EMP_COOLDOWN (80)
 
 t_weapon	emp_cannon(void)
 {

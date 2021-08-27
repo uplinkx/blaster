@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/08/26 01:27:53 by home             ###   ########.fr       */
+/*   Updated: 2021/08/27 16:08:59 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ void	blaster_start(t_context *context)
 	context->levels[2][0].isUnlocked = SDL_TRUE;
 	context->levels[2][1].isUnlocked = SDL_TRUE;
 	context->levels[2][2].isUnlocked = SDL_TRUE;
+	context->levels[2][3].isUnlocked = SDL_TRUE;
+	context->levels[2][4].isUnlocked = SDL_TRUE;
 
 	// context->levels[2][0].isUnlocked = SDL_TRUE;
 
-	context->init_fn = level_13_init;
+	context->init_fn = level_15_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
 
@@ -68,16 +70,14 @@ void	blaster_start(t_context *context)
 	context->defense = shield_cannon();
 	// context->offhand = emp_cannon();
 
-	context->levels[0][4].wasReceived = SDL_TRUE;
-	context->levels[1][4].wasReceived = SDL_TRUE;
+	// context->levels[0][4].wasReceived = SDL_TRUE;
+	// context->levels[1][4].wasReceived = SDL_TRUE;
 	// context->levels[2][2].wasReceived = SDL_TRUE;
 }
 
 void	main_loop(void *context_addr)
 {
 	t_context	*context;
-	SDL_GameController	*controller;
-	// int			pad;
 
 	context = context_addr;
 	if (context->shouldChange == SDL_TRUE)
@@ -91,6 +91,8 @@ void	main_loop(void *context_addr)
 	SDLX_KeyMap(&(g_GameInput.key_mapper), g_GameInput.keystate);
 	SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
 
+#ifndef EMCC
+	SDL_GameController	*controller;
 	controller = NULL;
 	controller = SDLX_XboxController_link(0);
 	if (controller != NULL)
@@ -102,6 +104,7 @@ void	main_loop(void *context_addr)
 		if (trigger > 100)
 			g_GameInput.GameInput.button_primleft = 1;
 	}
+#endif
 
 	context->update_fn(context, context->meta);
 

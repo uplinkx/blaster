@@ -56,6 +56,7 @@ void	faser_update(void *self, SDL_UNUSED void *meta)
 {
 	t_bullet	*bullet;
 	SDL_Rect	play_area;
+	static int	missed;
 
 	bullet = self;
 
@@ -66,6 +67,8 @@ void	faser_update(void *self, SDL_UNUSED void *meta)
 	if (SDL_HasIntersection(&(bullet->sprite._dst), &(play_area)) == SDL_FALSE)
 	{
 		bullet->isActive = SDL_FALSE;
+		missed++;
+		SDL_Log("Missed %d", missed);
 		// SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
@@ -81,7 +84,7 @@ void	faser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	SDLX_new_Sprite(&(dst->sprite));
 	fetch_faser_sprite(&(dst->sprite.sprite_data), 2);
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 6, MID_PLAY_HEIGHT - 5, 12, 11};
+	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 6, MID_PLAY_HEIGHT - 5, 10, 9};
 	dst->sprite.center = NULL;
 	dst->sprite.angle = 0;
 
@@ -107,7 +110,7 @@ void	faser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.detect = bullet_detect_collision;
 }
 
-#define FASER_COOLDOWN (8)
+#define FASER_COOLDOWN (7)
 
 t_weapon	faser_cannon(void)
 {

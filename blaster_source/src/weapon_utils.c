@@ -24,7 +24,8 @@ void	unequip_weapon(t_weapon *dst)
 	dst->curr = 0;
 
 	dst->isEnabled = SDL_FALSE;
-	dst->factory = empty_weapon_factory;
+	// dst->factory = empty_weapon_factory;
+	dst->factory = NULL;
 	dst->trigger = empty_weapon_trigger;
 }
 
