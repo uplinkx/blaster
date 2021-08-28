@@ -77,13 +77,13 @@ void	emp_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED dou
 	dst->hitbox.detect = NULL;
 }
 
-#define EMP_COOLDOWN (80)
+#define EMP_COOLDOWN (100)
 
 t_weapon	emp_cannon(void)
 {
 	t_weapon	emp_cannon;
 
-	emp_cannon.type = B_DEFENSE;
+	emp_cannon.type = B_SPECIAL;
 
 	SDLX_new_Sprite(&(emp_cannon.ability_icon));
 	fetch_emp_sprite(&(emp_cannon.ability_icon.sprite_data), 0);

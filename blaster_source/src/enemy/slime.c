@@ -217,7 +217,7 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 		slime->meta2++;
 	}
 
-	if (enraged)
+	if (enraged && slime->effects[EMP_FIELD].info == 0)
 	{
 		if ((int)slime->meta2 >= 22)
 			speed_addon = 5;

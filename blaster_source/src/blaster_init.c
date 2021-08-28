@@ -29,7 +29,7 @@ void	set_levels(t_level_progress (*levels)[5][5])
 	(*levels)[2][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_12_init, laser_cannon()};
 	(*levels)[2][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_13_init, faser_cannon()};
 	(*levels)[2][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_14_init, laser_cannon()};
-	(*levels)[2][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_15_init, laser_cannon()};
+	(*levels)[2][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_15_init, emp_cannon()};
 	(*levels)[3][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_16_init, laser_cannon()};
 	(*levels)[3][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_17_init, laser_cannon()};
 	(*levels)[3][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_18_init, laser_cannon()};
@@ -80,8 +80,8 @@ SDLX_iMap	*blaster_pad_map(size_t *size)
 	static SDLX_iMap	key_map[] =
 	{
 		(SDLX_iMap){&BMAP(button_num1),	1, SDL_CONTROLLER_BUTTON_DPAD_LEFT},
-		(SDLX_iMap){&BMAP(button_num2),	1, SDL_CONTROLLER_BUTTON_DPAD_RIGHT},
-		(SDLX_iMap){&BMAP(button_num3),	1, SDL_CONTROLLER_BUTTON_DPAD_UP},
+		(SDLX_iMap){&BMAP(button_num3),	1, SDL_CONTROLLER_BUTTON_DPAD_RIGHT},
+		(SDLX_iMap){&BMAP(button_num2),	1, SDL_CONTROLLER_BUTTON_DPAD_UP},
 		(SDLX_iMap){&BMAP(button_num4),	1, SDL_CONTROLLER_BUTTON_DPAD_DOWN},
 
 		(SDLX_iMap){&BMAP(button_num1),	1, SDL_CONTROLLER_BUTTON_Y},
