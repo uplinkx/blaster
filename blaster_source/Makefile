@@ -53,6 +53,7 @@ LEVEL_FILES = 			\
 	level_16			\
 	level_17			\
 	level_18			\
+	level_19			\
 
 SCENE_FILES = 			\
 	main_menu			\

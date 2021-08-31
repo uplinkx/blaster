@@ -31,6 +31,6 @@ void	*level_15_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(
 void	*level_16_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_16()); return (NULL); }
 void	*level_17_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_17()); return (NULL); }
 void	*level_18_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_18()); return (NULL); }
+void	*level_19_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_19()); return (NULL); }
 
-void	*level_19_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }
 void	*level_20_init(t_context *context, SDL_UNUSED void *vp_scene) { level_init(context, level_01()); return (NULL); }

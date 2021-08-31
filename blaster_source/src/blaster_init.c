@@ -33,8 +33,8 @@ void	set_levels(t_level_progress (*levels)[5][5])
 	(*levels)[3][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_16_init, laser_cannon()};
 	(*levels)[3][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_17_init, laser_cannon()};
 	(*levels)[3][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_18_init, laser_cannon()};
-
 	(*levels)[3][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_19_init, laser_cannon()};
+
 	(*levels)[3][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_20_init, laser_cannon()};
 	// (*levels)[4][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_21_init, laser_cannon()};
 	// (*levels)[4][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_22_init, laser_cannon()};

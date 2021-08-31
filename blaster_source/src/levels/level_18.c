@@ -9,7 +9,7 @@ t_wave_m	level_18(void)
 		.completed_no = 0,
 
 		.win_kill_count = 0,
-		.win_wave_no = 4,
+		.win_wave_no = 5,
 		.win_wave = 0,
 
 		.size = 5,
