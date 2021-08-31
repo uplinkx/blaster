@@ -60,10 +60,17 @@ void		slime_spiny_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 
 void		slime_inv_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 {
+	double	angle;
+
 	slime_default_init(dst, "slime_inv", C_E_BODY, 1, slime_blue_update);
+	angle = loc.y;
+	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
+
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
-	dst->meta1 = (void *)4;
+	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
+	dst->delta.y = loc.y - (dst->sprite._dst.h / 2);
+	dst->speed = 1.5;
 	dst->enemy_hurtbox.engage_meta1 = (void *)20;
 }
 
@@ -526,7 +533,7 @@ void	slime_spiny_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	speed = slime->speed;
 	angle = ptoa(slime->delta.x + 16, slime->delta.y + 16);
-	if (x * x + y * y < 80 * 80)
+	if (x * x + y * y < 88 * 88)
 	{
 		angle += M_PI_2;
 		speed = 4;

@@ -53,7 +53,7 @@ void	mini_shield_factory(t_bullet *dst)
 	fetch_shield_sprite(&(dst->sprite.sprite_data), 2);
 
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (30 * 3)) / 2, (PLAY_HEIGHT -  (30 * 3)) / 2 + 5, (30 * 3), (30 * 3)};
+	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (30 * 3)) / 2, (PLAY_HEIGHT -  (30 * 3)) / 2, (30 * 3), (30 * 3)};
 
 	dst->vel.x = 35;
 	dst->isActive = SDL_TRUE;
@@ -101,7 +101,7 @@ void	shield_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED 
 	fetch_shield_sprite(&(dst->sprite.sprite_data), 2);
 
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (54 * 3)) / 2, (PLAY_HEIGHT -  (54 * 3)) / 2 + 5, (54 * 3), (54 * 3)};
+	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (54 * 3)) / 2, (PLAY_HEIGHT -  (54 * 3)) / 2, (54 * 3), (54 * 3)};
 
 	dst->vel.x = 80;
 	dst->isActive = SDL_TRUE;

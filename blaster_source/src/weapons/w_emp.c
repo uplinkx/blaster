@@ -58,7 +58,7 @@ void	emp_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED dou
 	fetch_emp_sprite(&(dst->sprite.sprite_data), 2);
 
 	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (40 * 3)) / 2, (PLAY_HEIGHT -  (40 * 3)) / 2 + 5, (40 * 3), (40 * 3)};
+	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (40 * 3)) / 2, (PLAY_HEIGHT -  (40 * 3)) / 2, (40 * 3), (40 * 3)};
 
 	dst->vel.x = 50;
 	dst->isActive = SDL_TRUE;

@@ -6,6 +6,7 @@ t_wave_m	level_02(void)
 	t_wave_m level_02 = {
 		.wave_id = 1,
 		.tick = 0,
+		.completed_no = 0,
 
 		.win_kill_count = 0,
 		.win_wave_no = 0,

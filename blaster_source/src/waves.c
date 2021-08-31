@@ -87,21 +87,19 @@ int		do_wave(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 {
 	size_t	i;
-	size_t		completed;
-	size_t		killed;
+	size_t	killed;
 
 	i = 0;
-	completed = 0;
 	killed = 0;
 	while (i < wave->size)
 	{
 		if (wave->waves[i].isComplete == SDL_FALSE && (wave->waves[i].isActive || wave_should_begin(wave, i)))
-			completed += do_wave(&(wave->waves[i]), enemy_man, projectiles);
+			wave->completed_no += do_wave(&(wave->waves[i]), enemy_man, projectiles);
 		killed += wave->waves[i].finished_no;
 		i++;
 	}
 
-	if (completed >= wave->win_wave_no && killed >= wave->win_kill_count)
+	if (wave->completed_no >= wave->win_wave_no && killed >= wave->win_kill_count)
 	{
 		if (wave->win_wave == -1)
 			return (SDL_TRUE);
