@@ -33,6 +33,15 @@ void	update_combo_active(t_combo *self)
 	self->active = active;
 }
 
+void	final_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special)
+{
+	mainhand->sprite.current = mainhand->lifetime + 1;
+	offhand->sprite.current = offhand->lifetime + 1;
+	defense->sprite.current = defense->lifetime + 1;
+	special->sprite.current = special->lifetime + 1;
+}
+
+
 void	update_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special)
 {
 	mainhand->sprite.current++;
@@ -59,11 +68,16 @@ void	combo_increment(t_combo *combo, SDL_Rect *hit)
 	combo->sprite._dst.x = hit->x;
 	combo->sprite._dst.y = hit->y;
 
-	combo->sprite._dst.x = SDL_min(combo->sprite._dst.x, PLAY_WIDTH);
-	combo->sprite._dst.y = SDL_min(combo->sprite._dst.y, PLAY_HEIGHT);
+	if (combo->sprite._dst.x > MID_PLAY_WIDTH)
+		combo->sprite._dst.x += 20;
+	else
+		combo->sprite._dst.x -= 20;
 
-	combo->sprite._dst.x = SDL_max(combo->sprite._dst.x, 0);
-	combo->sprite._dst.y = SDL_max(combo->sprite._dst.y, 0);
+	combo->sprite._dst.x = SDL_min(combo->sprite._dst.x, PLAY_WIDTH - 32);
+	combo->sprite._dst.y = SDL_min(combo->sprite._dst.y, PLAY_HEIGHT - 32);
+
+	combo->sprite._dst.x = SDL_max(combo->sprite._dst.x, 0 + 5);
+	combo->sprite._dst.y = SDL_max(combo->sprite._dst.y, 0 + 5);
 }
 
 void	combo_init(t_combo *self)
