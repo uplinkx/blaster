@@ -115,6 +115,8 @@ void	ghostfire_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUS
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
 
 	dst->hitbox.detect = bullet_detect_collision;
+
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 t_weapon	ghostfire_cannon(void)
@@ -139,6 +141,8 @@ t_weapon	ghostfire_cannon(void)
 
 	ghostfire_cannon.factory = ghostfire_factory;
 	ghostfire_cannon.trigger = ghostfire_fire;
+
+	combo_init(&(ghostfire_cannon.combo));
 
 	return (ghostfire_cannon);
 }

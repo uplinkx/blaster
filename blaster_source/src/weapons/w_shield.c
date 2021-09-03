@@ -115,6 +115,8 @@ void	shield_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED 
 	dst->hitbox.engage_meta1 = (void *)RUNIC_SHIELD;
 
 	dst->hitbox.detect = NULL;
+
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 #define SHIELD_COOLDOWN (250)
@@ -141,6 +143,8 @@ t_weapon	shield_cannon(void)
 
 	shield_cannon.factory = shield_factory;
 	shield_cannon.trigger = shield_fire;
+
+	combo_init(&(shield_cannon.combo));
 
 	return (shield_cannon);
 }

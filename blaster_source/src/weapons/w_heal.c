@@ -87,5 +87,7 @@ t_weapon	heal_cannon(void)
 	heal_cannon.factory = heal_factory;
 	heal_cannon.trigger = heal_fire;
 
+	combo_init(&(heal_cannon.combo));
+
 	return (heal_cannon);
 }

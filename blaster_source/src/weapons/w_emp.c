@@ -75,6 +75,10 @@ void	emp_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED dou
 	dst->hitbox.hitbox_ptr = &(dst->hitbox.hitbox);
 
 	dst->hitbox.detect = NULL;
+
+	t_player *player;
+	player = meta;
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 #define EMP_COOLDOWN (100)
@@ -101,6 +105,8 @@ t_weapon	emp_cannon(void)
 
 	emp_cannon.factory = emp_factory;
 	emp_cannon.trigger = emp_fire;
+
+	combo_init(&(emp_cannon.combo));
 
 	return (emp_cannon);
 }

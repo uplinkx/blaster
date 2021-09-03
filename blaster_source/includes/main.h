@@ -66,6 +66,10 @@ void	update_crosshair(SDLX_Sprite *crosshair);
 
 void	update_status(t_enemy *self);
 
+void	update_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special);
+void	combo_increment(t_combo *combo, SDL_Rect *hit);
+void	combo_init(t_combo *self);
+
 /*
 ** Button Functions
 */

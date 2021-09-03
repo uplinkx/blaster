@@ -12,7 +12,7 @@ t_wave_m	level_16(void)
 		.win_wave_no = 7,
 		.win_wave = 0,
 
-		.size = 8,
+		.size = 7,
 	};
 
 	level_16.waves = SDL_malloc(sizeof(*(level_16.waves)) * level_16.size);

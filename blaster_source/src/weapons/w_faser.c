@@ -47,7 +47,10 @@ static SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void 
 	if (hitbox->type & self_attack->hitbox.response_amount)
 	{
 		if (SDL_HasIntersection(self_attack->hitbox.hitbox_ptr, hitbox->hitbox_ptr))
+		{
 			self_attack->isActive = SDL_FALSE;
+			// combo_increment(self_attack->hitbox.engage_meta2, hitbox->hitbox_ptr);
+		}
 	}
 	return (SDL_FALSE);
 }
@@ -68,7 +71,7 @@ void	faser_update(void *self, SDL_UNUSED void *meta)
 	{
 		bullet->isActive = SDL_FALSE;
 		missed++;
-		SDL_Log("Missed %d", missed);
+		// SDL_Log("Missed %d", missed);
 		// SDL_free(bullet->sprite.sprite_data);
 		return ;
 	}
@@ -108,6 +111,10 @@ void	faser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
 
 	dst->hitbox.detect = bullet_detect_collision;
+
+	t_player *player;
+	player = meta;
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 #define FASER_COOLDOWN (7)
@@ -133,6 +140,8 @@ t_weapon	faser_cannon(void)
 
 	faser_cannon.factory = faser_factory;
 	faser_cannon.trigger = faser_fire;
+
+	combo_init(&(faser_cannon.combo));
 
 	return (faser_cannon);
 }

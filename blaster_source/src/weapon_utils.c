@@ -27,6 +27,9 @@ void	unequip_weapon(t_weapon *dst)
 	// dst->factory = empty_weapon_factory;
 	dst->factory = NULL;
 	dst->trigger = empty_weapon_trigger;
+
+	dst->combo.no = 0;
+	dst->combo.active = SDL_FALSE;
 }
 
 t_weapon	default_cannon(void)
@@ -50,6 +53,9 @@ void	load_weapon_default_values(t_weapon *weapon, SDL_Rect cooldown_loc)
 	weapon->cooldown_sprite.center = SDLX_NULL_SELF;
 
 	weapon->cooldown_sprite._dst = cooldown_loc;
+
+	weapon->combo.no = 0;
+	weapon->combo.active = SDL_FALSE;
 }
 
 void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button *mainhand, SDLX_button *offhand, SDLX_button *defense, SDLX_button *special)

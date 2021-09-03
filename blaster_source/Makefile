@@ -64,8 +64,10 @@ SCENE_FILES = 			\
 	level				\
 
 SPRITE_FILES = 			\
+	bunny_sprite \
 	chest_sprite \
 	coin_sprite \
+	combo_sprite \
 	emp_sprite \
 	faser_sprite \
 	ghostfire_sprite \
@@ -107,6 +109,7 @@ SRC_NAMES = \
 	$(addprefix weapons/, $(WEAPON_FILES))	\
 	blaster_init \
 	button \
+	combo \
 	entity_manager \
 	level_init \
 	main \

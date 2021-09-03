@@ -87,6 +87,7 @@ void	player_update(t_player *self)
 {
 	t_weapon	*weapon;
 	t_bullet	*bullet_addr;
+	static int	time;
 
 	weapon = self->weapon_equip;
 	if (weapon->trigger(weapon) == SDL_TRUE)
@@ -98,6 +99,16 @@ void	player_update(t_player *self)
 
 	resize_healthbar(self);
 	self->heart.current++;
+	time++;
+	double angle = SDLX_Radian_to_Degree(ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y)) - 90;
+	if (0 <= angle && angle <= 180)
+		self->sprite.flip = SDL_FLIP_NONE;
+	else
+		self->sprite.flip = SDL_FLIP_HORIZONTAL;
+
+	if (time % 2 == 0 || self->hp > 50)
+		self->sprite.current++;
+
 
 	SDLX_RenderQueue_Add(NULL, &(self->heart));
 	SDLX_RenderQueue_Add(NULL, &(self->hp_s));
@@ -109,7 +120,8 @@ void	player_update(t_player *self)
 
 void	player_init(t_player *player)
 {
-	player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
+	fetch_bunny_sprite(&(player->sprite.sprite_data), 0);
+	// player->sprite = SDLX_Sprite_Static(ASSETS"bunny.png");
 	player->sprite.dst = &(player->sprite._dst);
 	player->sprite._dst = (SDL_Rect){(PLAY_WIDTH - 48) / 2, (PLAY_HEIGHT - 48) / 2, 48, 48};
 

@@ -22,6 +22,14 @@ struct s_bullet;
 struct s_enemy_m;
 typedef struct s_enemy_m t_enemy_m;
 
+typedef struct	s_combo
+{
+	SDLX_Sprite	sprite;
+	size_t		lifetime;
+	int			no;
+	SDL_bool	active;
+}				t_combo;
+
 typedef struct	s_weapon
 {
 	int				type;
@@ -31,6 +39,9 @@ typedef struct	s_weapon
 	SDLX_Sprite		treasure_sprite;
 	SDLX_Sprite		cooldown_sprite;
 	SDLX_Sprite		ability_icon;
+
+	SDL_bool		display_combo;
+	t_combo			combo;
 
 	unsigned int	start;
 	unsigned int	cooldown;
@@ -61,6 +72,13 @@ typedef struct	s_attacks
 
 	t_bullet	*attacks;
 }				t_attacks;
+
+typedef	struct	s_effects
+{
+	int		info;
+	double	record;
+	t_combo	*combo_mod;
+}				t_effects;
 
 typedef struct	s_enemy
 {

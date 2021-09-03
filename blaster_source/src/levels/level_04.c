@@ -70,7 +70,7 @@ t_wave_m	level_04(void)
 
 	int a = 16;
 
-	t = 12;
+	t = 15;
 	level_04.waves[1].wave_array[0] =  (t_wave_elem){E_SLIME_BLUE, 0, t * 0, SDL_TRUE, {0, 0 * a}, 0};
 	level_04.waves[1].wave_array[1] =  (t_wave_elem){E_SLIME_BLUE, 0, t * 1, SDL_TRUE, {0, 1 * a}, 0};
 	level_04.waves[1].wave_array[2] =  (t_wave_elem){E_SLIME_BLUE, 0, t * 2, SDL_TRUE, {0, 2 * a}, 0};

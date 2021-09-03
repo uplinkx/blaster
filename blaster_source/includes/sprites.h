@@ -20,6 +20,8 @@
 ** Sprite Handlers
 */
 
+int		fetch_bunny_sprite(SDLX_Sprite_Data **dst, int no);
+int		fetch_combo_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_chest_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_coin_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_slime_sprite(SDLX_Sprite_Data **dst, int no);

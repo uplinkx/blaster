@@ -18,8 +18,6 @@
 
 enum	BLASTER_UI_SPRITES
 {
-	LOCK_NORM,
-	LOCK_HOVER,
 	BACK_NORM,
 	BACK_HOVER,
 
@@ -63,6 +61,11 @@ enum	BLASTER_UI_SPRITES
 	ABILITY_SEL,
 
 	EMPTY_UI,
+
+	LOCK_NORM = 512,
+	LOCK_HOVER,
+	INCO_FRAME,
+	COMP_FRAME,
 };
 
 enum	e_weapon_types
@@ -95,12 +98,6 @@ enum	e_collision_types
 	C_DEAD			= 0b00000000001000000000, /* Dead / No-Collide */
 	C_NONE			= C_DEAD, /* Dead / No-Collide */
 };
-
-typedef	struct	s_effects
-{
-	int		info;
-	double	record;
-}				t_effects;
 
 enum	e_effects
 {

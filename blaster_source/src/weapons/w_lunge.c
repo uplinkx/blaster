@@ -85,6 +85,8 @@ void	lunge_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.detect = NULL;
 	dst->vel.x = 5;
+
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 #define LUNGE_COOLDOWN (12)
@@ -110,6 +112,8 @@ t_weapon	lunge_cannon(void)
 
 	lunge_cannon.factory = lunge_factory;
 	lunge_cannon.trigger = lunge_fire;
+
+	combo_init(&(lunge_cannon.combo));
 
 	return (lunge_cannon);
 }

@@ -126,7 +126,13 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
 
+	t_player *player;
+	player = meta;
+	player->sprite.current = 8;
+
 	dst->hitbox.detect = bullet_detect_collision;
+
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
@@ -158,6 +164,10 @@ void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_U
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
 
 	dst->hitbox.detect = bullet_detect_collision;
+
+	t_player *player;
+	player = meta;
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 #define LASER_COOLDOWN (12)

@@ -59,17 +59,24 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	if (hitbox->type & slime->enemy_hurtbox.response_amount)
 	{
 		if (collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
+		{
+			if ((hitbox->type & C_PLAYER) == 0)
+				combo_increment(hitbox->engage_meta2, slime->enemy_hurtbox.hitbox_ptr);
 			result = SDL_TRUE;
+		}
 	}
 
 	if (hitbox->type & C_FIELD && collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
-		slime->effects[(size_t)hitbox->engage_meta1].info++;
-
-	if (slime->effects[RUNIC_SHIELD].info >= 22)
 	{
-		slime->effects[RUNIC_SHIELD].info = 0;
-			result = SDL_TRUE;
+		slime->effects[(size_t)hitbox->engage_meta1].info++;
+		slime->effects[(size_t)hitbox->engage_meta1].combo_mod = hitbox->engage_meta2;
 	}
+
+	// if (slime->effects[RUNIC_SHIELD].info == 14)
+	// {
+		// slime->effects[RUNIC_SHIELD].info = 0;
+		// result = SDL_TRUE;
+	// }
 
 	if (slime->effects[EMP_FIELD].info == 1)
 	{
@@ -107,12 +114,17 @@ SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *me
 		{
 			if (hitbox->type & C_PROJECTILE)
 				bullet->isActive = SDL_FALSE;
+			if ((hitbox->type & C_PLAYER) == 0)
+				combo_increment(hitbox->engage_meta2, slime->enemy_hurtbox.hitbox_ptr);
 			return (SDL_TRUE);
 		}
 	}
 
-	if (hitbox->type & C_FIELD && SDLX_Collide_RectToRect(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
+	if (hitbox->type & C_FIELD && collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
+	{
 		slime->effects[(size_t)hitbox->engage_meta1].info++;
+		slime->effects[(size_t)hitbox->engage_meta1].combo_mod = hitbox->engage_meta2;
+	}
 
 	if (slime->effects[EMP_FIELD].info == 1)
 	{

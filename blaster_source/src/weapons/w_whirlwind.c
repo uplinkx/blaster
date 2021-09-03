@@ -75,6 +75,8 @@ void	whirl_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.detect = NULL;
 	dst->vel.x = *charge + 10;
 	*charge = 0;
+
+	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
 #define WHIRL_COOLDOWN (90)
@@ -100,6 +102,8 @@ t_weapon	whirl_cannon(void)
 
 	whirl_cannon.factory = whirl_factory;
 	whirl_cannon.trigger = whirl_fire;
+
+	combo_init(&(whirl_cannon.combo));
 
 	return (whirl_cannon);
 }

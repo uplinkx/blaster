@@ -20,51 +20,59 @@ SDLX_Sprite_Data *carve_level_select_sprite(void)
 	SDL_Texture			*texture;
 	SDLX_Sprite_Data	*result;
 
-	result = SDL_calloc(44, sizeof(*result));
+	result = SDL_calloc(50, sizeof(*result));
 	texture = SDLX_LoadTexture(ASSETS"level_select.png");
 
 	i = 0;
-	/* The Lock Button */
-	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16, 0, 16, 16};
-	result[i].src = &(result[i]._src);
-	result[i].cycle = 1;
-	i++;
-	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16 * 2, 0, 16, 16};
-	result[i].src = &(result[i]._src);
-	result[i].cycle = 1;
-	i++;
-
-	/* The Back Button */
-	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16 * 3, 0, 16, 16};
-	result[i].src = &(result[i]._src);
-	result[i].cycle = 1;
-	i++;
-	result[i].texture = texture;
-	result[i]._src = (SDL_Rect){16 * 4, 0, 16, 16};
-	result[i].src = &(result[i]._src);
-	result[i].cycle = 1;
-	i++;
-
 	j = 0;
 	while (j < 20)
 	{
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){16 * (j % 5), 16 * (j / 5) + 16, 16, 16};
+		result[i]._src = (SDL_Rect){32 * (j % 5), 32 * (j / 5), 32, 32};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 1;
 		i++;
 
 		result[i].texture = texture;
-		result[i]._src = (SDL_Rect){16 * (j % 5), 16 * (j / 5) + (16 * 6), 16, 16};
+		result[i]._src = (SDL_Rect){32 * (j % 5), 32 * (j / 5) + 8 * 16, 32, 32};
 		result[i].src = &(result[i]._src);
 		result[i].cycle = 1;
 		i++;
 
 		j++;
 	}
+
+	/* The Lock Button */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){0, 19 * 16, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){32, 19 * 16, 32, 32};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+
+	/* The Frame */
+	result[i].texture = texture;
+	result[i]._src = (SDL_Rect){0, 16 * 16, 36, 39};
+	result[i].src = &(result[i]._src);
+	result[i].cycle = 1;
+	i++;
+
+	j = 0;
+	while (j < 6)
+	{
+		result[i].texture = texture;
+		result[i]._src = (SDL_Rect){36 + (j * 36), 16 * 16, 36, 39};
+		result[i].src = &(result[i]._src);
+		result[i].cycle = 6;
+		i++;
+
+		j++;
+	}
+
 
 	return (result);
 }
@@ -76,26 +84,20 @@ int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no)
 	if (sprite_arr == NULL)
 		sprite_arr = carve_level_select_sprite();
 
-	if (no == LOCK_NORM)		{ (*dst) = &(sprite_arr[0]); return (EXIT_SUCCESS); }
-	else if (no == LOCK_HOVER)	{ (*dst) = &(sprite_arr[1]); return (EXIT_SUCCESS); }
-	else if (no == BACK_NORM)	{ (*dst) = &(sprite_arr[2]); return (EXIT_SUCCESS); }
-	else if (no == BACK_HOVER)	{ (*dst) = &(sprite_arr[3]); return (EXIT_SUCCESS); }
-	else if (no == -100)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
-	else if (no >> 18 == 4)
+	// else if (no == -100)	{ (*dst) = &(sprite_arr[5]); return (EXIT_SUCCESS); }
+
+	if (no == LOCK_NORM)		{ (*dst) = &(sprite_arr[40]); return (EXIT_SUCCESS); }
+	else if (no == LOCK_HOVER)	{ (*dst) = &(sprite_arr[41]); return (EXIT_SUCCESS); }
+	else if (no == INCO_FRAME)	{ (*dst) = &(sprite_arr[42]); return (EXIT_SUCCESS); }
+	else if (no == COMP_FRAME)	{ (*dst) = &(sprite_arr[43]); return (EXIT_SUCCESS); }
+	else if (no >> 8 == 6)
 	{
-		no ^= (4 << 18);
-		(*dst) = &(sprite_arr[no * 2 + 4]); return (EXIT_SUCCESS);
+		no ^= (6 << 8);
+		(*dst) = &(sprite_arr[no * 2 + 1]); return (EXIT_SUCCESS);
 	}
-	else if (no >> 18 == 8)
+	else
 	{
-		no ^= (8 << 18);
-		(*dst) = &(sprite_arr[no * 2 + 4 + 1]); return (EXIT_SUCCESS);
+		(*dst) = &(sprite_arr[no * 2]); return (EXIT_SUCCESS);
 	}
-		// }
-		// else
-		// {
-		// 	(*dst) = &(sprite_arr[which + 4]); return (EXIT_SUCCESS);
-		// }
-	// }
 	return (EXIT_FAILURE);
 }

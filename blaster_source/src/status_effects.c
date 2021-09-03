@@ -19,6 +19,7 @@ void	update_status(t_enemy *self)
 	{
 		self->effects[RUNIC_SHIELD].info = 0;
 		self->hp--;
+		combo_increment(self->effects[RUNIC_SHIELD].combo_mod, self->enemy_hurtbox.hitbox_ptr);
 	}
 
 	if (self->effects[EMP_FIELD].info != 0)
@@ -32,7 +33,10 @@ void	update_status(t_enemy *self)
 	{
 		self->effects[GHOST_BURN].info++;
 		if (self->effects[GHOST_BURN].info % 4 == 0)
+		{
+			combo_increment(self->effects[GHOST_BURN].combo_mod, self->enemy_hurtbox.hitbox_ptr);
 			self->hp--;
+		}
 
 		if (self->effects[GHOST_BURN].info == 37)
 			self->effects[GHOST_BURN].info = 0;
