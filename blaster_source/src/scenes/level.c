@@ -97,18 +97,10 @@ void	*level_update(t_context *context, void *vp_scene)
 	scene = vp_scene;
 	wave_done = SDL_FALSE;
 
-	buff[0] = 'x';
-	SDL_ultoa(scene->enemy_count - scene->stage.killed_no, buff + 1, 10);
-	scene->enemies_killed_text.set = buff;
-	scene->enemies_killed_text_outline.set = buff;
-
-	update_text(&(scene->enemies_killed_text), sizeof(buff));
-	update_text(&(scene->enemies_killed_text_outline), sizeof(buff));
-	SDLX_RenderQueue_Add(NULL, &(scene->enemies_killed_text.sprite));
-	SDLX_RenderQueue_Add(NULL, &(scene->enemies_killed_text_outline.sprite));
-
 	if (scene->pause.isTriggered == SDL_FALSE)
 	{
+		SDLX_RenderQueue_Add(NULL, &(scene->enemies_killed_text.sprite));
+		SDLX_RenderQueue_Add(NULL, &(scene->enemies_killed_text_outline.sprite));
 		SDLX_Button_Update(&(scene->pause));
 
 		update_cooldowns(&(context->mainhand), &(context->offhand), &(context->defense), &(context->special));
@@ -134,6 +126,14 @@ void	*level_update(t_context *context, void *vp_scene)
 	}
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);
+
+	buff[0] = 'x';
+	SDL_ultoa(scene->enemy_count - scene->stage.killed_no, buff + 1, 10);
+	scene->enemies_killed_text.set = buff;
+	scene->enemies_killed_text_outline.set = buff;
+
+	update_text(&(scene->enemies_killed_text), sizeof(buff));
+	update_text(&(scene->enemies_killed_text_outline), sizeof(buff));
 
 	if (scene->pause.isTriggered == SDL_TRUE && scene->pbackground == NULL)
 	{
