@@ -60,7 +60,7 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	{
 		if (collide_fn(&(slime->enemy_hurtbox), hitbox) == SDL_TRUE)
 		{
-			if ((hitbox->type & C_PLAYER) == 0)
+			if ((hitbox->type & (C_PLAYER | C_E_PROJECTILE)) == 0)
 				combo_increment(hitbox->engage_meta2, slime->enemy_hurtbox.hitbox_ptr);
 			result = SDL_TRUE;
 		}
@@ -110,7 +110,7 @@ SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *me
 		{
 			if (hitbox->type & C_PROJECTILE)
 				bullet->isActive = SDL_FALSE;
-			if ((hitbox->type & (C_PLAYER | C_FIELD)) == 0)
+			if ((hitbox->type & (C_PLAYER | C_E_PROJECTILE)) == 0)
 				combo_increment(hitbox->engage_meta2, slime->enemy_hurtbox.hitbox_ptr);
 			return (SDL_TRUE);
 		}

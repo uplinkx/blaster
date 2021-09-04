@@ -24,7 +24,7 @@ void	update_combo_active(t_combo *self, size_t *score)
 		fetch_combo_sprite(&(self->sprite.sprite_data), self->no);
 	}
 
-	if (self->lifetime < self->sprite.current)
+	if (self->lifetime < self->sprite.current && self->active == SDL_TRUE)
 	{
 		active = SDL_FALSE;
 		self->no = 0;

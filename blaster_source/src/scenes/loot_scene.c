@@ -25,6 +25,15 @@ typedef struct	s_loot_scene
 	SDLX_Sprite background;
 	SDL_Texture	*level_capture;
 
+	t_text level;
+	t_text score;
+	t_text time;
+	t_text killed;
+
+	int		score_at;
+	int		time_at;
+	int		killed_at;
+
 	t_level_progress	*won;
 }				t_loot_scene;
 
@@ -98,6 +107,17 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	context->wave_id = 0;
 
 
+	char	buff[256];
+
+	SDL_snprintf(buff, sizeof(buff), "Level %d", context->level);
+	scene->score_at = 0;
+	scene->time_at = 0;
+	scene->killed_at = 0;
+	create_text(&(scene->level),  0xFFFFFF00, (SDL_Rect){115, 156 + 0, 0, 0},   buff, .15, context->font);
+	create_text(&(scene->score),  0xFFFFFF00, (SDL_Rect){88,  156 + 25, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->time),   0xFFFFFF00, (SDL_Rect){88,  156 + 50, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->killed), 0xFFFFFF00, (SDL_Rect){88,  156 + 75, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+
 
 		 if (context->mainhand.factory == NULL && context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_MAINHAND) { context->mainhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
 	else if (context->defense.factory == NULL && context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_DEFENSE) { context->defense = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
@@ -127,6 +147,7 @@ void	*loot_level_close(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene)
 void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene)
 {
 	t_loot_scene	*scene;
+	char			buff[30];
 
 	scene = vp_scene;
 
@@ -139,6 +160,12 @@ void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene
 		SDLX_Button_Update(&(scene->level_select));
 		SDLX_Button_Update(&(scene->next));
 		SDLX_Button_Update(&(scene->inventory));
+
+		if (scene->score_at < context->score) { scene->score_at++; }
+		if (scene->score_at + 10 < context->score) { scene->score_at += 10; }
+		if (scene->time_at < context->time) { scene->time_at++; }
+		if (scene->time_at + 10 < context->time) { scene->time_at += 10; }
+		if (scene->killed_at < context->killed) { scene->killed_at++; }
 	}
 	else
 	{
@@ -147,6 +174,26 @@ void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene
 		SDLX_RenderQueue_Add(NULL, &(scene->next.sprite));
 		SDLX_RenderQueue_Add(NULL, &(scene->inventory.sprite));
 	}
+
+	SDLX_RenderQueue_Add(NULL, &(scene->level.sprite));
+	// SDL_Log("This %d", context->score);
+
+	SDL_snprintf(buff, sizeof(buff), "Score %5d", scene->score_at);
+	scene->score.set = buff;
+	update_text(&(scene->score), sizeof(buff));
+
+	SDL_snprintf(buff, sizeof(buff), "Time  %6d", scene->time_at);
+	scene->time.set = buff;
+	update_text(&(scene->time), sizeof(buff));
+
+	SDL_snprintf(buff, sizeof(buff), "Killed %6d", scene->killed_at);
+	scene->killed.set = buff;
+	update_text(&(scene->killed), sizeof(buff));
+
+	SDLX_RenderQueue_Add(NULL, &(scene->score.sprite));
+	SDLX_RenderQueue_Add(NULL, &(scene->time.sprite));
+	SDLX_RenderQueue_Add(NULL, &(scene->killed.sprite));
+
 
 	SDLX_RenderQueue_Add(NULL, &(scene->background));
 

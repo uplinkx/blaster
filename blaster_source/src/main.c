@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/03 20:58:06 by home             ###   ########.fr       */
+/*   Updated: 2021/09/04 04:46:15 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	blaster_start(t_context *context)
 
 	context->init_fn = main_menu_init;
 	context->wave_id = -1;
+
+	TTF_Init();
+	context->font = TTF_OpenFont(ASSETS"8bitlim.ttf", 150);
+	context->font_outline = TTF_OpenFont(ASSETS"8bitlim.ttf", 150);
+	TTF_SetFontOutline(context->font_outline, 3);
 
 	unequip_weapon(&(context->mainhand));
 	unequip_weapon(&(context->special));
@@ -67,7 +72,7 @@ void	blaster_start(t_context *context)
 	context->levels[3][0].isUnlocked = SDL_TRUE;
 
 
-	// context->init_fn = level_19_init;
+	// context->init_fn = level_01_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;
@@ -117,20 +122,6 @@ void	main_loop(void *context_addr)
 // #endif
 
 	context->update_fn(context, context->meta);
-
-	SDL_Color color = {0, 0, 0, 0};
-	SDL_Surface	*message;
-	SDL_Texture	*text;
-	SDL_Rect	rect;
-	message = TTF_RenderText_Solid(font, "1234567890", color );
-	TTF_SizeText(font, "1234567890", &(rect.w), &(rect.h));
-	text = SDL_CreateTextureFromSurface(SDLX_GetDisplay()->renderer, message);
-	rect.x = 0;
-	rect.y = 300;
-	rect.h *= .5;
-	rect.w *= .5;
-
-	SDL_RenderCopy(SDLX_GetDisplay()->renderer, text, NULL, &(rect));
 
 	if (context->shouldQuit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
 	{

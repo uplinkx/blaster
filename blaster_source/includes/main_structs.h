@@ -53,7 +53,16 @@ typedef struct	s_context
 	t_weapon	defense;
 	t_weapon	special;
 
+	TTF_Font	*font;
+	TTF_Font	*font_outline;
+
 	t_level_progress	levels[5][5];
+
+	int			level;
+	int			score;
+	int			time;
+	int			killed;
+	int			out_of;
 
 }				t_context;
 
@@ -65,6 +74,18 @@ typedef struct	s_pmenu
 	SDLX_button	redo;
 	SDLX_button	menu;
 }				t_pmenu;
+
+typedef struct	s_text
+{
+	SDL_Color	color;
+	double		scale;
+	size_t		message_length;
+	char		*message;
+	char		*set;
+	SDLX_Sprite	sprite;
+
+	TTF_Font	*set_font;
+}				t_text;
 
 typedef struct	s_level
 {
@@ -84,7 +105,8 @@ typedef struct	s_level
 
 	size_t				score;
 	size_t				time;
-	size_t				enemies_killed;
+	t_text				enemies_killed_text;
+	t_text				enemies_killed_text_outline;
 	int					enemy_count;
 }				t_level;
 

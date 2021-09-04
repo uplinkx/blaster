@@ -115,6 +115,13 @@ SDLX_iMap	*blaster_key_map(size_t *size);
 SDLX_iMap	*blaster_pad_map(size_t *size);
 void		set_levels(t_level_progress (*levels)[5][5]);
 
+/*
+** TTF Text Functions
+*/
+
+void	update_text(t_text *text, size_t size);
+void	create_text(t_text *dst, int color, SDL_Rect loc, char *message, double scale, TTF_Font *font);
+void	change_message(t_text *text, char *to, SDL_bool allocate);
 
 #endif
 

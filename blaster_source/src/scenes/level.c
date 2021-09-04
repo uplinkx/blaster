@@ -33,8 +33,10 @@ void	level_init(t_context *context, t_wave_m waves)
 
 	scene->score = 0;
 	scene->time = 0;
-	scene->enemies_killed = 0;
 	scene->enemy_count = wave_enemy_count(&(scene->stage));
+
+	create_text(&(scene->enemies_killed_text), 0xFFFFFF00, (SDL_Rect){10, 16, 0, 0}, "1234567890", .15, context->font);
+	create_text(&(scene->enemies_killed_text_outline), 0x5f873900, (SDL_Rect){10 - 1, 16, 0, 0}, "1234567890", .15, context->font_outline);
 
 	/* check health containers and increase player health here */
 
@@ -67,7 +69,14 @@ void	*level_close(t_context *context, void *vp_scene)
 	}
 	final_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo));
 	update_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo), &(scene->score));
-	SDL_Log("Level: %d Score: %zu and time: %zu killed %zu / %d", scene->stage.wave_id + 1, scene->score, scene->time, scene->stage.killed_no, scene->enemy_count);
+
+	// SDL_Log("Level: %d Score: %zu and time: %zu killed %zu / %d", scene->stage.wave_id + 1, scene->score, scene->time, scene->stage.killed_no, scene->enemy_count);
+
+	context->level = scene->stage.wave_id + 1;
+	context->score = scene->score;
+	context->time = scene->time;
+	context->killed = scene->stage.killed_no;
+	context->out_of = scene->enemy_count;
 
 	if (scene->pbackground != NULL) { SDL_DestroyTexture(scene->pbackground); }
 
@@ -82,9 +91,13 @@ void	*level_update(t_context *context, void *vp_scene)
 {
 	t_level		*scene;
 	SDL_bool	wave_done;
+	char	buff[10];
+
 
 	scene = vp_scene;
 	wave_done = SDL_FALSE;
+
+
 	if (scene->pause.isTriggered == SDL_FALSE)
 	{
 		SDLX_Button_Update(&(scene->pause));
@@ -112,6 +125,16 @@ void	*level_update(t_context *context, void *vp_scene)
 	}
 	else
 		update_pause_menu(&(scene->pause_menu), scene->pbackground);
+
+	buff[0] = 'x';
+	SDL_ultoa(scene->enemy_count - scene->stage.killed_no, buff + 1, 10);
+	scene->enemies_killed_text.set = buff;
+	scene->enemies_killed_text_outline.set = buff;
+
+	update_text(&(scene->enemies_killed_text), sizeof(buff));
+	update_text(&(scene->enemies_killed_text_outline), sizeof(buff));
+	SDLX_RenderQueue_Add(NULL, &(scene->enemies_killed_text.sprite));
+	SDLX_RenderQueue_Add(NULL, &(scene->enemies_killed_text_outline.sprite));
 
 	if (scene->pause.isTriggered == SDL_TRUE && scene->pbackground == NULL)
 	{
