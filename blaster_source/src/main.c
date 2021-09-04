@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/04 04:46:15 by home             ###   ########.fr       */
+/*   Updated: 2021/09/04 06:35:24 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	blaster_start(t_context *context)
 	context->levels[3][0].isUnlocked = SDL_TRUE;
 
 
-	// context->init_fn = level_01_init;
+	// context->init_fn = level_18_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = level_select_init;
 	// context->init_fn = inventory_init;

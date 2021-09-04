@@ -70,13 +70,14 @@ SDL_bool	slime_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, 
 	{
 		slime->effects[(size_t)hitbox->engage_meta1].info++;
 		slime->effects[(size_t)hitbox->engage_meta1].combo_mod = hitbox->engage_meta2;
+
+		if (slime->effects[EMP_FIELD].info == 1 && (int)hitbox->engage_meta1 == EMP_FIELD)
+		{
+			slime->effects[EMP_FIELD].record = slime->speed;
+			slime->speed = 0;
+		}
 	}
 
-	if (slime->effects[EMP_FIELD].info == 1)
-	{
-		slime->effects[(size_t)hitbox->engage_meta1].record = slime->speed;
-		slime->speed = 0;
-	}
 
 	return (result);
 }
@@ -91,6 +92,7 @@ SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *me
 	slime = self;
 	hitbox = with;
 
+
 	if (hitbox->type & C_PROJECTILE)
 	{
 		bullet = hitbox->originator;
@@ -103,6 +105,7 @@ SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *me
 		collide_fn = SDLX_Collide_RectToARect;
 	else if (hitbox->type & C_CIRCLE)
 		collide_fn = SDLX_Collide_RectToCircle;
+
 
 	if (hitbox->type & slime->enemy_hurtbox.response_amount)
 	{
@@ -120,12 +123,12 @@ SDL_bool	slime_detect_collision_once(void *self, void *with, SDL_UNUSED void *me
 	{
 		slime->effects[(size_t)hitbox->engage_meta1].info++;
 		slime->effects[(size_t)hitbox->engage_meta1].combo_mod = hitbox->engage_meta2;
-	}
 
-	if (slime->effects[EMP_FIELD].info == 1)
-	{
-		slime->effects[(size_t)hitbox->engage_meta1].record = slime->speed;
-		slime->speed = 0;
+		if (slime->effects[EMP_FIELD].info == 1 && (int)hitbox->engage_meta1 == EMP_FIELD)
+		{
+			slime->effects[EMP_FIELD].record = slime->speed;
+			slime->speed = 0;
+		}
 	}
 
 	return (SDL_FALSE);
