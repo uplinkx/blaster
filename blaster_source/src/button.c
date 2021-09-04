@@ -100,10 +100,10 @@ void	*button_pause_key(SDLX_button *self, SDL_UNUSED void *meta, SDL_UNUSED size
 void	*button_resume(SDLX_button *self, void *pause_addr, SDL_UNUSED size_t length)
 {
 	SDL_bool	*pause;
-	SDLX_button	*button;
+	// SDLX_button	*button;
 	SDL_Texture	**pbackground;
 
-	button = self;
+	// button = self;
 	if (SDLX_GAME_RELEASE(g_GameInput, g_GameInput_prev, primleft))
 	{
 		SDLX_INPUT_CONSUME(g_GameInput, g_GameInput_prev, primleft)

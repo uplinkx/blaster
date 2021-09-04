@@ -43,30 +43,30 @@ SDL_bool	ghostfire_fire(t_weapon *weapon)
 	return (result);
 }
 
-static SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
-{
-	SDLX_collision	*self_box;
-	SDLX_collision	*hitbox;
-	t_bullet		*self_attack;
+// static SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
+// {
+// 	// SDLX_collision	*self_box;
+// 	// SDLX_collision	*hitbox;
+// 	// t_bullet		*self_attack;
 
-	self_box = self;
-	hitbox = with;
+// 	// self_box = self;
+// 	// hitbox = with;
 
-	self_attack = self;
-	return (SDL_FALSE);
-}
+// 	// self_attack = self;
+// 	return (SDL_FALSE);
+// }
 
 void	ghostfire_update(void *self, SDL_UNUSED void *meta)
 {
 	t_bullet	*bullet;
-	SDL_Rect	play_area;
+	// SDL_Rect	play_area;
 
 	bullet = self;
 
 	if (bullet->isActive == SDL_FALSE)
 		return ;
 
-	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
+	// play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
 	if (bullet->sprite.current == 21)
 	{
 		bullet->isActive = SDL_FALSE;
@@ -114,7 +114,7 @@ void	ghostfire_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUS
 
 	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
 
-	dst->hitbox.detect = bullet_detect_collision;
+	dst->hitbox.detect = NULL;
 
 	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }

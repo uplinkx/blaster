@@ -1,10 +1,11 @@
 NAME = blaster
 NAMEW = ../index.html
 # FLAGS = -Wall -Wextra -Werror
+# FLAGS = -Wall -Wextra -Werror -O2
 FLAGS = -Wall -Wextra -Werror -fsanitize=address
 INCLUDES = -I includes/ -I includes/SDLX/
 
-LIBRARIES = -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS="['png']"
+LIBRARIES = -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS="['png']"
 SKELE_HTML = --shell-file ../skeleton.html
 
 SDL_LIB = -L ~/.brew/lib -l SDL2 -l sdl2_image -l SDL2_ttf
@@ -135,7 +136,7 @@ all:
 	make -j $(NAME)
 
 allw:
-	emcc -Wall -Wextra -Werror -O0 $(INCLUDES) -D EMCC $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAMEW)
+	emcc -Wall -Wextra -Werror -O2 $(INCLUDES) -D EMCC $(LIBRARIES) $(PRELOAD) $(SRCS) $(SKELE_HTML) -o $(NAMEW)
 
 $(NAME): $(BIN_DIR) $(OBJS)
 	@gcc $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS) $(SDL_LIB)

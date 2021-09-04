@@ -77,10 +77,15 @@ typedef struct	s_level
 	t_player			player;
 	SDLX_Sprite			crosshair;
 
-	t_wave_m				stage;
+	t_wave_m			stage;
 	t_enemy_m			enemies;
 
 	SDL_Texture			*pbackground;
+
+	size_t				score;
+	size_t				time;
+	size_t				enemies_killed;
+	int					enemy_count;
 }				t_level;
 
 #endif

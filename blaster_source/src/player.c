@@ -153,5 +153,7 @@ void	player_init(t_player *player)
 
 	player->player_hurtbox.hitbox_ptr = &(player->hurtbox);
 
+	player->score = 0;
+
 	init_attack_array(&(player->attacks));
 }

@@ -13,7 +13,7 @@
 
 #include "main.h"
 
-void	update_combo_active(t_combo *self)
+void	update_combo_active(t_combo *self, size_t *score)
 {
 	SDL_bool	active;
 
@@ -29,6 +29,7 @@ void	update_combo_active(t_combo *self)
 		active = SDL_FALSE;
 		self->no = 0;
 		self->sprite.current = 0;
+		*score += 100;
 	}
 	self->active = active;
 }
@@ -42,17 +43,17 @@ void	final_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo
 }
 
 
-void	update_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special)
+void	update_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special, size_t *score)
 {
 	mainhand->sprite.current++;
 	offhand->sprite.current++;
 	defense->sprite.current++;
 	special->sprite.current++;
 
-	update_combo_active(mainhand);
-	update_combo_active(offhand);
-	update_combo_active(defense);
-	update_combo_active(special);
+	update_combo_active(mainhand, score);
+	update_combo_active(offhand, score);
+	update_combo_active(defense, score);
+	update_combo_active(special, score);
 
 	if (mainhand->active == SDL_TRUE) { SDLX_RenderQueue_Add(NULL, &(mainhand->sprite)); }
 	if (offhand->active == SDL_TRUE) { SDLX_RenderQueue_Add(NULL, &(offhand->sprite)); }

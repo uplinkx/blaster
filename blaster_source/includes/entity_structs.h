@@ -122,6 +122,7 @@ typedef struct	s_player
 
 	t_weapon		*weapon_equip;
 	t_attacks		attacks;
+	int				score;
 }				t_player;
 
 #endif

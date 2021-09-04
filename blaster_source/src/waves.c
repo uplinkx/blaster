@@ -53,6 +53,29 @@ void	spawn_elem(int type, t_enemy *spawn_addr, SDL_Point loc, int mod)
 	spawn_fn(spawn_addr, loc, mod);
 }
 
+int		wave_enemy_count(t_wave_m *stage)
+{
+	size_t	ix;
+	size_t	jx;
+	int		enemy_count;
+
+	ix = 0;
+	enemy_count = 0;
+	while (ix < stage->size)
+	{
+		jx = 0;
+		while (jx < stage->waves[ix].size)
+		{
+			if (stage->waves[ix].wave_array[jx].shouldCount)
+				enemy_count++;
+			jx++;
+		}
+		ix++;
+	}
+	return (enemy_count);
+}
+
+
 int		do_wave(t_wave *wave, t_enemy_m *enemy_man, t_attacks *projectiles)
 {
 	size_t	i;
@@ -99,6 +122,7 @@ SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectile
 		i++;
 	}
 
+	wave->killed_no = killed;
 	if (wave->completed_no >= wave->win_wave_no && killed >= wave->win_kill_count)
 	{
 		if (wave->win_wave == -1)

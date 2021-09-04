@@ -111,9 +111,9 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 void	*loot_level_close(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene)
 {
-	t_loot_scene	*scene;
+	// t_loot_scene	*scene;
 
-	scene = vp_scene;
+	// scene = vp_scene;
 	SDLX_RenderQueue_Flush(NULL, NULL, SDL_FALSE);
 
 	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->capture_texture, NULL, NULL);

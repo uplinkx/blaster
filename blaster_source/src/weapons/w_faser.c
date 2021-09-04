@@ -36,11 +36,11 @@ SDL_bool	faser_fire(SDL_UNUSED t_weapon *weapon)
 
 static SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	SDLX_collision	*self_box;
+	// SDLX_collision	*self_box;
 	SDLX_collision	*hitbox;
 	t_bullet		*self_attack;
 
-	self_box = self;
+	// self_box = self;
 	hitbox = with;
 
 	self_attack = self;

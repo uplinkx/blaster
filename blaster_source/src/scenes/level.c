@@ -31,6 +31,11 @@ void	level_init(t_context *context, t_wave_m waves)
 	init_enemy_array(&(scene->enemies));
 	scene->stage = waves;
 
+	scene->score = 0;
+	scene->time = 0;
+	scene->enemies_killed = 0;
+	scene->enemy_count = wave_enemy_count(&(scene->stage));
+
 	/* check health containers and increase player health here */
 
 }
@@ -60,6 +65,9 @@ void	*level_close(t_context *context, void *vp_scene)
 		else
 			context->next_init_fn = NULL;
 	}
+	final_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo));
+	update_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo), &(scene->score));
+	SDL_Log("Level: %d Score: %zu and time: %zu killed %zu / %d", scene->stage.wave_id + 1, scene->score, scene->time, scene->stage.killed_no, scene->enemy_count);
 
 	if (scene->pbackground != NULL) { SDL_DestroyTexture(scene->pbackground); }
 
@@ -72,11 +80,10 @@ void	*level_close(t_context *context, void *vp_scene)
 
 void	*level_update(t_context *context, void *vp_scene)
 {
-	t_level	*scene;
-	SDL_bool		wave_done;
+	t_level		*scene;
+	SDL_bool	wave_done;
 
 	scene = vp_scene;
-
 	wave_done = SDL_FALSE;
 	if (scene->pause.isTriggered == SDL_FALSE)
 	{
@@ -93,7 +100,7 @@ void	*level_update(t_context *context, void *vp_scene)
 		SDLX_CollisionBucket_Flush(NULL);
 		player_update(&(scene->player));
 
-		update_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo));
+		update_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo), &(scene->score));
 
 		SDLX_RenderQueue_Add(NULL, &(scene->bottom_ui));
 
@@ -115,6 +122,8 @@ void	*level_update(t_context *context, void *vp_scene)
 
 	if (scene->player.hp <= 0) { end_scene(context, &(scene->pause)); }
 	if (wave_done) { scene->stage.isComplete = SDL_TRUE; end_scene(context, &(scene->pause)); }
+
+	scene->time++;
 
 	return (NULL);
 }

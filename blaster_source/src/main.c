@@ -6,14 +6,17 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/02 01:03:50 by home             ###   ########.fr       */
+/*   Updated: 2021/09/03 20:58:06 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
 #ifdef EMCC
 	#include <emscripten.h>
 #endif
+
+TTF_Font *font;
 
 void	blaster_start(t_context *context)
 {
@@ -70,11 +73,11 @@ void	blaster_start(t_context *context)
 	// context->init_fn = inventory_init;
 
 	// context->mainhand = laser_yellow_cannon();
-	context->mainhand = faser_cannon();
-	context->offhand = ghostfire_cannon();
+	// context->mainhand = faser_cannon();
+	// context->offhand = ghostfire_cannon();
 	// context->defense = heal_cannon();
-	context->defense = shield_cannon();
-	context->special = emp_cannon();
+	// context->defense = shield_cannon();
+	// context->special = emp_cannon();
 
 	context->levels[0][4].wasReceived = SDL_TRUE;
 	context->levels[1][4].wasReceived = SDL_TRUE;
@@ -98,22 +101,36 @@ void	main_loop(void *context_addr)
 	SDLX_KeyMap(&(g_GameInput.key_mapper), g_GameInput.keystate);
 	SDLX_GameInput_Mouse_Fill(&(g_GameInput), SDL_TRUE);
 
-#ifndef EMCC
-	SDL_GameController	*controller;
-	controller = NULL;
-	controller = SDLX_XboxController_link(0);
-	if (controller != NULL)
-	{
-		SDLX_ControllerMap(&(g_GameInput.pad_mapper), controller);
-		SDLX_FillXbox_Axis(&(g_GameInput), controller);
+// #ifndef EMCC
+// 	SDL_GameController	*controller;
+// 	controller = NULL;
+// 	controller = SDLX_XboxController_link(0);
+// 	if (controller != NULL)
+// 	{
+// 		SDLX_ControllerMap(&(g_GameInput.pad_mapper), controller);
+// 		SDLX_FillXbox_Axis(&(g_GameInput), controller);
 
-		int trigger = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
-		if (trigger > 100)
-			g_GameInput.GameInput.button_primleft = 1;
-	}
-#endif
+// 		int trigger = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+// 		if (trigger > 100)
+// 			g_GameInput.GameInput.button_primleft = 1;
+// 	}
+// #endif
 
 	context->update_fn(context, context->meta);
+
+	SDL_Color color = {0, 0, 0, 0};
+	SDL_Surface	*message;
+	SDL_Texture	*text;
+	SDL_Rect	rect;
+	message = TTF_RenderText_Solid(font, "1234567890", color );
+	TTF_SizeText(font, "1234567890", &(rect.w), &(rect.h));
+	text = SDL_CreateTextureFromSurface(SDLX_GetDisplay()->renderer, message);
+	rect.x = 0;
+	rect.y = 300;
+	rect.h *= .5;
+	rect.w *= .5;
+
+	SDL_RenderCopy(SDLX_GetDisplay()->renderer, text, NULL, &(rect));
 
 	if (context->shouldQuit != SDL_TRUE && SDLX_discrete_frames(NULL) != EXIT_FAILURE)
 	{
@@ -136,6 +153,9 @@ int	main(void)
 
 	SDLX_GetDisplay();
 	blaster_start(&context);
+
+	TTF_Init();
+	font = TTF_OpenFont(ASSETS"8bitlim.ttf", 100);
 
 	#ifdef EMCC
 		emscripten_set_main_loop_arg(main_loop, (void *)&(context), 0, SDL_TRUE);

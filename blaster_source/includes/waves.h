@@ -68,6 +68,7 @@ typedef struct	s_wave_m
 
 	SDL_bool	isComplete;
 	size_t		completed_no;
+	size_t		killed_no;
 
 	size_t		size;
 	t_wave		*waves;

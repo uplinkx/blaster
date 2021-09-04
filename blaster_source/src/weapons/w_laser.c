@@ -58,11 +58,11 @@ SDL_bool	laser_yellow_fire(SDL_UNUSED t_weapon *weapon)
 
 SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
-	SDLX_collision	*self_box;
+	// SDLX_collision	*self_box;
 	SDLX_collision	*hitbox;
 	t_bullet		*self_attack;
 
-	self_box = self;
+	// self_box = self;
 	hitbox = with;
 
 	self_attack = self;
@@ -194,6 +194,8 @@ t_weapon	laser_cannon(void)
 	laser_cannon.factory = laser_factory;
 	laser_cannon.trigger = laser_fire;
 
+	combo_init(&(laser_cannon.combo));
+
 	return (laser_cannon);
 }
 
@@ -218,6 +220,8 @@ t_weapon	laser_yellow_cannon(void)
 
 	laser_cannon.factory = laser_yellow_factory;
 	laser_cannon.trigger = laser_yellow_fire;
+
+	combo_init(&(laser_cannon.combo));
 
 	return (laser_cannon);
 }

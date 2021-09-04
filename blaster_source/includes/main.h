@@ -14,6 +14,7 @@
 # define MAIN_H
 
 # include "SDL2/SDL_image.h"
+# include "SDL2/SDL_ttf.h"
 
 # include "SDLX/SDLX.h"
 
@@ -43,13 +44,14 @@ void		init_enemy_array(t_enemy_m *manager);
 void		iter_enemies(t_enemy_m *enemies);
 
 SDL_bool	wave_method(t_wave_m *wave, t_enemy_m *enemy_man, t_attacks *projectiles);
+int			wave_enemy_count(t_wave_m *stage);
 
 /*
 ** Attack/Projectile Functions
 */
 
-void	projectile_update(t_attacks *queue);
-void	init_attack_array(t_attacks *attacks);
+void		projectile_update(t_attacks *queue);
+void		init_attack_array(t_attacks *attacks);
 t_bullet	*spawn_projectile_addr(t_attacks *dst);
 
 void	unequip_weapon(t_weapon *dst);
@@ -66,7 +68,8 @@ void	update_crosshair(SDLX_Sprite *crosshair);
 
 void	update_status(t_enemy *self);
 
-void	update_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special);
+void	final_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special);
+void	update_combos(t_combo *mainhand, t_combo *offhand, t_combo *defense, t_combo *special, size_t *score);
 void	combo_increment(t_combo *combo, SDL_Rect *hit);
 void	combo_init(t_combo *self);
 
