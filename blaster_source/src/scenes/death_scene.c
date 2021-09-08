@@ -17,7 +17,6 @@ typedef struct	s_death_scene
 {
 	SDLX_button		restart;
 	SDLX_button		level_select;
-	SDLX_button		inventory;
 
 	SDLX_Sprite		background;
 
@@ -45,17 +44,11 @@ void	*death_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->level_select.meta = context;
 	scene->level_select.meta1 = level_select_init;
 
-	SDLX_Button_Init(&(scene->restart), fetch_loot_sprite, LREDO_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2, 232, 48, 48}, NULL);
+	SDLX_Button_Init(&(scene->restart), fetch_loot_sprite, LREDO_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 50, 232, 48, 48}, NULL);
 	SDLX_Style_Button(&(scene->restart), LREDO_NORM, LREDO_HOVER);
 	scene->restart.trigger_fn = button_trigger_scene_switch;
 	scene->restart.meta = context;
 	scene->restart.meta1 = context->redo_init_fn;
-
-	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){(PLAY_WIDTH - 48) / 2 + 50, 232, 48, 48}, NULL);
-	SDLX_Style_Button(&(scene->inventory), LINVT_NORM, LINVT_HOVER);
-	scene->inventory.trigger_fn = button_trigger_scene_switch;
-	scene->inventory.meta = context;
-	scene->inventory.meta1 = inventory_init;
 
 	SDLX_new_Sprite(&(scene->background));
 	fetch_loot_sprite(&(scene->background.sprite_data), DBACK);
@@ -78,9 +71,6 @@ void	*death_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 void	*death_level_close(t_context *context, SDL_UNUSED void *vp_scene)
 {
-	// t_death_scene	*scene;
-
-	// scene = vp_scene;
 	SDLX_RenderQueue_Flush(NULL, NULL, SDL_FALSE);
 
 	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->capture_texture, NULL, NULL);
@@ -102,7 +92,6 @@ void	*death_level_update(SDL_UNUSED t_context *context, void *vp_scene)
 
 	SDLX_Button_Update(&(scene->restart));
 	SDLX_Button_Update(&(scene->level_select));
-	SDLX_Button_Update(&(scene->inventory));
 
 	if (scene->score_at < context->score) { scene->score_at++; }
 	if (scene->score_at + 10 < context->score) { scene->score_at += 10; }
