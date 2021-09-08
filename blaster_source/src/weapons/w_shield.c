@@ -104,7 +104,7 @@ void	shield_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED 
 	dst->sprite.dst = SDLX_NULL_SELF;
 	dst->sprite._dst = (SDL_Rect){(PLAY_WIDTH - (54 * 3)) / 2, (PLAY_HEIGHT -  (54 * 3)) / 2, (54 * 3), (54 * 3)};
 
-	dst->vel.x = 80;
+	dst->vel.x = 100;
 	dst->isActive = SDL_TRUE;
 
 	dst->update = shield_update;

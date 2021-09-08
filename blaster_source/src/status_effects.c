@@ -15,7 +15,7 @@
 
 void	update_status(t_enemy *self)
 {
-	if (self->effects[RUNIC_SHIELD].info >= 15)
+	if (self->effects[RUNIC_SHIELD].info >= 12)
 	{
 		self->effects[RUNIC_SHIELD].info = 0;
 		self->hp--;

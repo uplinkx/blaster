@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/04 06:35:24 by home             ###   ########.fr       */
+/*   Updated: 2021/09/04 18:14:29 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	blaster_start(t_context *context)
 	context->wave_id = -1;
 
 	TTF_Init();
-	context->font = TTF_OpenFont(ASSETS"8bitlim.ttf", 150);
-	context->font_outline = TTF_OpenFont(ASSETS"8bitlim.ttf", 150);
+	context->font = TTF_OpenFont(ASSETS"chary___.ttf", 150);
+	context->font_outline = TTF_OpenFont(ASSETS"chary___.ttf", 150);
 	TTF_SetFontOutline(context->font_outline, 3);
 
 	unequip_weapon(&(context->mainhand));

@@ -114,9 +114,9 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->time_at = 0;
 	scene->killed_at = 0;
 	create_text(&(scene->level),  0xFFFFFF00, (SDL_Rect){115, 156 + 0, 0, 0},   buff, .15, context->font);
-	create_text(&(scene->score),  0xFFFFFF00, (SDL_Rect){88,  156 + 25, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
-	create_text(&(scene->time),   0xFFFFFF00, (SDL_Rect){88,  156 + 50, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
-	create_text(&(scene->killed), 0xFFFFFF00, (SDL_Rect){88,  156 + 75, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->score),  0xFFFFFF00, (SDL_Rect){83,  156 + 25, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->time),   0xFFFFFF00, (SDL_Rect){83,  156 + 50, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->killed), 0xFFFFFF00, (SDL_Rect){83,  156 + 75, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
 
 
 		 if (context->mainhand.factory == NULL && context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_MAINHAND) { context->mainhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
@@ -166,6 +166,13 @@ void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene
 		if (scene->time_at < context->time) { scene->time_at++; }
 		if (scene->time_at + 10 < context->time) { scene->time_at += 10; }
 		if (scene->killed_at < context->killed) { scene->killed_at++; }
+
+		if (g_GameInput.GameInput.button_primleft && SDL_PointInRect(&(g_GameInput.GameInput.primary), &(scene->background._dst)))
+		{
+			scene->score_at = context->score;
+			scene->time_at = context->time;
+			scene->killed_at = context->killed;
+		}
 	}
 	else
 	{
@@ -178,15 +185,18 @@ void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene
 	SDLX_RenderQueue_Add(NULL, &(scene->level.sprite));
 	// SDL_Log("This %d", context->score);
 
-	SDL_snprintf(buff, sizeof(buff), "Score %5d", scene->score_at);
+	SDL_snprintf(buff, sizeof(buff), "Score  %7d", scene->score_at);
 	scene->score.set = buff;
 	update_text(&(scene->score), sizeof(buff));
 
-	SDL_snprintf(buff, sizeof(buff), "Time  %6d", scene->time_at);
+	SDL_snprintf(buff, sizeof(buff), "Time   %7d", scene->time_at);
 	scene->time.set = buff;
 	update_text(&(scene->time), sizeof(buff));
 
-	SDL_snprintf(buff, sizeof(buff), "Killed %6d", scene->killed_at);
+	if (context->out_of >= 100)
+		SDL_snprintf(buff, sizeof(buff), "Killed %3d/%d", scene->killed_at, context->out_of);
+	else
+		SDL_snprintf(buff, sizeof(buff), "Killed %4d/%d", scene->killed_at, context->out_of);
 	scene->killed.set = buff;
 	update_text(&(scene->killed), sizeof(buff));
 
