@@ -18,7 +18,7 @@ void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UN
 	SDLX_Sprite	*treasure;
 
 	treasure = self->meta;
-	if (self->isTriggered && self->sprite.dst->y >= 40 + 25)
+	if (self->isTriggered && self->sprite.dst->y >= 40)
 	{
 		self->sprite.dst->y -= 2;
 		self->sprite.dst->w -= 1;
@@ -28,7 +28,7 @@ void	*button_chest_update(SDLX_button *self, SDL_UNUSED void *vp_context, SDL_UN
 	}
 	else if (self->isTriggered && treasure != NULL)
 	{
-		if (treasure->_dst.y >= 30 + 20)
+		if (treasure->_dst.y >= 40)
 		{
 			treasure->_dst.y -= 1;
 			treasure->_dst.w += 2;

@@ -38,6 +38,7 @@ t_weapon		heal_cannon(void);
 t_weapon		shield_cannon(void);
 t_weapon		emp_cannon(void);
 t_weapon		whirl_cannon(void);
+t_weapon		null_cannon(void);
 
 
 

@@ -67,7 +67,7 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->background._dst = (SDL_Rect){(PLAY_WIDTH - 64 * 3) / 2, 80 + y_offset, 64 * 3, 64 * 3};
 	scene->background.dst = SDLX_NULL_SELF;
 
-	SDLX_Button_Init(&(scene->chest), fetch_chest_sprite, 0, (SDL_Rect){(PLAY_WIDTH - 124) / 2, 80 + y_offset, 124, 124}, NULL);
+	SDLX_Button_Init(&(scene->chest), fetch_chest_sprite, 0, (SDL_Rect){(PLAY_WIDTH - 124) / 2, 60 + y_offset, 124, 124}, NULL);
 	SDLX_Style_Button(&(scene->chest), 0, 1);
 	scene->chest.trigger_fn = button_chest;
 	scene->chest.update_fn = button_chest_update;
@@ -80,25 +80,26 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	treasure = &(context->levels[wave_id / 5][wave_id % 5].treasure_w.treasure_sprite);
 	treasure->dst = SDLX_NULL_SELF;
-	treasure->_dst = (SDL_Rect){(PLAY_WIDTH - 80) / 2, 80, 32, 32};
+	treasure->_dst = (SDL_Rect){(PLAY_WIDTH - 80) / 2, 60, 32, 32};
 	scene->chest.meta = treasure;
 
 	if (context->next_init_fn == NULL)
 	{
 		scene->next.isDisabled = SDL_TRUE;
 		fetch_ui_sprite(&(scene->next.sprite.sprite_data), EMPTY_UI);
-		// scene->level_select.sprite._dst.x =	(PLAY_WIDTH - 48) / 2;
-		// scene->restart.sprite._dst.x =		(PLAY_WIDTH - 48) / 2;
 
 		scene->level_select.sprite._dst.x =	MID_PLAY_WIDTH + 50;
 		scene->restart.sprite._dst.x =		MID_PLAY_WIDTH - 50;
 	}
 
-	if (context->levels[wave_id / 5][wave_id % 5].wasReceived == SDL_TRUE)
-		scene->chest.meta = NULL;
-	else
-		context->levels[wave_id / 5][wave_id % 5].wasReceived = SDL_TRUE;
+	if (context->levels[wave_id / 5][wave_id % 5].wasReceived == SDL_TRUE ||
+		context->levels[wave_id / 5][wave_id % 5].treasure_w.factory == NULL)
+	{
+		scene->chest.isDisabled = SDL_TRUE;
+		scene->chest.sprite._dst.y = 0;
+	}
 
+	context->levels[wave_id / 5][wave_id % 5].wasReceived = SDL_TRUE;
 	context->wave_id = 0;
 
 
@@ -108,10 +109,10 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->score_at = 0;
 	scene->time_at = 0;
 	scene->killed_at = 0;
-	create_text(&(scene->level),  0xFFFFFF00, (SDL_Rect){115, 156 + 0, 0, 0},   buff, .15, context->font);
-	create_text(&(scene->score),  0xFFFFFF00, (SDL_Rect){83,  156 + 25, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
-	create_text(&(scene->time),   0xFFFFFF00, (SDL_Rect){83,  156 + 50, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
-	create_text(&(scene->killed), 0xFFFFFF00, (SDL_Rect){83,  156 + 75, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->level),  0xFFFFFF00, (SDL_Rect){115, 132 + 0, 0, 0},   buff, .15, context->font);
+	create_text(&(scene->score),  0xFFFFFF00, (SDL_Rect){83,  132 + 30, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->time),   0xFFFFFF00, (SDL_Rect){83,  132 + 60, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->killed), 0xFFFFFF00, (SDL_Rect){83,  132 + 90, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
 
 
 		 if (context->mainhand.factory == NULL && context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_MAINHAND) { context->mainhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
@@ -149,7 +150,7 @@ void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene
 	SDL_RenderCopy(SDLX_GetDisplay()->renderer, context->capture_texture, NULL, NULL);
 	SDLX_Button_Update(&(scene->chest));
 
-	if (scene->chest.sprite.dst->y <= 50 + 25)
+	if (scene->chest.sprite.dst->y <= 40)
 	{
 		SDLX_Button_Update(&(scene->restart));
 		SDLX_Button_Update(&(scene->level_select));

@@ -32,6 +32,15 @@ void	unequip_weapon(t_weapon *dst)
 	dst->combo.active = SDL_FALSE;
 }
 
+t_weapon	null_cannon(void)
+{
+	t_weapon	null_cannon;
+
+	unequip_weapon(&(null_cannon));
+	return (null_cannon);
+}
+
+
 t_weapon	default_cannon(void)
 {
 	t_weapon	default_cannon;

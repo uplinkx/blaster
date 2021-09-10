@@ -61,10 +61,10 @@ void	*death_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->score_at = 0;
 	scene->time_at = 0;
 	scene->killed_at = 0;
-	create_text(&(scene->level),  0xFFFFFF00, (SDL_Rect){115, 135 + 0, 0, 0},   buff, .15, context->font);
-	create_text(&(scene->score),  0xFFFFFF00, (SDL_Rect){83,  135 + 25, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
-	create_text(&(scene->time),   0xFFFFFF00, (SDL_Rect){83,  135 + 50, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
-	create_text(&(scene->killed), 0xFFFFFF00, (SDL_Rect){83,  135 + 75, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->level),  0xFFFFFF00, (SDL_Rect){115, 128 + 0, 0, 0},   buff, .15, context->font);
+	create_text(&(scene->score),  0xFFFFFF00, (SDL_Rect){83,  122 + 30, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->time),   0xFFFFFF00, (SDL_Rect){83,  122 + 60, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
+	create_text(&(scene->killed), 0xFFFFFF00, (SDL_Rect){83,  122 + 90, 0, 0}, "$$$$$$$$$$-1235789012345678901234567890", .15, context->font);
 
 	return (NULL);
 }

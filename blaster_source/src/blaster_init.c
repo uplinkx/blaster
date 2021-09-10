@@ -15,25 +15,25 @@
 
 void	set_levels(t_level_progress (*levels)[5][5])
 {
-	(*levels)[0][0] = (t_level_progress){ SDL_TRUE, SDL_FALSE, level_01_init, laser_cannon()};
-	(*levels)[0][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_02_init, laser_cannon()};
-	(*levels)[0][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_03_init, laser_cannon()};
-	(*levels)[0][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_04_init, laser_cannon()};
+	(*levels)[0][0] = (t_level_progress){ SDL_TRUE, SDL_FALSE, level_01_init,  laser_cannon()};
+	(*levels)[0][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_02_init, null_cannon()};
+	(*levels)[0][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_03_init, null_cannon()};
+	(*levels)[0][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_04_init, null_cannon()};
 	(*levels)[0][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_05_init, shield_cannon()};
-	(*levels)[1][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_06_init, laser_cannon()};
-	(*levels)[1][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_07_init, laser_cannon()};
-	(*levels)[1][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_08_init, laser_cannon()};
-	(*levels)[1][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_09_init, laser_cannon()};
+	(*levels)[1][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_06_init, null_cannon()};
+	(*levels)[1][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_07_init, null_cannon()};
+	(*levels)[1][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_08_init, null_cannon()};
+	(*levels)[1][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_09_init, null_cannon()};
 	(*levels)[1][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_10_init, ghostfire_cannon()};
-	(*levels)[2][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_11_init, laser_cannon()};
-	(*levels)[2][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_12_init, laser_cannon()};
+	(*levels)[2][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_11_init, null_cannon()};
+	(*levels)[2][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_12_init, null_cannon()};
 	(*levels)[2][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_13_init, faser_cannon()};
-	(*levels)[2][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_14_init, laser_cannon()};
+	(*levels)[2][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_14_init, null_cannon()};
 	(*levels)[2][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_15_init, emp_cannon()};
-	(*levels)[3][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_16_init, laser_cannon()};
-	(*levels)[3][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_17_init, laser_cannon()};
-	(*levels)[3][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_18_init, laser_cannon()};
-	(*levels)[3][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_19_init, laser_cannon()};
+	(*levels)[3][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_16_init, null_cannon()};
+	(*levels)[3][1] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_17_init, null_cannon()};
+	(*levels)[3][2] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_18_init, null_cannon()};
+	(*levels)[3][3] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_19_init, null_cannon()};
 
 	(*levels)[3][4] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_20_init, laser_cannon()};
 	// (*levels)[4][0] = (t_level_progress){ SDL_FALSE, SDL_FALSE, level_21_init, laser_cannon()};

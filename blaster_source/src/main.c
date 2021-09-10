@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/04 18:14:29 by home             ###   ########.fr       */
+/*   Updated: 2021/09/09 18:21:22 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void	blaster_start(t_context *context)
 	// context->defense = shield_cannon();
 	// context->special = emp_cannon();
 
-	context->levels[0][4].wasReceived = SDL_TRUE;
-	context->levels[1][4].wasReceived = SDL_TRUE;
-	context->levels[2][2].wasReceived = SDL_TRUE;
-	context->levels[2][4].wasReceived = SDL_TRUE;
+	// context->levels[0][4].wasReceived = SDL_TRUE;
+	// context->levels[1][4].wasReceived = SDL_TRUE;
+	// context->levels[2][2].wasReceived = SDL_TRUE;
+	// context->levels[2][4].wasReceived = SDL_TRUE;
 }
 
 void	main_loop(void *context_addr)
