@@ -6,7 +6,7 @@
 /*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/06 02:31:10 by home              #+#    #+#             */
-/*   Updated: 2021/09/09 18:21:22 by home             ###   ########.fr       */
+/*   Updated: 2021/09/11 03:06:47 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	blaster_start(t_context *context)
 
 	// context->mainhand = laser_yellow_cannon();
 	// context->mainhand = faser_cannon();
-	// context->offhand = ghostfire_cannon();
+	context->offhand = ghostfire_cannon();
 	// context->defense = heal_cannon();
 	// context->defense = shield_cannon();
 	// context->special = emp_cannon();

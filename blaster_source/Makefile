@@ -69,6 +69,7 @@ SPRITE_FILES = 			\
 	coin_sprite \
 	combo_sprite \
 	cooldown_sprite \
+	cooldown_ghost_sprite \
 	emp_sprite \
 	faser_sprite \
 	ghostfire_sprite \

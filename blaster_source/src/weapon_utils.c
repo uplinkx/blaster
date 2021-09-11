@@ -125,6 +125,14 @@ void	load_weapons(t_context *context, t_weapon **player_weapon_addr, SDLX_button
 	else if (context->offhand.isEnabled) { *player_weapon_addr = &(context->offhand); }
 	else if (context->defense.isEnabled) { *player_weapon_addr = &(context->defense); }
 	else { *player_weapon_addr = &(context->special); }
+
+
+	/* Temporary Fix for charges on ghostfire weapon */
+	fetch_cooldown_ghost_sprite(&(context->offhand.cooldown_sprite.sprite_data), 0);
+	context->offhand.cooldown_sprite._dst.w += 16;
+	context->offhand.cooldown_sprite._dst.h += 16;
+	context->offhand.cooldown_sprite._dst.x -= 8;
+	context->offhand.cooldown_sprite._dst.y -= 8;
 }
 
 void	update_cooldown(t_weapon *weapon)
