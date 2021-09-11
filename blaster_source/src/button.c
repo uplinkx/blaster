@@ -150,10 +150,8 @@ void	*change_ability(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t len
 void	*ability_button_update(SDLX_button *self, void *weapon_addr, SDL_UNUSED size_t length)
 {
 	t_weapon	**player_spot;
-	t_weapon	*from_weapon;
 	int			*keymap;
 
-	from_weapon = self->meta1;
 	player_spot = weapon_addr;
 
 	keymap = self->down;
@@ -167,9 +165,6 @@ void	*ability_button_update(SDLX_button *self, void *weapon_addr, SDL_UNUSED siz
 		self->sprite_fn(&(self->sprite.sprite_data), ABILITY_SEL);
 	else
 		self->sprite_fn(&(self->sprite.sprite_data), ABILITY);
-
-
-	SDLX_RenderQueue_Add(NULL, &(from_weapon->ability_icon));
 	return (NULL);
 }
 

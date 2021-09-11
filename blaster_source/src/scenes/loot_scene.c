@@ -120,7 +120,7 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	else if (context->offhand.factory == NULL && context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_OFFHAND) { context->offhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
 	else if (context->special.factory == NULL && context->levels[wave_id / 5][wave_id % 5].treasure_w.type & B_SPECIAL) { context->special = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
 
-
+	if (context->levels[wave_id / 5][wave_id % 5].treasure_w.factory == faser_cannon().factory) { context->mainhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
 
 	return (NULL);
 }

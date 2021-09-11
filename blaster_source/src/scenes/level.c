@@ -70,8 +70,6 @@ void	*level_close(t_context *context, void *vp_scene)
 	final_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo));
 	update_combos(&(context->mainhand.combo), &(context->offhand.combo), &(context->defense.combo), &(context->special.combo), &(scene->score));
 
-	// SDL_Log("Level: %d Score: %zu and time: %zu killed %zu / %d", scene->stage.wave_id + 1, scene->score, scene->time, scene->stage.killed_no, scene->enemy_count);
-
 	context->level = scene->stage.wave_id + 1;
 	context->score = scene->score;
 	context->time = scene->time;

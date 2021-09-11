@@ -59,7 +59,6 @@ LEVEL_FILES = 			\
 SCENE_FILES = 			\
 	main_menu			\
 	level_select		\
-	inventory			\
 	death_scene			\
 	loot_scene			\
 	level				\
@@ -69,6 +68,7 @@ SPRITE_FILES = 			\
 	chest_sprite \
 	coin_sprite \
 	combo_sprite \
+	cooldown_sprite \
 	emp_sprite \
 	faser_sprite \
 	ghostfire_sprite \

@@ -18,7 +18,6 @@ typedef	struct	s_level_select
 	SDLX_Sprite			background;
 
 	SDLX_button			back;
-	SDLX_button			inventory;
 
 	SDLX_button			levels[5][5];
 	SDLX_Sprite			frames[5][5];
@@ -81,12 +80,6 @@ void	*level_select_init(t_context *context, SDL_UNUSED void *level)
 	scene->back.meta1 = main_menu_init;
 	scene->back.trigger_fn = button_trigger_scene_switch;
 
-	SDLX_Button_Init(&(scene->inventory), fetch_loot_sprite, LINVT_NORM, (SDL_Rect){304 - 50 - 48, 300 + 30, 48, 48}, NULL);
-	SDLX_Style_Button(&(scene->inventory), LINVT_NORM, LINVT_HOVER);
-	scene->inventory.trigger_fn = button_trigger_scene_switch;
-	scene->inventory.meta = context;
-	scene->inventory.meta1 = inventory_init;
-
 	return (NULL);
 }
 
@@ -127,7 +120,6 @@ void	*level_select_update(SDL_UNUSED t_context *context, void *vp_scene)
 	}
 
 	SDLX_Button_Update(&(scene->back));
-	SDLX_Button_Update(&(scene->inventory));
 
 	return (NULL);
 }
