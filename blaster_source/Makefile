@@ -66,26 +66,20 @@ SCENE_FILES = 			\
 SPRITE_FILES = 			\
 	bunny_sprite \
 	chest_sprite \
-	coin_sprite \
 	combo_sprite \
 	cooldown_sprite \
 	cooldown_ghost_sprite \
 	emp_sprite \
 	faser_sprite \
 	ghostfire_sprite \
-	heal_sprite \
 	hp_sprite \
-	inventory_sprite \
 	level_sprite \
 	loot_sprite \
-	lunge_sprite \
 	pause_sprite \
 	shield_sprite \
 	slime_sprite \
 	ui_sprites \
-	whirlwind_sprite \
 	laser_red_sprite \
-	laser_yellow_sprite \
 
 ENEMY_FILES = 			\
 	slime				\
@@ -95,11 +89,8 @@ WEAPON_FILES = 			\
 	w_emp				\
 	w_faser				\
 	w_ghostfire			\
-	w_heal				\
 	w_laser				\
-	w_lunge				\
 	w_shield			\
-	w_whirlwind			\
 
 # List of all the source files.
 SRC_NAMES = \
