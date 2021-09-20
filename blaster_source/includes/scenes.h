@@ -33,10 +33,6 @@ void	*death_level_init(t_context *context, void *vp_scene);
 void	*death_level_close(t_context *context, void *vp_scene);
 void	*death_level_update(t_context *context, void *vp_scene);
 
-void	*inventory_init(t_context *context, void *vp_scene);
-void	*inventory_close(t_context *context, void *vp_scene);
-void	*inventory_update(t_context *context, void *vp_scene);
-
 void	level_init(t_context *context, t_wave_m waves);
 
 t_wave_m	level_01(void);
@@ -79,16 +75,6 @@ t_wave_m	level_19(void);
 void	*level_19_init(t_context *context, void *vp_scene);
 t_wave_m	level_20(void);
 void	*level_20_init(t_context *context, void *vp_scene);
-t_wave_m	level_21(void);
-void	*level_21_init(t_context *context, void *vp_scene);
-t_wave_m	level_22(void);
-void	*level_22_init(t_context *context, void *vp_scene);
-t_wave_m	level_23(void);
-void	*level_23_init(t_context *context, void *vp_scene);
-t_wave_m	level_24(void);
-void	*level_24_init(t_context *context, void *vp_scene);
-t_wave_m	level_25(void);
-void	*level_25_init(t_context *context, void *vp_scene);
 
 void	*level_close(t_context *context, void *vp_scene);
 void	*level_update(t_context *context, void *vp_scene);

@@ -23,22 +23,17 @@
 int		fetch_bunny_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_combo_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_chest_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_coin_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_slime_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_ui_sprite(SDLX_Sprite_Data **dst, int sprite_id);
 int		fetch_level_select_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_pause_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_loot_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_hp_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_inventory_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_cooldown_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_cooldown_ghost_sprite(SDLX_Sprite_Data **dst, int no);
 
 int		fetch_lunge_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_whirl_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_heal_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_red_sprite(SDLX_Sprite_Data **dst, int no);
-int		fetch_yellow_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_emp_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_shield_sprite(SDLX_Sprite_Data **dst, int no);
 int		fetch_ghostfire_sprite(SDLX_Sprite_Data **dst, int no);

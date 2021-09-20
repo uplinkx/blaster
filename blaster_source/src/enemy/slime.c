@@ -29,7 +29,7 @@ void		slime_cyan_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 	if (mod >> 8 > 0)
 		dst->speed = 1.5;
 
-	dst->enemy_hurtbox.engage_meta1 = (void *)15;
+	dst->enemy_hurtbox.engage_meta1 = (void *)10;
 	dst->enemy_hurtbox.detect = slime_detect_collision_once;
 
 	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
@@ -71,7 +71,7 @@ void		slime_inv_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 	dst->delta.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->delta.y = loc.y - (dst->sprite._dst.h / 2);
 	dst->speed = 1.5;
-	dst->enemy_hurtbox.engage_meta1 = (void *)20;
+	dst->enemy_hurtbox.engage_meta1 = (void *)15;
 }
 
 void		slime_blue_init(t_enemy *dst, SDL_Point loc, int mod)
@@ -83,7 +83,7 @@ void		slime_blue_init(t_enemy *dst, SDL_Point loc, int mod)
 	circle_spawn(&(loc.x), &(loc.y), SPAWN_RAD, angle);
 	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
 	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
-	dst->enemy_hurtbox.engage_meta1 = (void *)10;
+	dst->enemy_hurtbox.engage_meta1 = (void *)6;
 	dst->speed = 1.5;
 
 	fetch_slime_sprite(&(dst->sprite.sprite_data), 0);
@@ -145,15 +145,6 @@ void		slime_purple_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
 	dst->enemy_hurtbox.engage_meta1 = (void *)10;
 }
 
-void		slime_pink_init(t_enemy *dst, SDL_Point loc, SDL_UNUSED int mod)
-{
-	slime_default_init(dst, "slime_pink", C_E_BODY, 10, slime_pink_update);
-	dst->sprite._dst.x = loc.x - (dst->sprite._dst.w / 2);
-	dst->sprite._dst.y = loc.y - (dst->sprite._dst.h / 2);
-	dst->enemy_hurtbox.engage_meta1 = (void *)30;
-	dst->meta2 = 0;
-}
-
 void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
 	t_enemy			*slime;
@@ -167,6 +158,18 @@ void		*slime_collide(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED 
 		slime->hp = 0;
 
 	return (NULL);
+}
+
+void	dead_slime(t_enemy *slime, SDL_UNUSED void *meta)
+{
+	if (slime->sprite.current >= 7)
+		slime->isActive = SDL_FALSE;
+	else
+	{
+		SDLX_RenderQueue_Add(NULL, &(slime->sprite));
+		slime->sprite.current++;
+	}
+
 }
 
 void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
@@ -190,16 +193,21 @@ void	slime_blue_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->isActive = SDL_FALSE;
+		// slime->isActive = SDL_FALSE;
 		score = slime->score_ptr;
+		fetch_slime_sprite(&(slime->sprite.sprite_data), 1);
+		slime->enemy_hurtbox.detect = NULL;
+		slime->enemy_hurtbox.type = C_DEAD;
+		slime->sprite.current = 0;
+		slime->update = dead_slime;
 		(*score)++;
 	}
 	else
 	{
-		slime->sprite.current++;
-		SDLX_RenderQueue_Add(NULL, &(slime->sprite));
 		SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 	}
+	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
+	slime->sprite.current++;
 }
 
 void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
@@ -381,61 +389,6 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 		slime->sprite._dst.y = slime->delta.y;
 	}
 
-
-	update_status(slime);
-
-	if (slime->hp <= 0)
-	{
-		slime->isActive = SDL_FALSE;
-		score = slime->score_ptr;
-		(*score)++;
-	}
-
-	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
-	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
-}
-
-void	slime_pink_update(t_enemy *slime, SDL_UNUSED void *meta)
-{
-	SDL_bool	fire_range;
-	int			x, y;
-	int			dx, dy;
-	size_t		*score;
-
-	fire_range = SDL_FALSE;
-	y = slime->sprite._dst.y;
-	x = slime->sprite._dst.x;
-
-	dx = x - ((PLAY_WIDTH - 16 * 3) / 2);
-	dy = y - ((PLAY_WIDTH + 16 * 3) / 2);
-
-	if ((dx * dx) + (dy * dy) < 120 * 120)
-	{
-		fire_range = SDL_TRUE;
-		slime->meta2++;
-	}
-
-	t_bullet	*goo;
-
-	if (fire_range == SDL_TRUE)
-	{
-		if ((int)slime->meta2 >= 30)
-		{
-			goo = spawn_projectile_addr(slime->projectile_spawn);
-			slime_goo(goo, x, y);
-			slime->meta2 = (void *)20;
-		}
-	}
-	else
-	{
-		if (x < (PLAY_WIDTH - 32) / 2) x++;
-		else x--;
-		if (y < (PLAY_WIDTH + 32) / 2) y++;
-		else y--;
-	}
-
-	slime->sprite._dst.x = x;
-	slime->sprite._dst.y = y;
 
 	update_status(slime);
 

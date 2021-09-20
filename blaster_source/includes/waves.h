@@ -73,7 +73,6 @@ typedef struct	s_wave_m
 	size_t		size;
 	t_wave		*waves;
 
-	//treasure?
 }				t_wave_m;
 
 #endif

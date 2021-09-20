@@ -34,28 +34,6 @@ SDL_bool	laser_fire(SDL_UNUSED t_weapon *weapon)
 	return (result);
 }
 
-SDL_bool	laser_yellow_fire(SDL_UNUSED t_weapon *weapon)
-{
-	SDL_bool	result;
-	SDL_Rect	play_area;
-
-	result = SDL_FALSE;
-	play_area = (SDL_Rect){0, 0, PLAY_WIDTH, PLAY_HEIGHT};
-	if (weapon->curr >= weapon->cooldown && SDL_PointInRect(&(g_GameInput.GameInput.primary), &(play_area)))
-	{
-		if (g_GameInput.GameInput.button_primleft == 1)
-			result = SDL_TRUE;
-
-		if (g_GameInput.GameInput.button_primleft == 2 && weapon->meta_int == 1)
-			result = SDL_TRUE;
-	}
-
-	if (g_GameInput.GameInput.button_primleft == 0)
-		weapon->meta_int = 1;
-
-	return (result);
-}
-
 SDL_bool	bullet_detect_collision(void *self, void *with, SDL_UNUSED void *meta1, SDL_UNUSED void *meta2)
 {
 	// SDLX_collision	*self_box;
@@ -135,41 +113,6 @@ void	laser_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED d
 	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
 }
 
-void	laser_yellow_factory(t_bullet *dst, SDL_UNUSED SDL_Point spawn_point, SDL_UNUSED double angle, SDL_UNUSED void *meta)
-{
-	SDLX_new_Sprite(&(dst->sprite));
-	fetch_yellow_sprite(&(dst->sprite.sprite_data), 2);
-	dst->sprite.dst = SDLX_NULL_SELF;
-	dst->sprite._dst = (SDL_Rect){MID_PLAY_WIDTH - 8, MID_PLAY_HEIGHT - 8, 16, 16};
-	dst->sprite.center = NULL;
-	dst->sprite.angle = 0;
-
-	dst->vel.x = 1;
-	dst->vel.y = 1;
-
-	dst->isActive = SDL_TRUE;
-
-	angle = ptoa(g_GameInput.GameInput.primary.x, g_GameInput.GameInput.primary.y);
-	dst->sprite.angle = SDLX_Radian_to_Degree(angle) - 90;
-
-	dst->vel.x = SDL_sin(angle) * 16;
-	dst->vel.y = SDL_cos(angle) * -16;
-
-	dst->update = laser_update;
-
-	dst->hitbox.type = C_PROJECTILE | C_RECT;
-	dst->hitbox.response_amount = C_E_BODY | C_E_PROJECTILE;
-	dst->hitbox.originator = dst;
-
-	dst->hitbox.hitbox_ptr = &(dst->sprite._dst);
-
-	dst->hitbox.detect = bullet_detect_collision;
-
-	t_player *player;
-	player = meta;
-	dst->hitbox.engage_meta2 = &(player->weapon_equip->combo);
-}
-
 #define LASER_COOLDOWN (12)
 
 t_weapon	laser_cannon(void)
@@ -193,33 +136,6 @@ t_weapon	laser_cannon(void)
 
 	laser_cannon.factory = laser_factory;
 	laser_cannon.trigger = laser_fire;
-
-	combo_init(&(laser_cannon.combo));
-
-	return (laser_cannon);
-}
-
-t_weapon	laser_yellow_cannon(void)
-{
-	t_weapon	laser_cannon;
-
-	laser_cannon.type = B_MAINHAND;
-	SDLX_new_Sprite(&(laser_cannon.ability_icon));
-	fetch_yellow_sprite(&(laser_cannon.ability_icon.sprite_data), 0);
-
-	SDLX_new_Sprite(&(laser_cannon.treasure_sprite));
-	fetch_yellow_sprite(&(laser_cannon.treasure_sprite.sprite_data), 1);
-
-	laser_cannon.start = 0;
-	laser_cannon.cooldown = LASER_COOLDOWN - 5;
-
-	laser_cannon.curr = LASER_COOLDOWN;
-
-	laser_cannon.isEnabled = SDL_TRUE;
-	laser_cannon.meta_int = 0;
-
-	laser_cannon.factory = laser_yellow_factory;
-	laser_cannon.trigger = laser_yellow_fire;
 
 	combo_init(&(laser_cannon.combo));
 

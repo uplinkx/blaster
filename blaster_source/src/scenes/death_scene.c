@@ -51,7 +51,7 @@ void	*death_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 	scene->restart.meta1 = context->redo_init_fn;
 
 	SDLX_new_Sprite(&(scene->background));
-	fetch_loot_sprite(&(scene->background.sprite_data), DBACK);
+	fetch_loot_sprite(&(scene->background.sprite_data), DBACK_UI);
 	scene->background._dst = (SDL_Rect){(PLAY_WIDTH - 64 * 3) / 2, 80 - (16 * 3), 64 * 3, 80 * 3};
 	scene->background.dst = SDLX_NULL_SELF;
 
