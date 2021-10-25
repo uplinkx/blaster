@@ -255,15 +255,19 @@ void	slime_yellow_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->isActive = SDL_FALSE;
 		score = slime->score_ptr;
+		fetch_slime_sprite(&(slime->sprite.sprite_data), 2);
+		slime->enemy_hurtbox.detect = NULL;
+		slime->enemy_hurtbox.type = C_DEAD;
+		slime->sprite.current = 0;
+		slime->update = dead_slime;
 		(*score)++;
 	}
 	else
 	{
-		SDLX_RenderQueue_Add(NULL, &(slime->sprite));
 		SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 	}
+	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
 
 }
 
@@ -394,13 +398,19 @@ void	slime_purple_update(t_enemy *slime, SDL_UNUSED void *meta)
 
 	if (slime->hp <= 0)
 	{
-		slime->isActive = SDL_FALSE;
 		score = slime->score_ptr;
+		fetch_slime_sprite(&(slime->sprite.sprite_data), 3);
+		slime->enemy_hurtbox.detect = NULL;
+		slime->enemy_hurtbox.type = C_DEAD;
+		slime->sprite.current = 0;
+		slime->update = dead_slime;
 		(*score)++;
 	}
-
+	else
+	{
+		SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
+	}
 	SDLX_RenderQueue_Add(NULL, &(slime->sprite));
-	SDLX_CollisionBucket_add(NULL, &(slime->enemy_hurtbox));
 }
 
 void	spine_update(void *self, SDL_UNUSED void *meta)

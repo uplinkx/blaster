@@ -65,6 +65,8 @@ SDLX_iMap	*blaster_key_map(size_t *size)
 		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_S},
 		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_D},
 		(SDLX_iMap){&BMAP(button_primleft),	2, SDL_SCANCODE_F},
+
+		(SDLX_iMap){&BMAP(button_num9),	2, SDL_SCANCODE_I},
 	};
 
 	*size = sizeof(key_map) / sizeof(*key_map);

@@ -119,6 +119,21 @@ void	*level_select_update(SDL_UNUSED t_context *context, void *vp_scene)
 		i++;
 	}
 
+	if (SDLX_GAME_PRESS(g_GameInput, g_GameInput_prev, num9))
+	{
+		if (context->mainhand.factory != faser_cannon().factory) { context->mainhand = faser_cannon(); }
+		else { context->mainhand = laser_cannon(); }
+
+		if (context->offhand.factory != ghostfire_cannon().factory) { context->offhand = ghostfire_cannon(); }
+		else { context->offhand = null_cannon(); }
+
+		if (context->defense.factory != shield_cannon().factory) { context->defense = shield_cannon(); }
+		else { context->defense = null_cannon(); }
+
+		if (context->special.factory != emp_cannon().factory) { context->special = emp_cannon(); }
+		else { context->special = null_cannon(); }
+	}
+
 	SDLX_Button_Update(&(scene->back));
 
 	return (NULL);

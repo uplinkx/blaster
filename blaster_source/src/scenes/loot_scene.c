@@ -33,6 +33,9 @@ typedef struct	s_loot_scene
 	int		time_at;
 	int		killed_at;
 
+	SDLX_Sprite	next_copy;
+	int		ticks;
+
 	t_level_progress	*won;
 }				t_loot_scene;
 
@@ -123,6 +126,9 @@ void	*loot_level_init(t_context *context, SDL_UNUSED void *vp_scene)
 
 	if (context->levels[wave_id / 5][wave_id % 5].treasure_w.factory == faser_cannon().factory) { context->mainhand = context->levels[wave_id / 5][wave_id % 5].treasure_w; }
 
+	scene->ticks = 0;
+	scene->next_copy = scene->next.sprite;
+
 	return (NULL);
 }
 
@@ -202,6 +208,23 @@ void	*loot_level_update(SDL_UNUSED t_context *context, SDL_UNUSED void *vp_scene
 
 
 	SDLX_RenderQueue_Add(NULL, &(scene->background));
+
+	scene->next.sprite.current = 1;
+
+	double	scale;
+
+	if (scene->next.isFocused == SDL_FALSE)
+	{
+		scale = (SDL_sin(scene->ticks / 2) * .04) + 1;
+		scene->next.sprite._dst.x = scene->next_copy._dst.x;
+		scene->next.sprite._dst.y = scene->next_copy._dst.y;
+		scene->next.sprite._dst.w = scene->next_copy._dst.w * scale;
+		scene->next.sprite._dst.h = scene->next_copy._dst.h * scale;
+
+		scene->next.sprite._dst.x = (PLAY_WIDTH - scene->next.sprite._dst.w) / 2 + 75;
+		scene->next.sprite._dst.y = (280 * 2 - scene->next.sprite._dst.h) / 2;
+	}
+	scene->ticks++;
 
 	return (NULL);
 }

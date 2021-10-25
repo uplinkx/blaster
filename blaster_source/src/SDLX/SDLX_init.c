@@ -40,6 +40,7 @@ void	SDLX_Start(SDLX_Display *dest)
 void	SDLX_Close(void)
 {
 	SDL_DestroyWindow(SDLX_GetDisplay()->window);
+	SDL_free(default_CollisionBucket.content);
 	SDL_free(default_RenderQueue.content);
 	SDL_Log("Clean Exit");
 	SDL_Quit();
